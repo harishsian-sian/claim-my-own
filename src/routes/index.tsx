@@ -21,13 +21,17 @@ export const Route = createFileRoute("/")({
   }),
 });
 
+const R1_PROTEIN_IMG = "https://cdn.shopify.com/s/files/1/0891/8319/1352/files/1_f687e86a-e44d-45d0-8c84-06e2f971a422.png?v=1763000925";
+const R1_GAINER_IMG = "https://cdn.shopify.com/s/files/1/0891/8319/1352/files/Untitled-design-63.png?v=1763001127";
+const R1_MASS_IMG = "https://cdn.shopify.com/s/files/1/0891/8319/1352/files/rule-1-r1-mass-gainer-8-serves-choc-fudge.jpg?v=1764316915";
+
 const SHOP_BY_CATEGORY = [
-  { label: "Protein", q: "protein", color: "from-brand to-brand-dark" },
-  { label: "Pre-Workout", q: "pre-workout", color: "from-ink to-ink" },
-  { label: "Creatine", q: "creatine", color: "from-brand-dark to-ink" },
-  { label: "Fat Burner", q: "fat burner", color: "from-ink to-brand-dark" },
-  { label: "BCAA's", q: "bcaa", color: "from-brand to-ink" },
-  { label: "Collagen", q: "collagen", color: "from-ink to-brand" },
+  { label: "Protein", q: "protein", color: "from-brand to-brand-dark", img: R1_PROTEIN_IMG },
+  { label: "Pre-Workout", q: "pre-workout", color: "from-ink to-ink", img: R1_GAINER_IMG },
+  { label: "Creatine", q: "creatine", color: "from-brand-dark to-ink", img: R1_MASS_IMG },
+  { label: "Fat Burner", q: "fat burner", color: "from-ink to-brand-dark", img: R1_PROTEIN_IMG },
+  { label: "BCAA's", q: "bcaa", color: "from-brand to-ink", img: R1_GAINER_IMG },
+  { label: "Collagen", q: "collagen", color: "from-ink to-brand", img: R1_MASS_IMG },
 ];
 
 function Index() {
