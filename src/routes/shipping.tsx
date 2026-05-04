@@ -24,12 +24,12 @@ function ShippingPage() {
         <div className="space-y-5 mt-6 text-foreground/90">
           <section>
             <h2 className="font-display text-xl font-bold uppercase">Free shipping</h2>
-            <p className="mt-2">Free standard shipping Australia-wide on orders over $99.</p>
+            <p className="mt-2">Free standard shipping Australia-wide on orders over $150.</p>
           </section>
           <section>
             <h2 className="font-display text-xl font-bold uppercase">Standard rates</h2>
             <ul className="list-disc pl-6 mt-2 space-y-1">
-              <li>Orders under $99: flat rate $9.95</li>
+              <li>Orders under $150: flat rate $9.95</li>
               <li>Express shipping available at checkout</li>
               <li>Local pickup from Melton, VIC: free</li>
             </ul>

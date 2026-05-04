@@ -56,7 +56,7 @@ function Index() {
         <section className="border-b bg-muted/30">
           <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-0 md:divide-x py-2">
             {[
-              { icon: Truck, title: "Free shipping", desc: "Orders over $99" },
+              { icon: Truck, title: "Free shipping", desc: "Orders over $150" },
               { icon: ShieldCheck, title: "Secure checkout", desc: "Powered by Shopify" },
               { icon: Tag, title: "Price match", desc: "We match competitors" },
               { icon: Headset, title: "Expert support", desc: "03 8746 4680" },

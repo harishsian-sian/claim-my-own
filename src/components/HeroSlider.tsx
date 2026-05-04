@@ -27,7 +27,7 @@ const SLIDES: Slide[] = [
       </>
     ),
     subtitle: "Top-rated whey from EHP Labs, Optimum Nutrition, Rule 1 and more.",
-    badge: "Free shipping $99+",
+    badge: "Free shipping $150+",
     collection: "whey-protein",
     ctaLabel: "Shop Whey",
     gradient: "from-ink via-brand-dark to-brand",
