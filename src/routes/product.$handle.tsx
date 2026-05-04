@@ -506,10 +506,6 @@ function ProductDetail() {
                   <Store className="h-3.5 w-3.5 text-brand shrink-0" />
                   <span><strong className="text-foreground">Melton, VIC</strong> — In stock</span>
                 </p>
-                <p className="text-xs text-muted-foreground inline-flex items-center gap-1.5">
-                  <Store className="h-3.5 w-3.5 text-brand shrink-0" />
-                  <span><strong className="text-foreground">Werribee, VIC</strong> — In stock</span>
-                </p>
               </div>
 
               <button className="w-full text-xs uppercase tracking-wider text-muted-foreground hover:text-brand inline-flex items-center justify-center gap-1.5">
