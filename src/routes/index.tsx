@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ProductGrid } from "@/components/ProductGrid";
 import { Button } from "@/components/ui/button";
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
+import { BRANDS, CATEGORIES } from "@/lib/storeData";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -21,24 +22,8 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-const R1_PROTEIN_IMG = "https://cdn.shopify.com/s/files/1/0891/8319/1352/files/1_f687e86a-e44d-45d0-8c84-06e2f971a422.png?v=1763000925";
-const R1_GAINER_IMG = "https://cdn.shopify.com/s/files/1/0891/8319/1352/files/Untitled-design-63.png?v=1763001127";
-const R1_MASS_IMG = "https://cdn.shopify.com/s/files/1/0891/8319/1352/files/rule-1-r1-mass-gainer-8-serves-choc-fudge.jpg?v=1764316915";
-
-const SHOP_BY_CATEGORY = [
-  // Protein — Rule 1 R1 Protein Isolate
-  { label: "Protein", q: "protein", color: "from-brand to-brand-dark", img: R1_PROTEIN_IMG },
-  // Pre-Workout — Cellucor C4 Gen4
-  { label: "Pre-Workout", q: "pre-workout", color: "from-ink to-ink", img: "https://cdn.shopify.com/s/files/1/0891/8319/1352/files/Untitled-design-9.png?v=1763000904" },
-  // Creatine — EHP Labs Crea-8
-  { label: "Creatine", q: "creatine", color: "from-brand-dark to-ink", img: "https://cdn.shopify.com/s/files/1/0891/8319/1352/files/Arriving-Back-this-week-4.png?v=1763000942" },
-  // Fat Burner — EHP Labs OxyShred
-  { label: "Fat Burner", q: "fat burner", color: "from-ink to-brand-dark", img: "https://cdn.shopify.com/s/files/1/0891/8319/1352/files/Untitled-design-8.png?v=1763000900" },
-  // Mass Gainer — Rule 1 Mass Gainer (replacing BCAA which had no good image)
-  { label: "Mass Gainer", q: "mass gainer", color: "from-brand to-ink", img: R1_MASS_IMG },
-  // Collagen — Welltech Complete Collagen
-  { label: "Collagen", q: "collagen", color: "from-ink to-brand", img: "https://cdn.shopify.com/s/files/1/0891/8319/1352/files/1_0089ed29-7083-4365-9e46-d0aed24a4065.png?v=1765012925" },
-];
+const HOME_CATEGORIES = CATEGORIES.slice(0, 6);
+const HOME_BRANDS = BRANDS.slice(0, 12);
 
 function Index() {
   const [featured, setFeatured] = useState<ShopifyProduct[]>([]);
@@ -130,32 +115,40 @@ function Index() {
 
         {/* SHOP BY CATEGORY */}
         <section className="container mx-auto px-4 py-12 md:py-16">
-          <div className="text-center mb-8">
-            <span className="text-xs uppercase tracking-[0.3em] text-brand font-bold">
-              Browse the range
-            </span>
-            <h2 className="font-display text-3xl md:text-4xl font-black uppercase mt-2">
-              Shop by Category
-            </h2>
+          <div className="flex items-end justify-between mb-6 md:mb-8">
+            <div>
+              <span className="text-xs uppercase tracking-[0.3em] text-brand font-bold">
+                Browse the range
+              </span>
+              <h2 className="font-display text-3xl md:text-4xl font-black uppercase mt-2">
+                Shop by Category
+              </h2>
+            </div>
+            <Link
+              to="/categories"
+              className="hidden sm:inline-flex items-center text-sm font-bold uppercase tracking-wider hover:text-brand transition-colors"
+            >
+              View all <ArrowRight className="ml-1 h-4 w-4" />
+            </Link>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
-            {SHOP_BY_CATEGORY.map(({ label, q, color, img }) => (
+            {HOME_CATEGORIES.map((c) => (
               <Link
-                key={label}
+                key={c.name}
                 to="/products"
-                search={{ q }}
-                className={`group relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br ${color} flex items-end p-4 md:p-5 hover:scale-[1.03] transition-transform`}
+                search={{ q: c.query }}
+                className="group relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-brand-dark to-ink flex items-end p-4 md:p-5 hover:scale-[1.03] transition-transform"
               >
                 <img
-                  src={img}
-                  alt={`${label} - Rule 1 supplements`}
+                  src={c.img}
+                  alt={c.name}
                   loading="lazy"
                   className="absolute inset-0 w-full h-full object-contain object-center p-4 mix-blend-luminosity opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                 <div className="relative">
                   <h3 className="font-display text-lg md:text-xl font-black uppercase text-background leading-tight drop-shadow-lg">
-                    {label}
+                    {c.name}
                   </h3>
                   <span className="text-xs text-background/90 uppercase tracking-wider font-semibold inline-flex items-center gap-1 mt-1 group-hover:text-background">
                     Shop now <ArrowRight className="h-3 w-3" />
@@ -163,6 +156,56 @@ function Index() {
                 </div>
               </Link>
             ))}
+          </div>
+        </section>
+
+        {/* SHOP BY BRAND */}
+        <section className="bg-muted/40 border-y">
+          <div className="container mx-auto px-4 py-12 md:py-16">
+            <div className="flex items-end justify-between mb-6 md:mb-8">
+              <div>
+                <span className="text-xs uppercase tracking-[0.3em] text-brand font-bold">
+                  Trusted brands
+                </span>
+                <h2 className="font-display text-3xl md:text-4xl font-black uppercase mt-2">
+                  Shop by Brand
+                </h2>
+              </div>
+              <Link
+                to="/brands"
+                className="hidden sm:inline-flex items-center text-sm font-bold uppercase tracking-wider hover:text-brand transition-colors"
+              >
+                All {BRANDS.length} brands <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
+            </div>
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 md:gap-4">
+              {HOME_BRANDS.map((b) => (
+                <Link
+                  key={b.name}
+                  to="/products"
+                  search={{ q: b.query }}
+                  className="group relative aspect-square rounded-xl overflow-hidden bg-background border hover:border-brand hover:shadow-md transition-all flex flex-col"
+                >
+                  <div className="flex-1 flex items-center justify-center p-3">
+                    {b.img ? (
+                      <img
+                        src={b.img}
+                        alt={b.name}
+                        loading="lazy"
+                        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <Tag className="h-8 w-8 text-muted-foreground" />
+                    )}
+                  </div>
+                  <div className="bg-ink text-background px-2 py-1.5 text-center">
+                    <p className="font-bold text-[10px] md:text-xs uppercase tracking-wide truncate group-hover:text-brand transition-colors">
+                      {b.name}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 
