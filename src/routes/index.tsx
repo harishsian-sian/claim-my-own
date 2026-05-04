@@ -133,19 +133,25 @@ function Index() {
             </h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
-            {SHOP_BY_CATEGORY.map(({ label, q, color }) => (
+            {SHOP_BY_CATEGORY.map(({ label, q, color, img }) => (
               <Link
                 key={label}
                 to="/products"
                 search={{ q }}
                 className={`group relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br ${color} flex items-end p-4 md:p-5 hover:scale-[1.03] transition-transform`}
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <img
+                  src={img}
+                  alt={`${label} - Rule 1 supplements`}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-contain object-center p-4 mix-blend-luminosity opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                 <div className="relative">
-                  <h3 className="font-display text-lg md:text-xl font-black uppercase text-background leading-tight">
+                  <h3 className="font-display text-lg md:text-xl font-black uppercase text-background leading-tight drop-shadow-lg">
                     {label}
                   </h3>
-                  <span className="text-xs text-background/80 uppercase tracking-wider font-semibold inline-flex items-center gap-1 mt-1 group-hover:text-background">
+                  <span className="text-xs text-background/90 uppercase tracking-wider font-semibold inline-flex items-center gap-1 mt-1 group-hover:text-background">
                     Shop now <ArrowRight className="h-3 w-3" />
                   </span>
                 </div>
