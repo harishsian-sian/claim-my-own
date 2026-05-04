@@ -103,6 +103,9 @@ async function fetchRelated(p: ProductNode): Promise<ShopifyProduct[]> {
     for (const e of edges) {
       if (n >= max) break;
       if (seen.has(e.node.handle)) continue;
+      // Skip sold-out products (no available variants)
+      const hasStock = e.node.variants.edges.some((v) => v.node.availableForSale);
+      if (!hasStock) continue;
       seen.add(e.node.handle);
       out.push(e);
       n++;
@@ -495,13 +498,17 @@ function ProductDetail() {
               </Button>
 
               {/* In-store availability */}
-              <div className="border rounded-lg p-3 bg-muted/40">
-                <p className="text-xs font-bold uppercase tracking-wider mb-1.5">
+              <div className="border rounded-lg p-3 bg-muted/40 space-y-2">
+                <p className="text-xs font-bold uppercase tracking-wider">
                   In-Store Availability
                 </p>
                 <p className="text-xs text-muted-foreground inline-flex items-center gap-1.5">
-                  <Store className="h-3.5 w-3.5 text-brand" />
-                  Available at <strong className="text-foreground">Melton, VIC</strong>
+                  <Store className="h-3.5 w-3.5 text-brand shrink-0" />
+                  <span><strong className="text-foreground">Melton, VIC</strong> — In stock</span>
+                </p>
+                <p className="text-xs text-muted-foreground inline-flex items-center gap-1.5">
+                  <Store className="h-3.5 w-3.5 text-brand shrink-0" />
+                  <span><strong className="text-foreground">Werribee, VIC</strong> — In stock</span>
                 </p>
               </div>
 
