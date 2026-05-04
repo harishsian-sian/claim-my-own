@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const MESSAGES = [
-  "Spend $99 and get FREE shipping Australia-wide",
+  "Spend $150 and get FREE shipping Australia-wide",
   "AfterPay & ZipPay available at checkout",
   "Price match guarantee — found it cheaper? We'll match it",
 ];

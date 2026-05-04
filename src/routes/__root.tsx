@@ -41,7 +41,7 @@ export const Route = createRootRoute({
       {
         property: "og:description",
         content:
-          "Shop protein, pre-workout, vitamins and more. Free shipping on orders over $99.",
+          "Shop protein, pre-workout, vitamins and more. Free shipping on orders over $150.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

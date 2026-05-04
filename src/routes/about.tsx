@@ -37,7 +37,7 @@ function AboutPage() {
           <h2 className="font-display text-2xl font-bold uppercase mt-8">Why shop with us</h2>
           <ul className="list-disc pl-6 space-y-2">
             <li>100% authentic products from official Australian distributors</li>
-            <li>Free shipping on orders over $99 Australia-wide</li>
+            <li>Free shipping on orders over $150 Australia-wide</li>
             <li>Local pickup available in Melton, VIC</li>
             <li>Friendly, knowledgeable staff to help you choose what fits your goals</li>
             <li>Price match on like-for-like items</li>
