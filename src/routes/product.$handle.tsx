@@ -187,6 +187,16 @@ function ProductDetail() {
 
         // Fetch related products: complementary categories + same brand
         fetchRelated(p).then(setRelated).catch(() => {});
+
+        // Fetch live per-location inventory from Admin API
+        const variantIds = p.variants.edges.map((v: any) => v.node.id).join(",");
+        fetch(`/api/inventory?variantIds=${encodeURIComponent(variantIds)}`)
+          .then((r) => r.json())
+          .then((j) => {
+            setLocations(j.locations ?? []);
+            setInventory(j.inventory ?? {});
+          })
+          .catch(() => {});
       })
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false));
