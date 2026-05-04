@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ProductGrid } from "@/components/ProductGrid";
 import { Button } from "@/components/ui/button";
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
+import { BRANDS, CATEGORIES } from "@/lib/storeData";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -21,24 +22,8 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-const R1_PROTEIN_IMG = "https://cdn.shopify.com/s/files/1/0891/8319/1352/files/1_f687e86a-e44d-45d0-8c84-06e2f971a422.png?v=1763000925";
-const R1_GAINER_IMG = "https://cdn.shopify.com/s/files/1/0891/8319/1352/files/Untitled-design-63.png?v=1763001127";
-const R1_MASS_IMG = "https://cdn.shopify.com/s/files/1/0891/8319/1352/files/rule-1-r1-mass-gainer-8-serves-choc-fudge.jpg?v=1764316915";
-
-const SHOP_BY_CATEGORY = [
-  // Protein — Rule 1 R1 Protein Isolate
-  { label: "Protein", q: "protein", color: "from-brand to-brand-dark", img: R1_PROTEIN_IMG },
-  // Pre-Workout — Cellucor C4 Gen4
-  { label: "Pre-Workout", q: "pre-workout", color: "from-ink to-ink", img: "https://cdn.shopify.com/s/files/1/0891/8319/1352/files/Untitled-design-9.png?v=1763000904" },
-  // Creatine — EHP Labs Crea-8
-  { label: "Creatine", q: "creatine", color: "from-brand-dark to-ink", img: "https://cdn.shopify.com/s/files/1/0891/8319/1352/files/Arriving-Back-this-week-4.png?v=1763000942" },
-  // Fat Burner — EHP Labs OxyShred
-  { label: "Fat Burner", q: "fat burner", color: "from-ink to-brand-dark", img: "https://cdn.shopify.com/s/files/1/0891/8319/1352/files/Untitled-design-8.png?v=1763000900" },
-  // Mass Gainer — Rule 1 Mass Gainer (replacing BCAA which had no good image)
-  { label: "Mass Gainer", q: "mass gainer", color: "from-brand to-ink", img: R1_MASS_IMG },
-  // Collagen — Welltech Complete Collagen
-  { label: "Collagen", q: "collagen", color: "from-ink to-brand", img: "https://cdn.shopify.com/s/files/1/0891/8319/1352/files/1_0089ed29-7083-4365-9e46-d0aed24a4065.png?v=1765012925" },
-];
+const HOME_CATEGORIES = CATEGORIES.slice(0, 6);
+const HOME_BRANDS = BRANDS.slice(0, 12);
 
 function Index() {
   const [featured, setFeatured] = useState<ShopifyProduct[]>([]);
