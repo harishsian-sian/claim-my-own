@@ -3,32 +3,82 @@ import { createFileRoute } from "@tanstack/react-router";
 const SHOP = "ded508-e8.myshopify.com";
 const API = "2025-07";
 
+type ShopifyLocation = { id: number; name: string; city?: string; active?: boolean };
+type ShopifyVariantInventory = { id: number; inventory_item_id: number };
+type ShopifyInventoryLevel = {
+  inventory_item_id: number;
+  location_id: number;
+  available: number | null;
+};
+
+function getAdminTokens() {
+  const tokens: string[] = [];
+  const add = (value?: string) => {
+    if (value && !tokens.includes(value)) tokens.push(value);
+  };
+
+  add(process.env.SHOPIFY_ACCESS_TOKEN);
+  for (const [key, value] of Object.entries(process.env)) {
+    if (key.startsWith("SHOPIFY_ONLINE_ACCESS_TOKEN")) add(value);
+  }
+
+  return tokens;
+}
+
+async function fetchAdminJson(path: string, token: string) {
+  const response = await fetch(`https://${SHOP}/admin/api/${API}${path}`, {
+    headers: { "X-Shopify-Access-Token": token },
+  });
+
+  if (!response.ok) {
+    return { ok: false as const, status: response.status, data: null };
+  }
+
+  return { ok: true as const, status: response.status, data: await response.json() };
+}
+
 export const Route = createFileRoute("/api/public/inventory")({
   server: {
     handlers: {
       GET: async ({ request }) => {
         const url = new URL(request.url);
         const variantIds = url.searchParams.get("variantIds")?.split(",").filter(Boolean) ?? [];
-        const token = process.env.SHOPIFY_ACCESS_TOKEN;
-        if (!token) {
-          return Response.json({ error: "Missing SHOPIFY_ACCESS_TOKEN" }, { status: 500 });
+        const tokens = getAdminTokens();
+        if (tokens.length === 0) {
+          return Response.json({
+            error: "Missing Shopify Admin token",
+            locations: [],
+            inventory: {},
+          });
         }
 
         try {
-          // Fetch active locations
-          const locRes = await fetch(`https://${SHOP}/admin/api/${API}/locations.json`, {
-            headers: { "X-Shopify-Access-Token": token },
-          });
-          if (!locRes.ok) {
+          let token = tokens[0];
+          let locJson: { locations?: ShopifyLocation[] } | null = null;
+          let lastLocationStatus = 0;
+
+          // Connector projects can expose more than one Shopify token. Try each one
+          // and keep the token that actually has location/inventory permissions.
+          for (const candidate of tokens) {
+            const result = await fetchAdminJson("/locations.json", candidate);
+            lastLocationStatus = result.status;
+            if (result.ok) {
+              token = candidate;
+              locJson = result.data as { locations?: ShopifyLocation[] };
+              break;
+            }
+          }
+
+          if (!locJson) {
             return Response.json(
-              { error: `locations ${locRes.status}`, locations: [], inventory: {} },
-              { status: 200 }
+              { error: `locations ${lastLocationStatus || 403}`, locations: [], inventory: {} },
+              { status: 200 },
             );
           }
-          const locJson: any = await locRes.json();
+
           const locations = (locJson.locations ?? [])
-            .filter((l: any) => l.active)
-            .map((l: any) => ({ id: l.id, name: l.name, city: l.city }));
+            .filter((l: ShopifyLocation) => l.active !== false)
+            .map((l: ShopifyLocation) => ({ id: String(l.id), name: l.name, city: l.city }));
 
           if (variantIds.length === 0) {
             return Response.json({ locations, inventory: {} });
@@ -40,19 +90,28 @@ export const Route = createFileRoute("/api/public/inventory")({
             .filter(Boolean)
             .join(",");
 
-          // Get variants -> inventory_item_id
-          const varRes = await fetch(
-            `https://${SHOP}/admin/api/${API}/variants.json?ids=${numericIds}&fields=id,inventory_item_id`,
-            { headers: { "X-Shopify-Access-Token": token } }
+          const variantGidByNumericId = new Map(
+            variantIds
+              .map((gid) => [gid.split("/").pop(), gid] as const)
+              .filter(([id]) => Boolean(id)),
           );
-          if (!varRes.ok) {
+
+          // Get variants -> inventory_item_id
+          const varResult = await fetchAdminJson(
+            `/variants.json?ids=${numericIds}&fields=id,inventory_item_id`,
+            token,
+          );
+          if (!varResult.ok) {
             return Response.json({ locations, inventory: {} });
           }
-          const varJson: any = await varRes.json();
-          const variants: Array<{ id: number; inventory_item_id: number }> = varJson.variants ?? [];
+          const variants: ShopifyVariantInventory[] =
+            (varResult.data as { variants?: ShopifyVariantInventory[] })?.variants ?? [];
           const itemToVariant = new Map<number, string>();
-          variants.forEach((v, i) => {
-            itemToVariant.set(v.inventory_item_id, variantIds[i] ?? String(v.id));
+          variants.forEach((v) => {
+            itemToVariant.set(
+              v.inventory_item_id,
+              variantGidByNumericId.get(String(v.id)) ?? `gid://shopify/ProductVariant/${v.id}`,
+            );
           });
 
           const inventoryItemIds = variants.map((v) => v.inventory_item_id).join(",");
@@ -61,16 +120,16 @@ export const Route = createFileRoute("/api/public/inventory")({
           }
 
           // Fetch inventory levels at all locations
-          const invRes = await fetch(
-            `https://${SHOP}/admin/api/${API}/inventory_levels.json?inventory_item_ids=${inventoryItemIds}`,
-            { headers: { "X-Shopify-Access-Token": token } }
+          const invResult = await fetchAdminJson(
+            `/inventory_levels.json?inventory_item_ids=${inventoryItemIds}`,
+            token,
           );
-          if (!invRes.ok) {
+          if (!invResult.ok) {
             return Response.json({ locations, inventory: {} });
           }
-          const invJson: any = await invRes.json();
-          const levels: Array<{ inventory_item_id: number; location_id: number; available: number | null }> =
-            invJson.inventory_levels ?? [];
+          const levels: ShopifyInventoryLevel[] =
+            (invResult.data as { inventory_levels?: ShopifyInventoryLevel[] })?.inventory_levels ??
+            [];
 
           // Build map: variantGid -> { locationId -> available }
           const inventory: Record<string, Record<string, number>> = {};
@@ -82,14 +141,12 @@ export const Route = createFileRoute("/api/public/inventory")({
           }
 
           return Response.json({
-            locations: locations.map((l: any) => ({ ...l, id: String(l.id) })),
+            locations,
             inventory,
           });
-        } catch (err: any) {
-          return Response.json(
-            { error: err?.message ?? "unknown", locations: [], inventory: {} },
-            { status: 200 }
-          );
+        } catch (err: unknown) {
+          const message = err instanceof Error ? err.message : "unknown";
+          return Response.json({ error: message, locations: [], inventory: {} }, { status: 200 });
         }
       },
     },
