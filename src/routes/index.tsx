@@ -5,8 +5,14 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ProductGrid } from "@/components/ProductGrid";
 import { Button } from "@/components/ui/button";
-import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
-import { BRANDS, CATEGORIES } from "@/lib/storeData";
+import {
+  storefrontApiRequest,
+  PRODUCTS_QUERY,
+  COLLECTIONS_QUERY,
+  type ShopifyProduct,
+  type ShopifyCollection,
+} from "@/lib/shopify";
+import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -22,23 +28,35 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-const HOME_CATEGORIES = CATEGORIES.slice(0, 6);
-const HOME_BRANDS = BRANDS.slice(0, 12);
-
 function Index() {
   const [featured, setFeatured] = useState<ShopifyProduct[]>([]);
   const [bestSellers, setBestSellers] = useState<ShopifyProduct[]>([]);
+  const [collections, setCollections] = useState<ShopifyCollection[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    storefrontApiRequest(PRODUCTS_QUERY, { first: 20 })
-      .then((res) => {
-        const edges: ShopifyProduct[] = res?.data?.products?.edges ?? [];
+    Promise.all([
+      storefrontApiRequest(PRODUCTS_QUERY, { first: 20 }),
+      storefrontApiRequest(COLLECTIONS_QUERY, { first: 100, after: null }),
+    ])
+      .then(([prodRes, colRes]) => {
+        const edges: ShopifyProduct[] = prodRes?.data?.products?.edges ?? [];
         setFeatured(edges.slice(0, 8));
         setBestSellers(edges.slice(8, 16));
+        const cols: ShopifyCollection[] =
+          colRes?.data?.collections?.edges?.map((e: { node: ShopifyCollection }) => e.node) ?? [];
+        setCollections(cols);
       })
       .finally(() => setLoading(false));
   }, []);
+
+  const homeCategories = collections
+    .filter((c) => !BRAND_COLLECTION_HANDLES.has(c.handle) && c.image?.url)
+    .slice(0, 6);
+  const homeBrands = collections
+    .filter((c) => BRAND_COLLECTION_HANDLES.has(c.handle) && c.image?.url)
+    .slice(0, 12);
+
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
