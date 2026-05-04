@@ -227,7 +227,6 @@ function ProductDetail() {
             {product.vendor && (
               <Link
                 to="/products"
-                search={{ vendor: product.vendor }}
                 className="text-xs uppercase tracking-[0.2em] text-brand font-bold hover:underline"
               >
                 {product.vendor}
@@ -472,7 +471,6 @@ function ProductDetail() {
                 {product.vendor && (
                   <Link
                     to="/products"
-                    search={{ vendor: product.vendor }}
                     className="text-xs uppercase tracking-wider font-bold text-brand hover:underline"
                   >
                     Shop all {product.vendor} →
