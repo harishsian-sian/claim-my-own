@@ -81,7 +81,7 @@ export function SiteHeader() {
                 className={`flex items-center gap-2 whitespace-nowrap transition-colors ${openMenu === "categories" ? "text-brand" : "text-background/85 hover:text-brand"}`}
               >
                 <Package className="h-4 w-4" />
-                Categories
+                CATEGORIES
                 <ChevronDown className="h-3 w-3" />
               </button>
               <button
@@ -91,7 +91,7 @@ export function SiteHeader() {
                 className={`flex items-center gap-2 whitespace-nowrap transition-colors ${openMenu === "brands" ? "text-brand" : "text-background/85 hover:text-brand"}`}
               >
                 <Tag className="h-4 w-4" />
-                Brands
+                BRANDS
                 <ChevronDown className="h-3 w-3" />
               </button>
               <Link

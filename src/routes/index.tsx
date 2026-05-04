@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowRight, Truck, ShieldCheck, Headset, Tag, Loader2 } from "lucide-react";
+import { ArrowRight, Truck, ShieldCheck, Headset, Tag, Loader2, Flame, Percent, Mail, Star } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { HeroSlider } from "@/components/HeroSlider";
@@ -159,6 +159,42 @@ function Index() {
           </div>
         </section>
 
+        {/* DEALS DUO BANNER */}
+        <section className="container mx-auto px-4 py-12 md:py-16">
+          <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+            <Link
+              to="/products"
+              search={{ collection: "clearance" }}
+              className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand to-brand-dark p-8 md:p-10 min-h-[220px] flex flex-col justify-between text-background hover:shadow-xl transition-shadow"
+            >
+              <div>
+                <Flame className="h-8 w-8 mb-3" />
+                <span className="text-xs uppercase tracking-[0.3em] font-bold opacity-90">Up to 50% off</span>
+                <h3 className="font-display text-2xl md:text-3xl font-black uppercase mt-2">Clearance Bin</h3>
+                <p className="text-sm opacity-90 mt-2 max-w-xs">Last-chance bargains on protein, pre-workout and more — while stocks last.</p>
+              </div>
+              <span className="inline-flex items-center text-sm font-bold uppercase tracking-wider mt-4 group-hover:translate-x-1 transition-transform">
+                Shop clearance <ArrowRight className="ml-1 h-4 w-4" />
+              </span>
+            </Link>
+            <Link
+              to="/products"
+              search={{ collection: "specials" }}
+              className="group relative overflow-hidden rounded-2xl bg-ink p-8 md:p-10 min-h-[220px] flex flex-col justify-between text-background hover:shadow-xl transition-shadow border border-background/10"
+            >
+              <div>
+                <Percent className="h-8 w-8 mb-3 text-brand" />
+                <span className="text-xs uppercase tracking-[0.3em] font-bold text-brand">This week only</span>
+                <h3 className="font-display text-2xl md:text-3xl font-black uppercase mt-2">Weekly Specials</h3>
+                <p className="text-sm text-background/75 mt-2 max-w-xs">Fresh deals dropped every Monday — top brands at our lowest prices.</p>
+              </div>
+              <span className="inline-flex items-center text-sm font-bold uppercase tracking-wider mt-4 text-brand group-hover:translate-x-1 transition-transform">
+                Shop specials <ArrowRight className="ml-1 h-4 w-4" />
+              </span>
+            </Link>
+          </div>
+        </section>
+
         {/* BEST SELLERS CAROUSEL */}
         {!loading && (
           <ProductCarousel
@@ -168,6 +204,62 @@ function Index() {
             viewAllTo="/products"
           />
         )}
+
+        {/* WHY MELTONSUPPS */}
+        <section className="bg-muted/40 border-y">
+          <div className="container mx-auto px-4 py-14 md:py-16">
+            <div className="text-center mb-10">
+              <span className="text-xs uppercase tracking-[0.3em] text-brand font-bold">Why shop with us</span>
+              <h2 className="font-display text-3xl md:text-4xl font-black uppercase mt-2">Built for Aussie Athletes</h2>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {[
+                { icon: ShieldCheck, title: "100% Genuine", desc: "Sourced direct from official Australian distributors." },
+                { icon: Truck, title: "Free Shipping $150+", desc: "Fast Australia-wide dispatch from our Melton warehouse." },
+                { icon: Star, title: "Locally Owned", desc: "Family-run from Melton, VIC. Real advice, real people." },
+                { icon: Tag, title: "Best Price Promise", desc: "Found it cheaper? We'll match the price." },
+              ].map(({ icon: Icon, title, desc }) => (
+                <div key={title} className="bg-background rounded-2xl p-6 border hover:border-brand transition-colors">
+                  <Icon className="h-7 w-7 text-brand" />
+                  <h3 className="font-display text-lg font-bold uppercase mt-3">{title}</h3>
+                  <p className="text-sm text-muted-foreground mt-2">{desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* NEWSLETTER */}
+        <section className="bg-ink text-background">
+          <div className="container mx-auto px-4 py-14 md:py-16 grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <Mail className="h-9 w-9 text-brand" />
+              <h2 className="font-display text-3xl md:text-4xl font-black uppercase mt-3">
+                Get <span className="text-brand">10% off</span> your first order
+              </h2>
+              <p className="text-background/70 mt-3 max-w-md">
+                Join the MeltonSupps crew for early access to drops, weekly deals and training tips.
+              </p>
+            </div>
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              className="flex flex-col sm:flex-row gap-3"
+            >
+              <input
+                type="email"
+                required
+                placeholder="Enter your email"
+                className="flex-1 h-12 px-5 rounded-full bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand"
+              />
+              <button
+                type="submit"
+                className="h-12 px-7 rounded-full bg-brand hover:bg-brand-dark text-brand-foreground text-sm font-bold uppercase tracking-wider transition-colors"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </section>
 
         {/* CTA */}
         <section className="bg-muted">
