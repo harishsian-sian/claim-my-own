@@ -63,6 +63,89 @@ export const Route = createFileRoute("/product/$handle")({
 
 type ProductNode = ShopifyProduct["node"] & { descriptionHtml?: string };
 
+// Map product category -> complementary product search terms (the "stack")
+const COMBO_MAP: Record<string, string[]> = {
+  preworkout: ["protein", "creatine", "shaker", "amino", "eaa"],
+  protein: ["creatine", "shaker", "preworkout", "glutamine"],
+  whey: ["creatine", "shaker", "preworkout", "glutamine"],
+  creatine: ["protein", "preworkout", "shaker"],
+  gainer: ["creatine", "shaker", "protein"],
+  fatburner: ["preworkout", "protein", "l-carnitine", "shaker"],
+  bcaa: ["protein", "preworkout", "shaker"],
+  amino: ["protein", "preworkout", "shaker"],
+  eaa: ["protein", "preworkout", "shaker"],
+  vitamin: ["protein", "fish oil", "magnesium"],
+  shaker: ["protein", "preworkout", "creatine"],
+};
+
+function detectCategory(p: ProductNode): string | null {
+  const anyP = p as any;
+  const text = `${p.title} ${anyP.productType ?? ""} ${(anyP.tags ?? []).join(" ")} ${p.description ?? ""}`.toLowerCase();
+  if (/pre[-\s]?workout|pre\s?wo\b/.test(text)) return "preworkout";
+  if (/whey|isolate|wpi|wpc/.test(text)) return "whey";
+  if (/protein/.test(text)) return "protein";
+  if (/creatine/.test(text)) return "creatine";
+  if (/gainer|mass/.test(text)) return "gainer";
+  if (/fat[\s-]?burn|thermogenic|l[\s-]?carnitine/.test(text)) return "fatburner";
+  if (/\beaa\b/.test(text)) return "eaa";
+  if (/\bbcaa\b|amino/.test(text)) return "bcaa";
+  if (/vitamin|multi|mineral/.test(text)) return "vitamin";
+  if (/shaker|bottle/.test(text)) return "shaker";
+  return null;
+}
+
+async function fetchRelated(p: ProductNode): Promise<ShopifyProduct[]> {
+  const out: ShopifyProduct[] = [];
+  const seen = new Set<string>([p.handle]);
+
+  const push = (edges: ShopifyProduct[], max: number) => {
+    let n = 0;
+    for (const e of edges) {
+      if (n >= max) break;
+      if (seen.has(e.node.handle)) continue;
+      seen.add(e.node.handle);
+      out.push(e);
+      n++;
+    }
+  };
+
+  // 1) Complementary categories (combo stack) — 2 products
+  const cat = detectCategory(p);
+  const combos = cat ? COMBO_MAP[cat] ?? [] : [];
+  for (const term of combos) {
+    if (out.length >= 2) break;
+    try {
+      const r = await storefrontApiRequest(PRODUCTS_QUERY, {
+        first: 4,
+        query: `${term} AND -vendor:"${p.vendor ?? ""}"`,
+      });
+      push(r?.data?.products?.edges ?? [], 2 - out.length);
+    } catch {}
+  }
+
+  // 2) Same brand — fill up to 4
+  if (p.vendor && out.length < 4) {
+    try {
+      const r = await storefrontApiRequest(PRODUCTS_QUERY, {
+        first: 8,
+        query: `vendor:"${p.vendor}"`,
+      });
+      push(r?.data?.products?.edges ?? [], 4 - out.length);
+    } catch {}
+  }
+
+  // 3) Generic fallback
+  if (out.length < 4) {
+    try {
+      const r = await storefrontApiRequest(PRODUCTS_QUERY, { first: 8 });
+      push(r?.data?.products?.edges ?? [], 4 - out.length);
+    } catch {}
+  }
+
+  return out.slice(0, 4);
+}
+
+
 function ProductDetail() {
   const { handle } = Route.useParams();
   const router = useRouter();
@@ -97,18 +180,8 @@ function ProductDetail() {
         });
         setSelectedOptions(initial);
 
-        // Fetch related products by vendor
-        if (p.vendor) {
-          storefrontApiRequest(PRODUCTS_QUERY, {
-            first: 8,
-            query: `vendor:"${p.vendor}"`,
-          })
-            .then((r) => {
-              const edges: ShopifyProduct[] = r?.data?.products?.edges ?? [];
-              setRelated(edges.filter((e) => e.node.handle !== p.handle).slice(0, 4));
-            })
-            .catch(() => {});
-        }
+        // Fetch related products: complementary categories + same brand
+        fetchRelated(p).then(setRelated).catch(() => {});
       })
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false));
@@ -466,7 +539,7 @@ function ProductDetail() {
             <div className="container mx-auto px-4 py-12">
               <div className="flex items-end justify-between mb-6">
                 <h2 className="font-display text-2xl md:text-3xl font-black uppercase">
-                  You May Also Like
+                  Stack It With
                 </h2>
                 {product.vendor && (
                   <Link
