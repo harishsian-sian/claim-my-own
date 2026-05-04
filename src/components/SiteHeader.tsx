@@ -6,13 +6,13 @@ import { PromoBar } from "./PromoBar";
 import { MegaMenu } from "./MegaMenu";
 
 const CATEGORY_PILLS = [
-  { label: "Stack & Save", q: "tag:bundle" },
-  { label: "Protein", q: "protein" },
-  { label: "Creatine", q: "creatine" },
-  { label: "Pre-Workout", q: "pre-workout" },
-  { label: "Fat Burner", q: "fat burner" },
-  { label: "BCAA's/Aminos", q: "bcaa" },
-  { label: "Collagen", q: "collagen" },
+  { label: "Whey Protein", to: "whey-protein" },
+  { label: "Pre-Workouts", to: "pre-workouts" },
+  { label: "Creatine", to: "creatine" },
+  { label: "Weight Gainer", to: "weight-gainer" },
+  { label: "Aminos / BCAA", to: "bcaa" },
+  { label: "Collagen", to: "collagen" },
+  { label: "Vitamins", to: "vitamins-and-mineral" },
 ];
 
 export function SiteHeader() {
@@ -96,7 +96,7 @@ export function SiteHeader() {
               </button>
               <Link
                 to="/products"
-                search={{ q: "tag:clearance OR tag:sale" }}
+                search={{ collection: "clearance" }}
                 onMouseEnter={() => setOpenMenu(null)}
                 className="flex items-center gap-2 whitespace-nowrap text-background/85 hover:text-brand transition-colors"
               >
@@ -105,21 +105,12 @@ export function SiteHeader() {
               </Link>
               <Link
                 to="/products"
-                search={{ q: "tag:special" }}
+                search={{ collection: "specials" }}
                 onMouseEnter={() => setOpenMenu(null)}
                 className="flex items-center gap-2 whitespace-nowrap text-background/85 hover:text-brand transition-colors"
               >
                 <Dumbbell className="h-4 w-4" />
                 Specials
-              </Link>
-              <Link
-                to="/products"
-                search={{ q: "tag:bundle OR stack" }}
-                onMouseEnter={() => setOpenMenu(null)}
-                className="flex items-center gap-2 whitespace-nowrap text-background/85 hover:text-brand transition-colors"
-              >
-                <Package className="h-4 w-4" />
-                Bundles
               </Link>
               <Link
                 to="/products"
@@ -148,11 +139,11 @@ export function SiteHeader() {
       <div className="bg-background border-b">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-3 overflow-x-auto py-4 scrollbar-hide">
-            {CATEGORY_PILLS.map(({ label, q }) => (
+            {CATEGORY_PILLS.map(({ label, to }) => (
               <Link
                 key={label}
                 to="/products"
-                search={q ? { q } : undefined}
+                search={{ collection: to }}
                 className="flex-shrink-0 inline-flex items-center justify-center h-10 px-5 rounded-full border-2 border-ink bg-background text-ink text-xs md:text-sm font-bold uppercase tracking-wide hover:bg-ink hover:text-background transition-colors"
               >
                 {label}
