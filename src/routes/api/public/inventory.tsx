@@ -5,6 +5,11 @@ const API = "2025-07";
 
 type ShopifyLocation = { id: number; name: string; city?: string; active?: boolean };
 type ShopifyVariantInventory = { id: number; inventory_item_id: number };
+type ShopifyInventoryLevel = {
+  inventory_item_id: number;
+  location_id: number;
+  available: number | null;
+};
 
 function getAdminTokens() {
   const tokens: string[] = [];
@@ -40,12 +45,16 @@ export const Route = createFileRoute("/api/public/inventory")({
         const variantIds = url.searchParams.get("variantIds")?.split(",").filter(Boolean) ?? [];
         const tokens = getAdminTokens();
         if (tokens.length === 0) {
-          return Response.json({ error: "Missing Shopify Admin token", locations: [], inventory: {} });
+          return Response.json({
+            error: "Missing Shopify Admin token",
+            locations: [],
+            inventory: {},
+          });
         }
 
         try {
           let token = tokens[0];
-          let locJson: any = null;
+          let locJson: { locations?: ShopifyLocation[] } | null = null;
           let lastLocationStatus = 0;
 
           // Connector projects can expose more than one Shopify token. Try each one
@@ -55,7 +64,7 @@ export const Route = createFileRoute("/api/public/inventory")({
             lastLocationStatus = result.status;
             if (result.ok) {
               token = candidate;
-              locJson = result.data;
+              locJson = result.data as { locations?: ShopifyLocation[] };
               break;
             }
           }
@@ -63,7 +72,7 @@ export const Route = createFileRoute("/api/public/inventory")({
           if (!locJson) {
             return Response.json(
               { error: `locations ${lastLocationStatus || 403}`, locations: [], inventory: {} },
-              { status: 200 }
+              { status: 200 },
             );
           }
 
@@ -84,23 +93,24 @@ export const Route = createFileRoute("/api/public/inventory")({
           const variantGidByNumericId = new Map(
             variantIds
               .map((gid) => [gid.split("/").pop(), gid] as const)
-              .filter(([id]) => Boolean(id))
+              .filter(([id]) => Boolean(id)),
           );
 
           // Get variants -> inventory_item_id
           const varResult = await fetchAdminJson(
             `/variants.json?ids=${numericIds}&fields=id,inventory_item_id`,
-            token
+            token,
           );
           if (!varResult.ok) {
             return Response.json({ locations, inventory: {} });
           }
-          const variants: ShopifyVariantInventory[] = varResult.data?.variants ?? [];
+          const variants: ShopifyVariantInventory[] =
+            (varResult.data as { variants?: ShopifyVariantInventory[] })?.variants ?? [];
           const itemToVariant = new Map<number, string>();
           variants.forEach((v) => {
             itemToVariant.set(
               v.inventory_item_id,
-              variantGidByNumericId.get(String(v.id)) ?? `gid://shopify/ProductVariant/${v.id}`
+              variantGidByNumericId.get(String(v.id)) ?? `gid://shopify/ProductVariant/${v.id}`,
             );
           });
 
@@ -112,13 +122,13 @@ export const Route = createFileRoute("/api/public/inventory")({
           // Fetch inventory levels at all locations
           const invResult = await fetchAdminJson(
             `/inventory_levels.json?inventory_item_ids=${inventoryItemIds}`,
-            token
+            token,
           );
           if (!invResult.ok) {
             return Response.json({ locations, inventory: {} });
           }
-          const levels: Array<{ inventory_item_id: number; location_id: number; available: number | null }> =
-            invResult.data?.inventory_levels ?? [];
+          const levels: ShopifyInventoryLevel[] =
+            (invResult.data as { inventory_levels?: ShopifyInventoryLevel[] })?.inventory_levels ?? [];
 
           // Build map: variantGid -> { locationId -> available }
           const inventory: Record<string, Record<string, number>> = {};
@@ -133,10 +143,11 @@ export const Route = createFileRoute("/api/public/inventory")({
             locations,
             inventory,
           });
-        } catch (err: any) {
+        } catch (err: unknown) {
+          const message = err instanceof Error ? err.message : "unknown";
           return Response.json(
-            { error: err?.message ?? "unknown", locations: [], inventory: {} },
-            { status: 200 }
+            { error: message, locations: [], inventory: {} },
+            { status: 200 },
           );
         }
       },
