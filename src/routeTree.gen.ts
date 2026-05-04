@@ -27,6 +27,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductsHandleRouteImport } from './routes/products.$handle'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as ApiInventoryRouteImport } from './routes/api/inventory'
 
 const TrackOrderRoute = TrackOrderRouteImport.update({
   id: '/track-order',
@@ -118,6 +119,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
+const ApiInventoryRoute = ApiInventoryRouteImport.update({
+  id: '/api/inventory',
+  path: '/api/inventory',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -135,6 +141,7 @@ export interface FileRoutesByFullPath {
   '/shipping': typeof ShippingRoute
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
+  '/api/inventory': typeof ApiInventoryRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
@@ -155,6 +162,7 @@ export interface FileRoutesByTo {
   '/shipping': typeof ShippingRoute
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
+  '/api/inventory': typeof ApiInventoryRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
@@ -176,6 +184,7 @@ export interface FileRoutesById {
   '/shipping': typeof ShippingRoute
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
+  '/api/inventory': typeof ApiInventoryRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
@@ -198,6 +207,7 @@ export interface FileRouteTypes {
     | '/shipping'
     | '/terms'
     | '/track-order'
+    | '/api/inventory'
     | '/blog/$slug'
     | '/product/$handle'
     | '/products/$handle'
@@ -218,6 +228,7 @@ export interface FileRouteTypes {
     | '/shipping'
     | '/terms'
     | '/track-order'
+    | '/api/inventory'
     | '/blog/$slug'
     | '/product/$handle'
     | '/products/$handle'
@@ -238,6 +249,7 @@ export interface FileRouteTypes {
     | '/shipping'
     | '/terms'
     | '/track-order'
+    | '/api/inventory'
     | '/blog/$slug'
     | '/product/$handle'
     | '/products/$handle'
@@ -259,6 +271,7 @@ export interface RootRouteChildren {
   ShippingRoute: typeof ShippingRoute
   TermsRoute: typeof TermsRoute
   TrackOrderRoute: typeof TrackOrderRoute
+  ApiInventoryRoute: typeof ApiInventoryRoute
   ProductHandleRoute: typeof ProductHandleRoute
 }
 
@@ -390,6 +403,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/api/inventory': {
+      id: '/api/inventory'
+      path: '/api/inventory'
+      fullPath: '/api/inventory'
+      preLoaderRoute: typeof ApiInventoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -431,6 +451,7 @@ const rootRouteChildren: RootRouteChildren = {
   ShippingRoute: ShippingRoute,
   TermsRoute: TermsRoute,
   TrackOrderRoute: TrackOrderRoute,
+  ApiInventoryRoute: ApiInventoryRoute,
   ProductHandleRoute: ProductHandleRoute,
 }
 export const routeTree = rootRouteImport
