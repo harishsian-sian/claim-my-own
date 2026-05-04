@@ -14,14 +14,14 @@ const CATEGORY_PILLS = [
   { label: "Collagen", q: "collagen" },
 ];
 
-const TOP_NAV = [
-  { label: "Categories", icon: Package },
-  { label: "Brands", icon: Tag },
-  { label: "Clearance", icon: Sparkles },
-  { label: "Specials", icon: Dumbbell },
-  { label: "Bundle", icon: Package },
-  { label: "Pickup & Delivery", icon: Truck },
-  { label: "Find a Store", icon: MapPin },
+const TOP_NAV: Array<{ label: string; icon: typeof Package; to: string; search?: { q: string } }> = [
+  { label: "Categories", icon: Package, to: "/categories" },
+  { label: "Brands", icon: Tag, to: "/brands" },
+  { label: "Clearance", icon: Sparkles, to: "/products", search: { q: "tag:clearance OR tag:sale" } },
+  { label: "Specials", icon: Dumbbell, to: "/products", search: { q: "tag:special" } },
+  { label: "Bundle", icon: Package, to: "/products", search: { q: "tag:bundle OR stack" } },
+  { label: "Pickup & Delivery", icon: Truck, to: "/products" },
+  { label: "Find a Store", icon: MapPin, to: "/products" },
 ];
 
 export function SiteHeader() {
@@ -88,10 +88,11 @@ export function SiteHeader() {
         <div className="border-t border-background/10">
           <div className="container mx-auto px-4">
             <nav className="flex items-center justify-start md:justify-center gap-2 md:gap-8 overflow-x-auto py-3 text-xs md:text-sm font-semibold uppercase tracking-wide scrollbar-hide">
-              {TOP_NAV.map(({ label, icon: Icon }) => (
+              {TOP_NAV.map(({ label, icon: Icon, to, search }) => (
                 <Link
                   key={label}
-                  to="/products"
+                  to={to}
+                  search={search as never}
                   className="flex items-center gap-2 whitespace-nowrap text-background/85 hover:text-brand transition-colors"
                 >
                   <Icon className="h-4 w-4" />
