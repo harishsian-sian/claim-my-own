@@ -159,6 +159,8 @@ function ProductDetail() {
   const [selectedImg, setSelectedImg] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
   const [quantity, setQuantity] = useState(1);
+  const [locations, setLocations] = useState<Array<{ id: string; name: string; city?: string }>>([]);
+  const [inventory, setInventory] = useState<Record<string, Record<string, number>>>({});
 
   const addItem = useCartStore((s) => s.addItem);
   const isLoading = useCartStore((s) => s.isLoading);
