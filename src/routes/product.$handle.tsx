@@ -103,6 +103,9 @@ async function fetchRelated(p: ProductNode): Promise<ShopifyProduct[]> {
     for (const e of edges) {
       if (n >= max) break;
       if (seen.has(e.node.handle)) continue;
+      // Skip sold-out products (no available variants)
+      const hasStock = e.node.variants.edges.some((v) => v.node.availableForSale);
+      if (!hasStock) continue;
       seen.add(e.node.handle);
       out.push(e);
       n++;
