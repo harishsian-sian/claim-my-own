@@ -39,7 +39,7 @@ export function SiteFooter() {
           </p>
           <ul className="mt-5 space-y-2 text-sm text-background/80">
             <li className="flex items-center gap-2"><Phone className="h-3.5 w-3.5" /><a href="tel:0387464680" className="hover:text-brand">03 8746 4680</a></li>
-            <li className="flex items-center gap-2"><Mail className="h-3.5 w-3.5" /><a href="mailto:hello@meltonsupps.com.au" className="hover:text-brand">hello@meltonsupps.com.au</a></li>
+            <li className="flex items-center gap-2"><Mail className="h-3.5 w-3.5" /><a href="mailto:info@meltonsupps.com.au" className="hover:text-brand">info@meltonsupps.com.au</a></li>
             <li className="flex items-start gap-2"><MapPin className="h-3.5 w-3.5 mt-0.5" /><span>Melton, VIC, Australia</span></li>
           </ul>
 

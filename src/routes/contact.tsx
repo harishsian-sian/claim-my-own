@@ -35,8 +35,8 @@ function ContactPage() {
           <div className="border rounded-2xl p-6 bg-muted/30">
             <Mail className="h-6 w-6 text-brand" />
             <h3 className="font-display text-lg font-bold uppercase mt-3">Email</h3>
-            <a href="mailto:hello@meltonsupps.com.au" className="text-sm hover:text-brand">
-              hello@meltonsupps.com.au
+            <a href="mailto:info@meltonsupps.com.au" className="text-sm hover:text-brand">
+              info@meltonsupps.com.au
             </a>
           </div>
           <div className="border rounded-2xl p-6 bg-muted/30">

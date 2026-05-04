@@ -55,7 +55,7 @@ function PrivacyPage() {
             <h2 className="font-display text-xl font-bold uppercase">Your rights</h2>
             <p className="mt-2">
               You can request access to, correction of, or deletion of your personal information at
-              any time by emailing <a className="text-brand hover:underline" href="mailto:hello@meltonsupps.com.au">hello@meltonsupps.com.au</a>.
+              any time by emailing <a className="text-brand hover:underline" href="mailto:info@meltonsupps.com.au">info@meltonsupps.com.au</a>.
             </p>
           </section>
         </div>

@@ -38,7 +38,7 @@ function ReturnsPage() {
             <h2 className="font-display text-xl font-bold uppercase">Damaged or faulty items</h2>
             <p className="mt-2">
               If your order arrives damaged, or a product is faulty, contact us within 7 days of
-              delivery at <a className="text-brand hover:underline" href="mailto:hello@meltonsupps.com.au">hello@meltonsupps.com.au</a>{" "}
+              delivery at <a className="text-brand hover:underline" href="mailto:info@meltonsupps.com.au">info@meltonsupps.com.au</a>{" "}
               with your order number and photos. We'll arrange a replacement, exchange or refund.
             </p>
           </section>
@@ -52,7 +52,7 @@ function ReturnsPage() {
           <section>
             <h2 className="font-display text-xl font-bold uppercase">How to lodge a return</h2>
             <ol className="list-decimal pl-6 mt-2 space-y-1">
-              <li>Email hello@meltonsupps.com.au with your order number and reason</li>
+              <li>Email info@meltonsupps.com.au with your order number and reason</li>
               <li>We'll respond within 1–2 business days with return instructions</li>
               <li>Once received and inspected, refunds are processed within 5 business days</li>
             </ol>

@@ -9,17 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WholesaleRouteImport } from './routes/wholesale'
 import { Route as TrackOrderRouteImport } from './routes/track-order'
 import { Route as TermsRouteImport } from './routes/terms'
-import { Route as SitemapRouteImport } from './routes/sitemap'
 import { Route as ShippingRouteImport } from './routes/shipping'
 import { Route as ReturnsRouteImport } from './routes/returns'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PriceMatchRouteImport } from './routes/price-match'
-import { Route as LoyaltyRouteImport } from './routes/loyalty'
-import { Route as GiftCardsRouteImport } from './routes/gift-cards'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -31,11 +27,6 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
-const WholesaleRoute = WholesaleRouteImport.update({
-  id: '/wholesale',
-  path: '/wholesale',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const TrackOrderRoute = TrackOrderRouteImport.update({
   id: '/track-order',
   path: '/track-order',
@@ -44,11 +35,6 @@ const TrackOrderRoute = TrackOrderRouteImport.update({
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapRoute = SitemapRouteImport.update({
-  id: '/sitemap',
-  path: '/sitemap',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ShippingRoute = ShippingRouteImport.update({
@@ -74,16 +60,6 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const PriceMatchRoute = PriceMatchRouteImport.update({
   id: '/price-match',
   path: '/price-match',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoyaltyRoute = LoyaltyRouteImport.update({
-  id: '/loyalty',
-  path: '/loyalty',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GiftCardsRoute = GiftCardsRouteImport.update({
-  id: '/gift-cards',
-  path: '/gift-cards',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -146,17 +122,13 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/faq': typeof FaqRoute
-  '/gift-cards': typeof GiftCardsRoute
-  '/loyalty': typeof LoyaltyRoute
   '/price-match': typeof PriceMatchRoute
   '/privacy': typeof PrivacyRoute
   '/products': typeof ProductsRoute
   '/returns': typeof ReturnsRoute
   '/shipping': typeof ShippingRoute
-  '/sitemap': typeof SitemapRoute
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
-  '/wholesale': typeof WholesaleRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/product/$handle': typeof ProductHandleRoute
 }
@@ -169,17 +141,13 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/faq': typeof FaqRoute
-  '/gift-cards': typeof GiftCardsRoute
-  '/loyalty': typeof LoyaltyRoute
   '/price-match': typeof PriceMatchRoute
   '/privacy': typeof PrivacyRoute
   '/products': typeof ProductsRoute
   '/returns': typeof ReturnsRoute
   '/shipping': typeof ShippingRoute
-  '/sitemap': typeof SitemapRoute
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
-  '/wholesale': typeof WholesaleRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/product/$handle': typeof ProductHandleRoute
 }
@@ -193,17 +161,13 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/faq': typeof FaqRoute
-  '/gift-cards': typeof GiftCardsRoute
-  '/loyalty': typeof LoyaltyRoute
   '/price-match': typeof PriceMatchRoute
   '/privacy': typeof PrivacyRoute
   '/products': typeof ProductsRoute
   '/returns': typeof ReturnsRoute
   '/shipping': typeof ShippingRoute
-  '/sitemap': typeof SitemapRoute
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
-  '/wholesale': typeof WholesaleRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/product/$handle': typeof ProductHandleRoute
 }
@@ -218,17 +182,13 @@ export interface FileRouteTypes {
     | '/contact'
     | '/disclaimer'
     | '/faq'
-    | '/gift-cards'
-    | '/loyalty'
     | '/price-match'
     | '/privacy'
     | '/products'
     | '/returns'
     | '/shipping'
-    | '/sitemap'
     | '/terms'
     | '/track-order'
-    | '/wholesale'
     | '/blog/$slug'
     | '/product/$handle'
   fileRoutesByTo: FileRoutesByTo
@@ -241,17 +201,13 @@ export interface FileRouteTypes {
     | '/contact'
     | '/disclaimer'
     | '/faq'
-    | '/gift-cards'
-    | '/loyalty'
     | '/price-match'
     | '/privacy'
     | '/products'
     | '/returns'
     | '/shipping'
-    | '/sitemap'
     | '/terms'
     | '/track-order'
-    | '/wholesale'
     | '/blog/$slug'
     | '/product/$handle'
   id:
@@ -264,17 +220,13 @@ export interface FileRouteTypes {
     | '/contact'
     | '/disclaimer'
     | '/faq'
-    | '/gift-cards'
-    | '/loyalty'
     | '/price-match'
     | '/privacy'
     | '/products'
     | '/returns'
     | '/shipping'
-    | '/sitemap'
     | '/terms'
     | '/track-order'
-    | '/wholesale'
     | '/blog/$slug'
     | '/product/$handle'
   fileRoutesById: FileRoutesById
@@ -288,29 +240,18 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   DisclaimerRoute: typeof DisclaimerRoute
   FaqRoute: typeof FaqRoute
-  GiftCardsRoute: typeof GiftCardsRoute
-  LoyaltyRoute: typeof LoyaltyRoute
   PriceMatchRoute: typeof PriceMatchRoute
   PrivacyRoute: typeof PrivacyRoute
   ProductsRoute: typeof ProductsRoute
   ReturnsRoute: typeof ReturnsRoute
   ShippingRoute: typeof ShippingRoute
-  SitemapRoute: typeof SitemapRoute
   TermsRoute: typeof TermsRoute
   TrackOrderRoute: typeof TrackOrderRoute
-  WholesaleRoute: typeof WholesaleRoute
   ProductHandleRoute: typeof ProductHandleRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/wholesale': {
-      id: '/wholesale'
-      path: '/wholesale'
-      fullPath: '/wholesale'
-      preLoaderRoute: typeof WholesaleRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/track-order': {
       id: '/track-order'
       path: '/track-order'
@@ -323,13 +264,6 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap': {
-      id: '/sitemap'
-      path: '/sitemap'
-      fullPath: '/sitemap'
-      preLoaderRoute: typeof SitemapRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/shipping': {
@@ -365,20 +299,6 @@ declare module '@tanstack/react-router' {
       path: '/price-match'
       fullPath: '/price-match'
       preLoaderRoute: typeof PriceMatchRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/loyalty': {
-      id: '/loyalty'
-      path: '/loyalty'
-      fullPath: '/loyalty'
-      preLoaderRoute: typeof LoyaltyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/gift-cards': {
-      id: '/gift-cards'
-      path: '/gift-cards'
-      fullPath: '/gift-cards'
-      preLoaderRoute: typeof GiftCardsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -473,17 +393,13 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   DisclaimerRoute: DisclaimerRoute,
   FaqRoute: FaqRoute,
-  GiftCardsRoute: GiftCardsRoute,
-  LoyaltyRoute: LoyaltyRoute,
   PriceMatchRoute: PriceMatchRoute,
   PrivacyRoute: PrivacyRoute,
   ProductsRoute: ProductsRoute,
   ReturnsRoute: ReturnsRoute,
   ShippingRoute: ShippingRoute,
-  SitemapRoute: SitemapRoute,
   TermsRoute: TermsRoute,
   TrackOrderRoute: TrackOrderRoute,
-  WholesaleRoute: WholesaleRoute,
   ProductHandleRoute: ProductHandleRoute,
 }
 export const routeTree = rootRouteImport
