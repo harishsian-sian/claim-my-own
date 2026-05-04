@@ -97,18 +97,8 @@ function ProductDetail() {
         });
         setSelectedOptions(initial);
 
-        // Fetch related products by vendor
-        if (p.vendor) {
-          storefrontApiRequest(PRODUCTS_QUERY, {
-            first: 8,
-            query: `vendor:"${p.vendor}"`,
-          })
-            .then((r) => {
-              const edges: ShopifyProduct[] = r?.data?.products?.edges ?? [];
-              setRelated(edges.filter((e) => e.node.handle !== p.handle).slice(0, 4));
-            })
-            .catch(() => {});
-        }
+        // Fetch related products: complementary categories + same brand
+        fetchRelated(p).then(setRelated).catch(() => {});
       })
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false));
