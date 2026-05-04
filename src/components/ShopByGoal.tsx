@@ -27,7 +27,7 @@ const GOALS = [
     collection: "pre-workouts",
     bg: "from-ink to-brand",
     image:
-      "https://images.unsplash.com/photo-1583500178690-f7fd39ed27ad?auto=format&fit=crop&w=900&q=70",
+      "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?auto=format&fit=crop&w=900&q=70",
   },
   {
     label: "Recovery & Health",
