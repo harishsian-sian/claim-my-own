@@ -195,22 +195,22 @@ function Index() {
                 to="/brands"
                 className="hidden sm:inline-flex items-center text-sm font-bold uppercase tracking-wider hover:text-brand transition-colors"
               >
-                All {BRANDS.length} brands <ArrowRight className="ml-1 h-4 w-4" />
+                View all brands <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
             </div>
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 md:gap-4">
-              {HOME_BRANDS.map((b) => (
+              {homeBrands.map((b) => (
                 <Link
-                  key={b.name}
+                  key={b.handle}
                   to="/products"
-                  search={{ q: b.query }}
+                  search={{ collection: b.handle }}
                   className="group relative aspect-square rounded-xl overflow-hidden bg-background border hover:border-brand hover:shadow-md transition-all flex flex-col"
                 >
                   <div className="flex-1 flex items-center justify-center p-3">
-                    {b.img ? (
+                    {b.image?.url ? (
                       <img
-                        src={b.img}
-                        alt={b.name}
+                        src={b.image.url}
+                        alt={b.image.altText ?? b.title}
                         loading="lazy"
                         className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
                       />
@@ -220,7 +220,7 @@ function Index() {
                   </div>
                   <div className="bg-ink text-background px-2 py-1.5 text-center">
                     <p className="font-bold text-[10px] md:text-xs uppercase tracking-wide truncate group-hover:text-brand transition-colors">
-                      {b.name}
+                      {b.title}
                     </p>
                   </div>
                 </Link>
