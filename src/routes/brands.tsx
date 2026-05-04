@@ -1,8 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Tag } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Loader2, Tag } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { BRANDS } from "@/lib/storeData";
+import {
+  storefrontApiRequest,
+  COLLECTIONS_QUERY,
+  type ShopifyCollection,
+} from "@/lib/shopify";
+import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
 
 export const Route = createFileRoute("/brands")({
   component: BrandsPage,
@@ -19,6 +25,33 @@ export const Route = createFileRoute("/brands")({
 });
 
 function BrandsPage() {
+  const [brands, setBrands] = useState<ShopifyCollection[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      let cursor: string | null = null;
+      const all: ShopifyCollection[] = [];
+      while (true) {
+        const res = await storefrontApiRequest(COLLECTIONS_QUERY, {
+          first: 100,
+          after: cursor,
+        });
+        const data = res?.data?.collections;
+        if (!data) break;
+        for (const e of data.edges) all.push(e.node);
+        if (!data.pageInfo.hasNextPage) break;
+        cursor = data.pageInfo.endCursor;
+      }
+      setBrands(
+        all
+          .filter((c) => BRAND_COLLECTION_HANDLES.has(c.handle))
+          .sort((a, b) => a.title.localeCompare(b.title))
+      );
+      setLoading(false);
+    })();
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SiteHeader />
@@ -32,43 +65,48 @@ function BrandsPage() {
               Shop by Brand
             </h1>
             <p className="mt-3 text-background/70 max-w-2xl">
-              {BRANDS.length} trusted supplement brands in stock. Tap any brand to view its products.
+              {loading
+                ? "Loading brands from store…"
+                : `${brands.length} trusted supplement brands. Tap a brand to view its products.`}
             </p>
           </div>
         </section>
 
         <section className="container mx-auto px-4 py-10 md:py-14">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
-            {BRANDS.map((b) => (
-              <Link
-                key={b.name}
-                to="/products"
-                search={{ q: b.query }}
-                className="group relative aspect-square rounded-2xl overflow-hidden bg-muted border hover:border-brand hover:shadow-lg transition-all flex flex-col"
-              >
-                <div className="flex-1 flex items-center justify-center p-4 bg-background">
-                  {b.img ? (
-                    <img
-                      src={b.img}
-                      alt={b.name}
-                      loading="lazy"
-                      className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-                    />
-                  ) : (
-                    <Tag className="h-10 w-10 text-muted-foreground" />
-                  )}
-                </div>
-                <div className="bg-ink text-background px-3 py-2.5">
-                  <h3 className="font-bold text-xs md:text-sm uppercase tracking-wide truncate group-hover:text-brand transition-colors">
-                    {b.name}
-                  </h3>
-                  <p className="text-[10px] text-background/60 uppercase tracking-wider">
-                    {b.count} {b.count === 1 ? "product" : "products"}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          {loading ? (
+            <div className="flex justify-center py-20">
+              <Loader2 className="h-8 w-8 animate-spin text-brand" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
+              {brands.map((b) => (
+                <Link
+                  key={b.handle}
+                  to="/products"
+                  search={{ collection: b.handle }}
+                  className="group relative aspect-square rounded-2xl overflow-hidden bg-muted border hover:border-brand hover:shadow-lg transition-all flex flex-col"
+                >
+                  <div className="flex-1 flex items-center justify-center p-4 bg-background">
+                    {b.image?.url ? (
+                      <img
+                        src={b.image.url}
+                        alt={b.image.altText ?? b.title}
+                        loading="lazy"
+                        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <Tag className="h-10 w-10 text-muted-foreground" />
+                    )}
+                  </div>
+                  <div className="bg-ink text-background px-3 py-2.5">
+                    <h3 className="font-bold text-xs md:text-sm uppercase tracking-wide truncate group-hover:text-brand transition-colors">
+                      {b.title}
+                    </h3>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </section>
       </main>
       <SiteFooter />
