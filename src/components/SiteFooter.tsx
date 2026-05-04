@@ -25,9 +25,9 @@ export function SiteFooter() {
         <div>
           <h4 className="font-display text-sm uppercase tracking-wider mb-4">Contact</h4>
           <ul className="space-y-3 text-sm text-background/70">
-            <li className="flex items-center gap-2"><Phone className="h-3.5 w-3.5" /> 03 8746 4680</li>
-            <li className="flex items-center gap-2"><Mail className="h-3.5 w-3.5" /> hello@meltonsupps.com.au</li>
-            <li className="flex items-start gap-2"><MapPin className="h-3.5 w-3.5 mt-0.5" /> Melton, VIC, Australia</li>
+            <li className="flex items-center gap-2"><Phone className="h-3.5 w-3.5" /><span>03 8746 4680</span></li>
+            <li className="flex items-center gap-2"><Mail className="h-3.5 w-3.5" /><span>hello@meltonsupps.com.au</span></li>
+            <li className="flex items-start gap-2"><MapPin className="h-3.5 w-3.5 mt-0.5" /><span>Melton, VIC, Australia</span></li>
           </ul>
         </div>
       </div>
