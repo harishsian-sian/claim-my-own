@@ -45,6 +45,12 @@ export const Route = createRootRoute({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "MeltonSupps — Health & Sports Supplements" },
+      { name: "description", content: "Claim your store and connect your Shopify store to a new project." },
+      { property: "og:description", content: "Claim your store and connect your Shopify store to a new project." },
+      { name: "twitter:description", content: "Claim your store and connect your Shopify store to a new project." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/56bdd6f7-4765-4e7c-a6f6-20340155efa1/id-preview-86041fa9--401d9b5b-6ddd-4fe0-aa67-6a71076141a6.lovable.app-1777886783909.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/56bdd6f7-4765-4e7c-a6f6-20340155efa1/id-preview-86041fa9--401d9b5b-6ddd-4fe0-aa67-6a71076141a6.lovable.app-1777886783909.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
