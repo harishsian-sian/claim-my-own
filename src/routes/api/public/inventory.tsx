@@ -110,16 +110,15 @@ export const Route = createFileRoute("/api/public/inventory")({
           }
 
           // Fetch inventory levels at all locations
-          const invRes = await fetch(
-            `https://${SHOP}/admin/api/${API}/inventory_levels.json?inventory_item_ids=${inventoryItemIds}`,
-            { headers: { "X-Shopify-Access-Token": token } }
+          const invResult = await fetchAdminJson(
+            `/inventory_levels.json?inventory_item_ids=${inventoryItemIds}`,
+            token
           );
-          if (!invRes.ok) {
+          if (!invResult.ok) {
             return Response.json({ locations, inventory: {} });
           }
-          const invJson: any = await invRes.json();
           const levels: Array<{ inventory_item_id: number; location_id: number; available: number | null }> =
-            invJson.inventory_levels ?? [];
+            invResult.data?.inventory_levels ?? [];
 
           // Build map: variantGid -> { locationId -> available }
           const inventory: Record<string, Record<string, number>> = {};
@@ -131,7 +130,7 @@ export const Route = createFileRoute("/api/public/inventory")({
           }
 
           return Response.json({
-            locations: locations.map((l: any) => ({ ...l, id: String(l.id) })),
+            locations,
             inventory,
           });
         } catch (err: any) {
