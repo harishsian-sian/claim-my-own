@@ -15,15 +15,15 @@ interface Slide {
 
 const SLIDES: Slide[] = [
   {
-    eyebrow: "Limited time offer",
+    eyebrow: "Premium whey",
     title: (
       <>
-        Triple<br />Protein<br /><span className="text-brand-foreground">Stack Deal</span>
+        Whey<br />Protein<br /><span className="text-brand-foreground">Range</span>
       </>
     ),
-    subtitle: "Mix & match flavours. Premium whey blend at an unbeatable price.",
-    badge: "Save $150",
-    cta: { label: "Shop Now", to: "/products", search: { q: "protein" } },
+    subtitle: "Top-rated whey from EHP Labs, Optimum Nutrition, Rule 1 and more.",
+    badge: "Free shipping $99+",
+    cta: { label: "Shop Whey", to: "/products", search: { collection: "whey-protein" } },
     gradient: "from-ink via-brand-dark to-brand",
   },
   {
@@ -34,20 +34,20 @@ const SLIDES: Slide[] = [
       </>
     ),
     subtitle: "Top-rated formulas from the brands that hit hardest. Energy, focus, pump.",
-    badge: "Up to 30% off",
-    cta: { label: "Shop Pre-Workout", to: "/products", search: { q: "pre-workout" } },
+    badge: "Best sellers",
+    cta: { label: "Shop Pre-Workout", to: "/products", search: { collection: "pre-workouts" } },
     gradient: "from-brand-dark via-ink to-brand",
   },
   {
     eyebrow: "Build serious size",
     title: (
       <>
-        Mass<br />Gainer<br /><span className="text-brand-foreground">Sale</span>
+        Weight<br />Gainers<br /><span className="text-brand-foreground">In Stock</span>
       </>
     ),
     subtitle: "Pack on quality muscle with high-calorie blends from Rule 1 and more.",
-    badge: "Free shipping",
-    cta: { label: "Shop Gainers", to: "/products", search: { q: "mass gainer OR gainer" } },
+    badge: "Shop the range",
+    cta: { label: "Shop Gainers", to: "/products", search: { collection: "weight-gainer" } },
     gradient: "from-ink via-brand to-brand-dark",
   },
 ];
