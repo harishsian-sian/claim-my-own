@@ -84,25 +84,19 @@ function BrandsPage() {
                   key={b.handle}
                   to="/products"
                   search={{ collection: b.handle }}
-                  className="group relative aspect-square rounded-2xl overflow-hidden bg-muted border hover:border-brand hover:shadow-lg transition-all flex flex-col"
+                  aria-label={b.title}
+                  className="group relative aspect-square rounded-2xl overflow-hidden bg-background border hover:border-brand hover:shadow-lg transition-all flex items-center justify-center p-4"
                 >
-                  <div className="flex-1 flex items-center justify-center p-4 bg-background">
-                    {b.image?.url ? (
-                      <img
-                        src={b.image.url}
-                        alt={b.image.altText ?? b.title}
-                        loading="lazy"
-                        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-                      />
-                    ) : (
-                      <Tag className="h-10 w-10 text-muted-foreground" />
-                    )}
-                  </div>
-                  <div className="bg-ink text-background px-3 py-2.5">
-                    <h3 className="font-bold text-xs md:text-sm uppercase tracking-wide truncate group-hover:text-brand transition-colors">
-                      {b.title}
-                    </h3>
-                  </div>
+                  {b.image?.url ? (
+                    <img
+                      src={b.image.url}
+                      alt={b.image.altText ?? b.title}
+                      loading="lazy"
+                      className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <Tag className="h-10 w-10 text-muted-foreground" />
+                  )}
                 </Link>
               ))}
             </div>
