@@ -190,7 +190,7 @@ function ProductDetail() {
 
         // Fetch live per-location inventory from Admin API
         const variantIds = p.variants.edges.map((v: any) => v.node.id).join(",");
-        fetch(`/api/inventory?variantIds=${encodeURIComponent(variantIds)}`)
+        fetch(`/api/public/inventory?variantIds=${encodeURIComponent(variantIds)}`)
           .then((r) => r.json())
           .then((j) => {
             setLocations(j.locations ?? []);

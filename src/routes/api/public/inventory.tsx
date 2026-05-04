@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 const SHOP = "ded508-e8.myshopify.com";
 const API = "2025-07";
 
-export const Route = createFileRoute("/api/inventory")({
+export const Route = createFileRoute("/api/public/inventory")({
   server: {
     handlers: {
       GET: async ({ request }) => {
