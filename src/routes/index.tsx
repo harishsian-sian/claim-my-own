@@ -142,12 +142,12 @@ function Index() {
         <section className="bg-ink text-background">
           <div className="container mx-auto px-4 py-10 md:py-12 grid md:grid-cols-3 gap-6 text-center">
             <div className="border-r-0 md:border-r border-background/10 pr-0 md:pr-6">
-              <h3 className="font-display text-xl md:text-2xl font-black uppercase text-brand">Stack &amp; Save</h3>
-              <p className="text-sm text-background/70 mt-2">Bundle deals across protein, pre-workout & more</p>
+              <h3 className="font-display text-xl md:text-2xl font-black uppercase text-brand">Genuine Stock</h3>
+              <p className="text-sm text-background/70 mt-2">100% authentic products sourced from official Australian distributors</p>
             </div>
             <div className="border-r-0 md:border-r border-background/10 pr-0 md:pr-6">
               <h3 className="font-display text-xl md:text-2xl font-black uppercase text-brand">Pickup &amp; Delivery</h3>
-              <p className="text-sm text-background/70 mt-2">Fast Australia-wide shipping or local pickup</p>
+              <p className="text-sm text-background/70 mt-2">Fast Australia-wide shipping or local Melton pickup</p>
             </div>
             <div>
               <h3 className="font-display text-xl md:text-2xl font-black uppercase text-brand">Price Match</h3>

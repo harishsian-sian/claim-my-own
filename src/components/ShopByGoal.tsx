@@ -4,30 +4,30 @@ import { ArrowRight, Dumbbell, Flame, Zap, Heart } from "lucide-react";
 const GOALS = [
   {
     label: "Build Muscle",
-    desc: "Protein, gainers & creatine",
+    desc: "Whey protein & gainers",
     icon: Dumbbell,
-    q: "protein OR creatine OR mass gainer",
+    collection: "whey-protein",
     bg: "from-brand to-brand-dark",
   },
   {
     label: "Burn Fat",
-    desc: "Thermogenics & l-carnitine",
+    desc: "Weight management & L-carnitine",
     icon: Flame,
-    q: "fat burner OR shred OR l-carnitine",
+    collection: "weight-management",
     bg: "from-brand-dark to-ink",
   },
   {
     label: "More Energy",
-    desc: "Pre-workout & energy drinks",
+    desc: "Pre-workout formulas",
     icon: Zap,
-    q: "pre-workout OR energy",
+    collection: "pre-workouts",
     bg: "from-ink to-brand",
   },
   {
     label: "Recovery & Health",
     desc: "Aminos, vitamins, sleep",
     icon: Heart,
-    q: "recovery OR vitamin OR sleep OR magnesium",
+    collection: "vitamins-and-mineral",
     bg: "from-brand to-ink",
   },
 ];
@@ -44,11 +44,11 @@ export function ShopByGoal() {
         </h2>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-        {GOALS.map(({ label, desc, icon: Icon, q, bg }) => (
+        {GOALS.map(({ label, desc, icon: Icon, collection, bg }) => (
           <Link
             key={label}
             to="/products"
-            search={{ q }}
+            search={{ collection }}
             className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${bg} p-6 md:p-7 aspect-[4/5] flex flex-col justify-between text-background hover:scale-[1.03] transition-transform`}
           >
             <Icon className="h-10 w-10 md:h-12 md:w-12 text-background/90 group-hover:text-background transition-colors" />
