@@ -58,7 +58,6 @@ export function SiteFooter() {
             <li><Link to="/brands" className="hover:text-brand">Brands</Link></li>
             <li><Link to="/products" search={{ collection: "specials" }} className="hover:text-brand">Specials</Link></li>
             <li><Link to="/products" search={{ collection: "clearance" }} className="hover:text-brand">Clearance</Link></li>
-            <li><Link to="/gift-cards" className="hover:text-brand">Gift Cards</Link></li>
           </ul>
         </div>
 
@@ -78,10 +77,8 @@ export function SiteFooter() {
           <h4 className="font-display text-sm uppercase tracking-wider mb-4">Company</h4>
           <ul className="space-y-2 text-sm text-background/70">
             <li><Link to="/about" className="hover:text-brand">About Us</Link></li>
-            <li><Link to="/wholesale" className="hover:text-brand">Wholesale &amp; Trade</Link></li>
-            <li><Link to="/loyalty" className="hover:text-brand">Rewards Program</Link></li>
+            <li><Link to="/contact" className="hover:text-brand">Contact</Link></li>
             <li><Link to="/blog" className="hover:text-brand">Blog &amp; Guides</Link></li>
-            <li><Link to="/sitemap" className="hover:text-brand">Sitemap</Link></li>
           </ul>
         </div>
 
