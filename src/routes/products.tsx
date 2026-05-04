@@ -6,16 +6,23 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ProductGrid } from "@/components/ProductGrid";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
+import {
+  storefrontApiRequest,
+  PRODUCTS_QUERY,
+  COLLECTION_PRODUCTS_QUERY,
+  type ShopifyProduct,
+} from "@/lib/shopify";
 
 interface Search {
   q?: string;
+  collection?: string;
 }
 
 export const Route = createFileRoute("/products")({
   component: Products,
   validateSearch: (search: Record<string, unknown>): Search => ({
     q: typeof search.q === "string" ? search.q : undefined,
+    collection: typeof search.collection === "string" ? search.collection : undefined,
   }),
   head: () => ({
     meta: [
@@ -32,31 +39,63 @@ export const Route = createFileRoute("/products")({
 const PAGE_SIZE = 24;
 
 function Products() {
-  const { q } = Route.useSearch();
+  const { q, collection } = Route.useSearch();
   const navigate = useNavigate({ from: "/products" });
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [cursor, setCursor] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [collectionTitle, setCollectionTitle] = useState<string | null>(null);
   const [searchInput, setSearchInput] = useState(q ?? "");
   const initial = useRef(true);
 
-  // Reset when q changes
+  const fetchPage = async (after: string | null) => {
+    if (collection) {
+      const res = await storefrontApiRequest(COLLECTION_PRODUCTS_QUERY, {
+        handle: collection,
+        first: PAGE_SIZE,
+        after,
+      });
+      const c = res?.data?.collection;
+      return {
+        title: c?.title ?? null,
+        edges: (c?.products?.edges ?? []) as ShopifyProduct[],
+        endCursor: c?.products?.pageInfo?.endCursor ?? null,
+        hasNext: c?.products?.pageInfo?.hasNextPage ?? false,
+      };
+    }
+    const res = await storefrontApiRequest(PRODUCTS_QUERY, {
+      first: PAGE_SIZE,
+      after,
+      query: q || null,
+    });
+    const data = res?.data?.products;
+    return {
+      title: null,
+      edges: (data?.edges ?? []) as ShopifyProduct[],
+      endCursor: data?.pageInfo?.endCursor ?? null,
+      hasNext: data?.pageInfo?.hasNextPage ?? false,
+    };
+  };
+
+  // Reset when q or collection changes
   useEffect(() => {
     setLoading(true);
     setProducts([]);
     setCursor(null);
     setHasMore(true);
-    storefrontApiRequest(PRODUCTS_QUERY, { first: PAGE_SIZE, query: q || null })
-      .then((res) => {
-        const data = res?.data?.products;
-        setProducts(data?.edges ?? []);
-        setCursor(data?.pageInfo?.endCursor ?? null);
-        setHasMore(data?.pageInfo?.hasNextPage ?? false);
+    setCollectionTitle(null);
+    fetchPage(null)
+      .then((r) => {
+        setProducts(r.edges);
+        setCursor(r.endCursor);
+        setHasMore(r.hasNext);
+        setCollectionTitle(r.title);
       })
       .finally(() => setLoading(false));
-  }, [q]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [q, collection]);
 
   useEffect(() => {
     if (initial.current) {
@@ -70,20 +109,14 @@ function Products() {
     if (!cursor || !hasMore || loadingMore) return;
     setLoadingMore(true);
     try {
-      const res = await storefrontApiRequest(PRODUCTS_QUERY, {
-        first: PAGE_SIZE,
-        after: cursor,
-        query: q || null,
-      });
-      const data = res?.data?.products;
-      setProducts((prev) => [...prev, ...(data?.edges ?? [])]);
-      setCursor(data?.pageInfo?.endCursor ?? null);
-      setHasMore(data?.pageInfo?.hasNextPage ?? false);
+      const r = await fetchPage(cursor);
+      setProducts((prev) => [...prev, ...r.edges]);
+      setCursor(r.endCursor);
+      setHasMore(r.hasNext);
     } finally {
       setLoadingMore(false);
     }
   };
-
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     const v = searchInput.trim();
@@ -96,7 +129,7 @@ function Products() {
       <main className="flex-1 container mx-auto px-4 py-10">
         <div className="mb-8">
           <h1 className="font-display text-3xl md:text-4xl font-bold uppercase">
-            {q ? `Search: ${q}` : "Shop All Products"}
+            {collectionTitle ?? (q ? `Search: ${q}` : "Shop All Products")}
           </h1>
           <p className="text-muted-foreground mt-2 text-sm">
             {loading

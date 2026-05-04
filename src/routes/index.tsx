@@ -5,8 +5,14 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ProductGrid } from "@/components/ProductGrid";
 import { Button } from "@/components/ui/button";
-import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
-import { BRANDS, CATEGORIES } from "@/lib/storeData";
+import {
+  storefrontApiRequest,
+  PRODUCTS_QUERY,
+  COLLECTIONS_QUERY,
+  type ShopifyProduct,
+  type ShopifyCollection,
+} from "@/lib/shopify";
+import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -22,23 +28,35 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-const HOME_CATEGORIES = CATEGORIES.slice(0, 6);
-const HOME_BRANDS = BRANDS.slice(0, 12);
-
 function Index() {
   const [featured, setFeatured] = useState<ShopifyProduct[]>([]);
   const [bestSellers, setBestSellers] = useState<ShopifyProduct[]>([]);
+  const [collections, setCollections] = useState<ShopifyCollection[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    storefrontApiRequest(PRODUCTS_QUERY, { first: 20 })
-      .then((res) => {
-        const edges: ShopifyProduct[] = res?.data?.products?.edges ?? [];
+    Promise.all([
+      storefrontApiRequest(PRODUCTS_QUERY, { first: 20 }),
+      storefrontApiRequest(COLLECTIONS_QUERY, { first: 100, after: null }),
+    ])
+      .then(([prodRes, colRes]) => {
+        const edges: ShopifyProduct[] = prodRes?.data?.products?.edges ?? [];
         setFeatured(edges.slice(0, 8));
         setBestSellers(edges.slice(8, 16));
+        const cols: ShopifyCollection[] =
+          colRes?.data?.collections?.edges?.map((e: { node: ShopifyCollection }) => e.node) ?? [];
+        setCollections(cols);
       })
       .finally(() => setLoading(false));
   }, []);
+
+  const homeCategories = collections
+    .filter((c) => !BRAND_COLLECTION_HANDLES.has(c.handle) && c.image?.url)
+    .slice(0, 6);
+  const homeBrands = collections
+    .filter((c) => BRAND_COLLECTION_HANDLES.has(c.handle) && c.image?.url)
+    .slice(0, 12);
+
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -132,23 +150,25 @@ function Index() {
             </Link>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
-            {HOME_CATEGORIES.map((c) => (
+            {homeCategories.map((c) => (
               <Link
-                key={c.name}
+                key={c.handle}
                 to="/products"
-                search={{ q: c.query }}
+                search={{ collection: c.handle }}
                 className="group relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-brand-dark to-ink flex items-end p-4 md:p-5 hover:scale-[1.03] transition-transform"
               >
-                <img
-                  src={c.img}
-                  alt={c.name}
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-contain object-center p-4 mix-blend-luminosity opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                {c.image?.url && (
+                  <img
+                    src={c.image.url}
+                    alt={c.image.altText ?? c.title}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-110 transition-all duration-500"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
                 <div className="relative">
-                  <h3 className="font-display text-lg md:text-xl font-black uppercase text-background leading-tight drop-shadow-lg">
-                    {c.name}
+                  <h3 className="font-display text-base md:text-xl font-black uppercase text-background leading-tight drop-shadow-lg">
+                    {c.title}
                   </h3>
                   <span className="text-xs text-background/90 uppercase tracking-wider font-semibold inline-flex items-center gap-1 mt-1 group-hover:text-background">
                     Shop now <ArrowRight className="h-3 w-3" />
@@ -175,22 +195,22 @@ function Index() {
                 to="/brands"
                 className="hidden sm:inline-flex items-center text-sm font-bold uppercase tracking-wider hover:text-brand transition-colors"
               >
-                All {BRANDS.length} brands <ArrowRight className="ml-1 h-4 w-4" />
+                View all brands <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
             </div>
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 md:gap-4">
-              {HOME_BRANDS.map((b) => (
+              {homeBrands.map((b) => (
                 <Link
-                  key={b.name}
+                  key={b.handle}
                   to="/products"
-                  search={{ q: b.query }}
+                  search={{ collection: b.handle }}
                   className="group relative aspect-square rounded-xl overflow-hidden bg-background border hover:border-brand hover:shadow-md transition-all flex flex-col"
                 >
                   <div className="flex-1 flex items-center justify-center p-3">
-                    {b.img ? (
+                    {b.image?.url ? (
                       <img
-                        src={b.img}
-                        alt={b.name}
+                        src={b.image.url}
+                        alt={b.image.altText ?? b.title}
                         loading="lazy"
                         className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
                       />
@@ -200,7 +220,7 @@ function Index() {
                   </div>
                   <div className="bg-ink text-background px-2 py-1.5 text-center">
                     <p className="font-bold text-[10px] md:text-xs uppercase tracking-wide truncate group-hover:text-brand transition-colors">
-                      {b.name}
+                      {b.title}
                     </p>
                   </div>
                 </Link>
