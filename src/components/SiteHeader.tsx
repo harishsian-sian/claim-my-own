@@ -1,10 +1,11 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Search, User, Heart, MapPin, Package, Tag, Sparkles, Dumbbell, Truck } from "lucide-react";
+import { Search, User, Heart, MapPin, Package, Tag, Sparkles, Dumbbell, Truck, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { CartDrawer } from "./CartDrawer";
+import { PromoBar } from "./PromoBar";
+import { MegaMenu } from "./MegaMenu";
 
 const CATEGORY_PILLS = [
-  { label: "Find a Store", q: "" },
   { label: "Stack & Save", q: "tag:bundle" },
   { label: "Protein", q: "protein" },
   { label: "Creatine", q: "creatine" },
@@ -14,18 +15,9 @@ const CATEGORY_PILLS = [
   { label: "Collagen", q: "collagen" },
 ];
 
-const TOP_NAV: Array<{ label: string; icon: typeof Package; to: string; search?: { q: string } }> = [
-  { label: "Categories", icon: Package, to: "/categories" },
-  { label: "Brands", icon: Tag, to: "/brands" },
-  { label: "Clearance", icon: Sparkles, to: "/products", search: { q: "tag:clearance OR tag:sale" } },
-  { label: "Specials", icon: Dumbbell, to: "/products", search: { q: "tag:special" } },
-  { label: "Bundle", icon: Package, to: "/products", search: { q: "tag:bundle OR stack" } },
-  { label: "Pickup & Delivery", icon: Truck, to: "/products" },
-  { label: "Find a Store", icon: MapPin, to: "/products" },
-];
-
 export function SiteHeader() {
   const [search, setSearch] = useState("");
+  const [openMenu, setOpenMenu] = useState<"categories" | "brands" | null>(null);
   const navigate = useNavigate();
 
   const handleSearch = (e: React.FormEvent) => {
@@ -36,15 +28,11 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40">
-      {/* Top promo bar */}
-      <div className="bg-ink text-background text-center text-xs md:text-sm py-2.5 px-4 font-medium">
-        Spend $99 and get FREE shipping Australia-wide
-      </div>
+      <PromoBar />
 
       {/* Main header */}
       <div className="bg-ink text-background">
         <div className="container mx-auto px-4 py-3 flex items-center gap-4">
-          {/* Logo */}
           <Link to="/" className="flex-shrink-0">
             <div className="font-display text-xl md:text-2xl font-extrabold uppercase tracking-tight leading-none">
               <span className="text-background">Melton</span>
@@ -52,7 +40,6 @@ export function SiteHeader() {
             </div>
           </Link>
 
-          {/* Search */}
           <form onSubmit={handleSearch} className="flex-1 max-w-2xl mx-auto">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -66,7 +53,6 @@ export function SiteHeader() {
             </div>
           </form>
 
-          {/* Actions */}
           <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
             <button className="hidden md:flex h-10 w-10 items-center justify-center rounded-full hover:bg-background/10 transition-colors" aria-label="Account">
               <User className="h-5 w-5" />
@@ -84,23 +70,77 @@ export function SiteHeader() {
           </div>
         </div>
 
-        {/* Top icon nav */}
-        <div className="border-t border-background/10">
+        {/* Top icon nav with mega-menu triggers */}
+        <div className="border-t border-background/10 relative" onMouseLeave={() => setOpenMenu(null)}>
           <div className="container mx-auto px-4">
             <nav className="flex items-center justify-start md:justify-center gap-2 md:gap-8 overflow-x-auto py-3 text-xs md:text-sm font-semibold uppercase tracking-wide scrollbar-hide">
-              {TOP_NAV.map(({ label, icon: Icon, to, search }) => (
-                <Link
-                  key={label}
-                  to={to}
-                  search={search as never}
-                  className="flex items-center gap-2 whitespace-nowrap text-background/85 hover:text-brand transition-colors"
-                >
-                  <Icon className="h-4 w-4" />
-                  {label}
-                </Link>
-              ))}
+              <button
+                type="button"
+                onMouseEnter={() => setOpenMenu("categories")}
+                onClick={() => setOpenMenu(openMenu === "categories" ? null : "categories")}
+                className={`flex items-center gap-2 whitespace-nowrap transition-colors ${openMenu === "categories" ? "text-brand" : "text-background/85 hover:text-brand"}`}
+              >
+                <Package className="h-4 w-4" />
+                Categories
+                <ChevronDown className="h-3 w-3" />
+              </button>
+              <button
+                type="button"
+                onMouseEnter={() => setOpenMenu("brands")}
+                onClick={() => setOpenMenu(openMenu === "brands" ? null : "brands")}
+                className={`flex items-center gap-2 whitespace-nowrap transition-colors ${openMenu === "brands" ? "text-brand" : "text-background/85 hover:text-brand"}`}
+              >
+                <Tag className="h-4 w-4" />
+                Brands
+                <ChevronDown className="h-3 w-3" />
+              </button>
+              <Link
+                to="/products"
+                search={{ q: "tag:clearance OR tag:sale" }}
+                onMouseEnter={() => setOpenMenu(null)}
+                className="flex items-center gap-2 whitespace-nowrap text-background/85 hover:text-brand transition-colors"
+              >
+                <Sparkles className="h-4 w-4" />
+                Clearance
+              </Link>
+              <Link
+                to="/products"
+                search={{ q: "tag:special" }}
+                onMouseEnter={() => setOpenMenu(null)}
+                className="flex items-center gap-2 whitespace-nowrap text-background/85 hover:text-brand transition-colors"
+              >
+                <Dumbbell className="h-4 w-4" />
+                Specials
+              </Link>
+              <Link
+                to="/products"
+                search={{ q: "tag:bundle OR stack" }}
+                onMouseEnter={() => setOpenMenu(null)}
+                className="flex items-center gap-2 whitespace-nowrap text-background/85 hover:text-brand transition-colors"
+              >
+                <Package className="h-4 w-4" />
+                Bundles
+              </Link>
+              <Link
+                to="/products"
+                onMouseEnter={() => setOpenMenu(null)}
+                className="flex items-center gap-2 whitespace-nowrap text-background/85 hover:text-brand transition-colors"
+              >
+                <Truck className="h-4 w-4" />
+                Pickup & Delivery
+              </Link>
+              <Link
+                to="/products"
+                onMouseEnter={() => setOpenMenu(null)}
+                className="flex items-center gap-2 whitespace-nowrap text-background/85 hover:text-brand transition-colors"
+              >
+                <MapPin className="h-4 w-4" />
+                Find a Store
+              </Link>
             </nav>
           </div>
+
+          {openMenu && <MegaMenu type={openMenu} onNavigate={() => setOpenMenu(null)} />}
         </div>
       </div>
 
