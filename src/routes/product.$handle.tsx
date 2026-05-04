@@ -79,7 +79,8 @@ const COMBO_MAP: Record<string, string[]> = {
 };
 
 function detectCategory(p: ProductNode): string | null {
-  const text = `${p.title} ${p.productType ?? ""} ${p.tags?.join(" ") ?? ""} ${p.description ?? ""}`.toLowerCase();
+  const anyP = p as any;
+  const text = `${p.title} ${anyP.productType ?? ""} ${(anyP.tags ?? []).join(" ")} ${p.description ?? ""}`.toLowerCase();
   if (/pre[-\s]?workout|pre\s?wo\b/.test(text)) return "preworkout";
   if (/whey|isolate|wpi|wpc/.test(text)) return "whey";
   if (/protein/.test(text)) return "protein";
