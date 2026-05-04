@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { HeroSlider } from "@/components/HeroSlider";
 import { ShopByGoal } from "@/components/ShopByGoal";
 import { BrandStrip } from "@/components/BrandStrip";
+import { VitaminBrandStrip } from "@/components/VitaminBrandStrip";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import { Button } from "@/components/ui/button";
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
@@ -137,6 +138,8 @@ function Index() {
         )}
 
         <BrandStrip />
+
+        <VitaminBrandStrip />
 
         {/* PROMO STRIP */}
         <section className="bg-ink text-background">
