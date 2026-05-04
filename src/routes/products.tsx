@@ -129,7 +129,7 @@ function Products() {
       <main className="flex-1 container mx-auto px-4 py-10">
         <div className="mb-8">
           <h1 className="font-display text-3xl md:text-4xl font-bold uppercase">
-            {q ? `Search: ${q}` : "Shop All Products"}
+            {collectionTitle ?? (q ? `Search: ${q}` : "Shop All Products")}
           </h1>
           <p className="text-muted-foreground mt-2 text-sm">
             {loading
