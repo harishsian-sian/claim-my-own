@@ -27,7 +27,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductsHandleRouteImport } from './routes/products.$handle'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
-import { Route as ApiInventoryRouteImport } from './routes/api/inventory'
+import { Route as ApiPublicInventoryRouteImport } from './routes/api/public/inventory'
 
 const TrackOrderRoute = TrackOrderRouteImport.update({
   id: '/track-order',
@@ -119,9 +119,9 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
-const ApiInventoryRoute = ApiInventoryRouteImport.update({
-  id: '/api/inventory',
-  path: '/api/inventory',
+const ApiPublicInventoryRoute = ApiPublicInventoryRouteImport.update({
+  id: '/api/public/inventory',
+  path: '/api/public/inventory',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -141,10 +141,10 @@ export interface FileRoutesByFullPath {
   '/shipping': typeof ShippingRoute
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
-  '/api/inventory': typeof ApiInventoryRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
+  '/api/public/inventory': typeof ApiPublicInventoryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -162,10 +162,10 @@ export interface FileRoutesByTo {
   '/shipping': typeof ShippingRoute
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
-  '/api/inventory': typeof ApiInventoryRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
+  '/api/public/inventory': typeof ApiPublicInventoryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -184,10 +184,10 @@ export interface FileRoutesById {
   '/shipping': typeof ShippingRoute
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
-  '/api/inventory': typeof ApiInventoryRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
+  '/api/public/inventory': typeof ApiPublicInventoryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -207,10 +207,10 @@ export interface FileRouteTypes {
     | '/shipping'
     | '/terms'
     | '/track-order'
-    | '/api/inventory'
     | '/blog/$slug'
     | '/product/$handle'
     | '/products/$handle'
+    | '/api/public/inventory'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -228,10 +228,10 @@ export interface FileRouteTypes {
     | '/shipping'
     | '/terms'
     | '/track-order'
-    | '/api/inventory'
     | '/blog/$slug'
     | '/product/$handle'
     | '/products/$handle'
+    | '/api/public/inventory'
   id:
     | '__root__'
     | '/'
@@ -249,10 +249,10 @@ export interface FileRouteTypes {
     | '/shipping'
     | '/terms'
     | '/track-order'
-    | '/api/inventory'
     | '/blog/$slug'
     | '/product/$handle'
     | '/products/$handle'
+    | '/api/public/inventory'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -271,8 +271,8 @@ export interface RootRouteChildren {
   ShippingRoute: typeof ShippingRoute
   TermsRoute: typeof TermsRoute
   TrackOrderRoute: typeof TrackOrderRoute
-  ApiInventoryRoute: typeof ApiInventoryRoute
   ProductHandleRoute: typeof ProductHandleRoute
+  ApiPublicInventoryRoute: typeof ApiPublicInventoryRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -403,11 +403,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
     }
-    '/api/inventory': {
-      id: '/api/inventory'
-      path: '/api/inventory'
-      fullPath: '/api/inventory'
-      preLoaderRoute: typeof ApiInventoryRouteImport
+    '/api/public/inventory': {
+      id: '/api/public/inventory'
+      path: '/api/public/inventory'
+      fullPath: '/api/public/inventory'
+      preLoaderRoute: typeof ApiPublicInventoryRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -451,8 +451,8 @@ const rootRouteChildren: RootRouteChildren = {
   ShippingRoute: ShippingRoute,
   TermsRoute: TermsRoute,
   TrackOrderRoute: TrackOrderRoute,
-  ApiInventoryRoute: ApiInventoryRoute,
   ProductHandleRoute: ProductHandleRoute,
+  ApiPublicInventoryRoute: ApiPublicInventoryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
