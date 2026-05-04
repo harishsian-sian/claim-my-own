@@ -539,7 +539,7 @@ function ProductDetail() {
             <div className="container mx-auto px-4 py-12">
               <div className="flex items-end justify-between mb-6">
                 <h2 className="font-display text-2xl md:text-3xl font-black uppercase">
-                  You May Also Like
+                  Stack It With
                 </h2>
                 {product.vendor && (
                   <Link
