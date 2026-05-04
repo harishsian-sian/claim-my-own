@@ -2,14 +2,19 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronLeft, ChevronRight, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { ShopifyProduct } from "@/lib/shopify";
+import {
+  storefrontApiRequest,
+  COLLECTION_PRODUCTS_QUERY,
+  type ShopifyProduct,
+} from "@/lib/shopify";
 
 interface Slide {
   eyebrow: string;
   title: React.ReactNode;
   subtitle: string;
   badge: string;
-  cta: { label: string; to: string; search?: Record<string, string> };
+  collection: string;
+  ctaLabel: string;
   gradient: string;
 }
 
@@ -23,7 +28,8 @@ const SLIDES: Slide[] = [
     ),
     subtitle: "Top-rated whey from EHP Labs, Optimum Nutrition, Rule 1 and more.",
     badge: "Free shipping $99+",
-    cta: { label: "Shop Whey", to: "/products", search: { collection: "whey-protein" } },
+    collection: "whey-protein",
+    ctaLabel: "Shop Whey",
     gradient: "from-ink via-brand-dark to-brand",
   },
   {
@@ -35,7 +41,8 @@ const SLIDES: Slide[] = [
     ),
     subtitle: "Top-rated formulas from the brands that hit hardest. Energy, focus, pump.",
     badge: "Best sellers",
-    cta: { label: "Shop Pre-Workout", to: "/products", search: { collection: "pre-workouts" } },
+    collection: "pre-workouts",
+    ctaLabel: "Shop Pre-Workout",
     gradient: "from-brand-dark via-ink to-brand",
   },
   {
@@ -47,17 +54,18 @@ const SLIDES: Slide[] = [
     ),
     subtitle: "Pack on quality muscle with high-calorie blends from Rule 1 and more.",
     badge: "Shop the range",
-    cta: { label: "Shop Gainers", to: "/products", search: { collection: "weight-gainer" } },
+    collection: "weight-gainer",
+    ctaLabel: "Shop Gainers",
     gradient: "from-ink via-brand to-brand-dark",
   },
 ];
 
-interface HeroSliderProps {
-  showcase: ShopifyProduct[];
-}
+// Per-collection cache so we don't re-fetch on every slide change
+const productCache: Record<string, ShopifyProduct[]> = {};
 
-export function HeroSlider({ showcase }: HeroSliderProps) {
+export function HeroSlider() {
   const [i, setI] = useState(0);
+  const [productsByCol, setProductsByCol] = useState<Record<string, ShopifyProduct[]>>({});
   const slide = SLIDES[i];
 
   useEffect(() => {
@@ -65,12 +73,30 @@ export function HeroSlider({ showcase }: HeroSliderProps) {
     return () => clearInterval(t);
   }, []);
 
+  // Fetch the active slide's collection products on demand
+  useEffect(() => {
+    const handle = slide.collection;
+    if (productCache[handle]) {
+      setProductsByCol((prev) => (prev[handle] ? prev : { ...prev, [handle]: productCache[handle] }));
+      return;
+    }
+    let cancelled = false;
+    storefrontApiRequest(COLLECTION_PRODUCTS_QUERY, { handle, first: 6 })
+      .then((res) => {
+        const edges: ShopifyProduct[] = res?.data?.collection?.products?.edges ?? [];
+        productCache[handle] = edges;
+        if (!cancelled) setProductsByCol((prev) => ({ ...prev, [handle]: edges }));
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [slide.collection]);
+
   const prev = () => setI((p) => (p - 1 + SLIDES.length) % SLIDES.length);
   const next = () => setI((p) => (p + 1) % SLIDES.length);
 
-  // Rotate which 3 products show alongside each slide
-  const showcaseStart = (i * 3) % Math.max(showcase.length - 2, 1);
-  const slideProducts = showcase.slice(showcaseStart, showcaseStart + 3);
+  const slideProducts = (productsByCol[slide.collection] ?? []).slice(0, 3);
 
   return (
     <section className="bg-ink">
@@ -99,8 +125,8 @@ export function HeroSlider({ showcase }: HeroSliderProps) {
                   size="lg"
                   className="bg-background hover:bg-background/90 text-ink h-12 px-7 text-sm uppercase tracking-wider font-bold rounded-full"
                 >
-                  <Link to={slide.cta.to} search={slide.cta.search as never}>
-                    {slide.cta.label} <ArrowRight className="ml-1 h-4 w-4" />
+                  <Link to="/products" search={{ collection: slide.collection }}>
+                    {slide.ctaLabel} <ArrowRight className="ml-1 h-4 w-4" />
                   </Link>
                 </Button>
               </div>
@@ -108,23 +134,37 @@ export function HeroSlider({ showcase }: HeroSliderProps) {
 
             <div className="hidden md:flex justify-center items-center">
               <div className="grid grid-cols-3 gap-3">
-                {slideProducts.map((p, idx) => {
-                  const img = p.node.images.edges[0]?.node;
-                  return (
+                {slideProducts.length > 0 ? (
+                  slideProducts.map((p, idx) => {
+                    const img = p.node.images.edges[0]?.node;
+                    return (
+                      <Link
+                        key={p.node.id}
+                        to="/product/$handle"
+                        params={{ handle: p.node.handle }}
+                        className={`aspect-[3/4] bg-background/95 rounded-xl overflow-hidden p-4 flex items-center justify-center shadow-2xl hover:scale-105 transition-transform ${
+                          idx === 1 ? "scale-110 z-10" : ""
+                        }`}
+                      >
+                        {img ? (
+                          <img src={img.url} alt={img.altText ?? p.node.title} className="max-h-full object-contain" />
+                        ) : (
+                          <Zap className="h-10 w-10 text-brand" />
+                        )}
+                      </Link>
+                    );
+                  })
+                ) : (
+                  // Skeleton placeholders while products load — never show wrong products
+                  [0, 1, 2].map((idx) => (
                     <div
-                      key={p.node.id}
-                      className={`aspect-[3/4] bg-background/95 rounded-xl overflow-hidden p-4 flex items-center justify-center shadow-2xl ${
+                      key={idx}
+                      className={`aspect-[3/4] bg-background/20 rounded-xl animate-pulse ${
                         idx === 1 ? "scale-110 z-10" : ""
                       }`}
-                    >
-                      {img ? (
-                        <img src={img.url} alt={img.altText ?? p.node.title} className="max-h-full object-contain" />
-                      ) : (
-                        <Zap className="h-10 w-10 text-brand" />
-                      )}
-                    </div>
-                  );
-                })}
+                    />
+                  ))
+                )}
               </div>
             </div>
           </div>
