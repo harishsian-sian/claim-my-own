@@ -128,7 +128,8 @@ export const Route = createFileRoute("/api/public/inventory")({
             return Response.json({ locations, inventory: {} });
           }
           const levels: ShopifyInventoryLevel[] =
-            (invResult.data as { inventory_levels?: ShopifyInventoryLevel[] })?.inventory_levels ?? [];
+            (invResult.data as { inventory_levels?: ShopifyInventoryLevel[] })?.inventory_levels ??
+            [];
 
           // Build map: variantGid -> { locationId -> available }
           const inventory: Record<string, Record<string, number>> = {};
@@ -145,10 +146,7 @@ export const Route = createFileRoute("/api/public/inventory")({
           });
         } catch (err: unknown) {
           const message = err instanceof Error ? err.message : "unknown";
-          return Response.json(
-            { error: message, locations: [], inventory: {} },
-            { status: 200 },
-          );
+          return Response.json({ error: message, locations: [], inventory: {} }, { status: 200 });
         }
       },
     },
