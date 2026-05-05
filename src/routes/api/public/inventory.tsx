@@ -17,6 +17,7 @@ function getAdminTokens() {
     if (value && !tokens.includes(value)) tokens.push(value);
   };
 
+  add(process.env.SHOPIFY_ADMIN_TOKEN);
   add(process.env.SHOPIFY_ACCESS_TOKEN);
   for (const [key, value] of Object.entries(process.env)) {
     if (key.startsWith("SHOPIFY_ONLINE_ACCESS_TOKEN")) add(value);
