@@ -105,7 +105,7 @@ function BlogPostPage() {
         <h1 className="font-display text-3xl md:text-5xl font-black uppercase mt-2">{post.title}</h1>
         <p className="mt-4 text-lg text-foreground/80">{body?.intro ?? post.excerpt}</p>
 
-        {body?.sections.map((s) => (
+        {body?.sections.map((s: { h: string; p: string }) => (
           <section key={s.h} className="mt-8">
             <h2 className="font-display text-xl font-bold uppercase">{s.h}</h2>
             <p className="mt-2 text-foreground/90">{s.p}</p>
