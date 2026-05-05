@@ -212,10 +212,20 @@ function ProductDetail() {
           return;
         }
         setProduct(p);
+        // Pick the first AVAILABLE variant so users don't land on a sold-out combo
+        const firstAvailable =
+          p.variants.edges.find((v: any) => v.node.availableForSale)?.node ??
+          p.variants.edges[0]?.node;
         const initial: Record<string, string> = {};
-        p.options?.forEach((o: any) => {
-          initial[o.name] = o.values[0];
-        });
+        if (firstAvailable) {
+          firstAvailable.selectedOptions.forEach((o: any) => {
+            initial[o.name] = o.value;
+          });
+        } else {
+          p.options?.forEach((o: any) => {
+            initial[o.name] = o.values[0];
+          });
+        }
         setSelectedOptions(initial);
 
         // Fetch related products: complementary categories + same brand
