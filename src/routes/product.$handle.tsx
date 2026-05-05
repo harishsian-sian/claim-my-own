@@ -11,6 +11,7 @@ import {
   Award,
   Heart,
   CheckCircle2,
+  RefreshCw,
 } from "lucide-react";
 import { toast } from "sonner";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -161,6 +162,38 @@ function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [locations, setLocations] = useState<Array<{ id: string; name: string; city?: string }>>([]);
   const [inventory, setInventory] = useState<Record<string, Record<string, number>>>({});
+  const [resyncing, setResyncing] = useState(false);
+
+  const fetchInventory = async (variantIds: string) => {
+    const r = await fetch(
+      `/api/public/inventory?variantIds=${encodeURIComponent(variantIds)}&t=${Date.now()}`,
+      { cache: "no-store" },
+    );
+    const j = await r.json();
+    setLocations(j.locations ?? []);
+    setInventory(j.inventory ?? {});
+    return j;
+  };
+
+  const handleResync = async () => {
+    if (!product || resyncing) return;
+    setResyncing(true);
+    try {
+      const variantIds = product.variants.edges.map((v: any) => v.node.id).join(",");
+      const j = await fetchInventory(variantIds);
+      if (j?.error) {
+        toast.error("Re-sync failed", { description: String(j.error) });
+      } else {
+        toast.success("Inventory re-synced", {
+          description: `${(j.locations ?? []).length} locations updated`,
+        });
+      }
+    } catch (e: any) {
+      toast.error("Re-sync failed", { description: e?.message ?? "Unknown error" });
+    } finally {
+      setResyncing(false);
+    }
+  };
 
   const addItem = useCartStore((s) => s.addItem);
   const isLoading = useCartStore((s) => s.isLoading);
@@ -190,13 +223,7 @@ function ProductDetail() {
 
         // Fetch live per-location inventory from Admin API
         const variantIds = p.variants.edges.map((v: any) => v.node.id).join(",");
-        fetch(`/api/public/inventory?variantIds=${encodeURIComponent(variantIds)}`)
-          .then((r) => r.json())
-          .then((j) => {
-            setLocations(j.locations ?? []);
-            setInventory(j.inventory ?? {});
-          })
-          .catch(() => {});
+        fetchInventory(variantIds).catch(() => {});
       })
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false));
@@ -512,9 +539,21 @@ function ProductDetail() {
               {/* In-store availability — live per-location inventory from Shopify */}
               {locations.length > 0 && selectedVariant && (
                 <div className="border rounded-lg p-3 bg-muted/40 space-y-2">
-                  <p className="text-xs font-bold uppercase tracking-wider">
-                    In-Store Availability
-                  </p>
+                  <div className="flex items-center justify-between">
+                    <p className="text-xs font-bold uppercase tracking-wider">
+                      In-Store Availability
+                    </p>
+                    <button
+                      type="button"
+                      onClick={handleResync}
+                      disabled={resyncing}
+                      className="text-[10px] uppercase tracking-wider text-brand hover:text-brand/80 inline-flex items-center gap-1 disabled:opacity-50"
+                      aria-label="Re-sync inventory"
+                    >
+                      <RefreshCw className={`h-3 w-3 ${resyncing ? "animate-spin" : ""}`} />
+                      {resyncing ? "Syncing…" : "Re-sync"}
+                    </button>
+                  </div>
                   {locations.map((loc) => {
                     const qty = inventory[selectedVariant.id]?.[loc.id] ?? 0;
                     const status =
