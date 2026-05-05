@@ -475,17 +475,32 @@ function ProductDetail() {
                     <div className="flex flex-wrap gap-1.5">
                       {opt.values.map((v) => {
                         const selected = selectedOptions[opt.name] === v;
+                        // Check if any variant exists with this option value (combined with currently selected other options) that is in stock
+                        const trial = { ...selectedOptions, [opt.name]: v };
+                        const matching = product.variants.edges.find((ve) =>
+                          ve.node.selectedOptions.every((o) => trial[o.name] === o.value),
+                        );
+                        const valueAvailable = matching
+                          ? matching.node.availableForSale
+                          : product.variants.edges.some(
+                              (ve) =>
+                                ve.node.availableForSale &&
+                                ve.node.selectedOptions.some(
+                                  (o) => o.name === opt.name && o.value === v,
+                                ),
+                            );
                         return (
                           <button
                             key={v}
                             onClick={() =>
                               setSelectedOptions((s) => ({ ...s, [opt.name]: v }))
                             }
-                            className={`px-3 py-1.5 text-xs rounded-md border transition-colors ${
+                            className={`px-3 py-1.5 text-xs rounded-md border transition-colors relative ${
                               selected
                                 ? "border-brand bg-brand/10 text-brand font-semibold"
                                 : "border-border hover:border-foreground"
-                            }`}
+                            } ${!valueAvailable ? "opacity-50 line-through" : ""}`}
+                            title={!valueAvailable ? "Out of stock" : undefined}
                           >
                             {v}
                           </button>
