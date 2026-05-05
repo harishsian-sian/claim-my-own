@@ -38,6 +38,7 @@ async function fetchAdminJson(path: string, token: string) {
 }
 
 export const Route = createFileRoute("/api/public/inventory")({
+  // @ts-expect-error - server handlers supported at runtime by TanStack Start
   server: {
     handlers: {
       GET: async ({ request }: { request: Request }) => {
