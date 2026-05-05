@@ -40,7 +40,7 @@ async function fetchAdminJson(path: string, token: string) {
 export const Route = createFileRoute("/api/public/inventory")({
   server: {
     handlers: {
-      GET: async ({ request }) => {
+      GET: async ({ request }: { request: Request }) => {
         const url = new URL(request.url);
         const variantIds = url.searchParams.get("variantIds")?.split(",").filter(Boolean) ?? [];
         const tokens = getAdminTokens();
