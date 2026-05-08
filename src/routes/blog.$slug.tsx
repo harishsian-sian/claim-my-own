@@ -113,25 +113,34 @@ function BlogPostPage() {
           )}
 
           {/* Sections */}
-          {post.sections.map((s: BlogSection) => (
-            <section key={s.h} id={slugify(s.h)} className="mt-10">
-              <h2 className="font-display text-2xl font-bold uppercase">{s.h}</h2>
-              <p className="mt-3 text-foreground/90 leading-relaxed">{s.p}</p>
-              {s.paragraphs?.map((para, idx) => (
-                <p key={idx} className="mt-3 text-foreground/90 leading-relaxed">{para}</p>
-              ))}
-              {s.bullets && s.bullets.length > 0 && (
-                <ul className="mt-4 space-y-2 list-disc pl-6 text-foreground/90 leading-relaxed">
-                  {s.bullets.map((b, i) => <li key={i}>{b}</li>)}
-                </ul>
-              )}
-              {s.callout && (
-                <div className="mt-4 border-l-4 border-brand bg-brand/10 px-4 py-3 rounded-r-md text-sm text-foreground/90 italic">
-                  {s.callout}
+          {post.sections.map((s: BlogSection) => {
+            const primaryParagraphs = (s.p ?? "").split(/\n\s*\n/).map((x) => x.trim()).filter(Boolean);
+            const extraParagraphs = (s.paragraphs ?? []).flatMap((para) =>
+              para.split(/\n\s*\n/).map((x) => x.trim()).filter(Boolean)
+            );
+            const allParagraphs = [...primaryParagraphs, ...extraParagraphs];
+            return (
+              <section key={s.h} id={slugify(s.h)} className="mt-12">
+                <h2 className="font-display text-2xl md:text-3xl font-bold uppercase tracking-tight">{s.h}</h2>
+                <div className="mt-4 space-y-4 text-base md:text-lg text-foreground/90 leading-[1.75]">
+                  {allParagraphs.map((para, idx) => (
+                    <p key={idx}>{para}</p>
+                  ))}
                 </div>
-              )}
-            </section>
-          ))}
+                {s.bullets && s.bullets.length > 0 && (
+                  <ul className="mt-5 space-y-2.5 list-disc pl-6 text-foreground/90 leading-relaxed marker:text-brand">
+                    {s.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                  </ul>
+                )}
+                {s.callout && (
+                  <div className="mt-5 border-l-4 border-brand bg-brand/10 px-5 py-4 rounded-r-lg text-foreground/90">
+                    <p className="text-xs uppercase tracking-widest text-brand font-bold mb-1">Key takeaway</p>
+                    <p className="italic">{s.callout}</p>
+                  </div>
+                )}
+              </section>
+            );
+          })}
 
           {/* Related products */}
           {post.relatedProducts && post.relatedProducts.length > 0 && (
