@@ -3,6 +3,9 @@ export type BlogCategory =
   | "fat-loss"
   | "recovery"
   | "liver-health"
+  | "joint-health"
+  | "focus-energy"
+  | "mental-alertness"
   | "beginner-guides"
   | "supplement-comparisons"
   | "performance"
@@ -14,6 +17,9 @@ export const CATEGORY_META: Record<BlogCategory, { label: string; description: s
   "fat-loss": { label: "Fat Loss", description: "Cut smart with science-backed nutrition and supplements." },
   recovery: { label: "Recovery", description: "Bounce back faster with the right post-workout protocol." },
   "liver-health": { label: "Liver Health", description: "Support detox, hormones and overall wellbeing with liver-care supplements." },
+  "joint-health": { label: "Joint Health", description: "Protect your joints, tendons and ligaments through every heavy training block." },
+  "focus-energy": { label: "Focus & Energy", description: "Clean, sustained energy and laser focus — in the gym, at work, every day." },
+  "mental-alertness": { label: "Mental Alertness", description: "Nootropics and brain-support supplements for sharper thinking and reaction time." },
   "beginner-guides": { label: "Beginner Guides", description: "Just starting out? Begin here." },
   "supplement-comparisons": { label: "Supplement Comparisons", description: "Side-by-side breakdowns to help you pick the right product." },
   performance: { label: "Performance", description: "Train harder, hit PBs and dominate your sport." },
@@ -35,7 +41,14 @@ export const DEFAULT_AUTHOR: BlogAuthor = {
 
 export interface BlogSection {
   h: string;
+  /** Single paragraph (legacy / short sections). */
   p: string;
+  /** Optional additional paragraphs for long-form articles. Rendered after `p`. */
+  paragraphs?: string[];
+  /** Optional bullet list rendered after the paragraphs. */
+  bullets?: string[];
+  /** Optional "key takeaway" callout rendered at the end of the section. */
+  callout?: string;
 }
 
 export interface BlogPost {
