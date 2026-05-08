@@ -9,7 +9,7 @@ import { BrandStrip } from "@/components/BrandStrip";
 import { VitaminBrandStrip } from "@/components/VitaminBrandStrip";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import { Button } from "@/components/ui/button";
-import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
+import { storefrontApiRequest, PRODUCTS_QUERY, BEST_SELLERS_QUERY, type ShopifyProduct } from "@/lib/shopify";
 import { useCollections } from "@/hooks/useCollections";
 import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
 import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
