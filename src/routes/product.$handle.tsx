@@ -70,9 +70,9 @@ export const Route = createFileRoute("/product/$handle")({
         links: [{ rel: "canonical", href: url }],
       };
     }
-    const title = `${seo.title} — 10% OFF with code MAY10 | MeltonSupps`;
+    const title = `${seo.title} | MeltonSupps`;
     const baseDesc = seo.description || `Buy ${seo.title} online at MeltonSupps. Free shipping over $150.`;
-    const desc = `${baseDesc} Use code MAY10 at checkout for 10% off.`.slice(0, 300);
+    const desc = `${baseDesc}`.slice(0, 300);
     return {
       meta: [
         { title },
