@@ -70,9 +70,15 @@ export function ProductCard({ product }: { product: ShopifyProduct }) {
           {node.title}
         </h3>
         <div className="flex items-center justify-between mt-3 pt-3 border-t">
-          <span className="font-display font-bold text-lg text-foreground">
-            {formatMoney(price.amount, price.currencyCode)}
-          </span>
+          <div className="flex flex-col">
+            <span className="font-display font-bold text-lg text-foreground">
+              {formatMoney((parseFloat(price.amount) * 0.9).toFixed(2), price.currencyCode)}
+            </span>
+            <span className="text-[10px] text-muted-foreground leading-tight">
+              <span className="line-through">{formatMoney(price.amount, price.currencyCode)}</span>
+              <span className="ml-1 text-brand font-semibold">with JAN10</span>
+            </span>
+          </div>
           <Button
             size="icon"
             onClick={handleAdd}
