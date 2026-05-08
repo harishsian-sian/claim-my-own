@@ -183,13 +183,14 @@ function Index() {
               className="group relative overflow-hidden rounded-2xl bg-ink p-8 md:p-10 min-h-[220px] flex flex-col justify-between text-background hover:shadow-xl transition-shadow border border-background/10"
             >
               <div>
-                <Percent className="h-8 w-8 mb-3 text-brand" />
-                <span className="text-xs uppercase tracking-[0.3em] font-bold text-brand">This week only</span>
+                <Percent className="h-8 w-8 mb-3 text-brand-light" />
+                <span className="text-xs uppercase tracking-[0.3em] font-bold text-brand-light">This week only</span>
                 <h3 className="font-display text-2xl md:text-3xl font-black uppercase mt-2">Weekly Specials</h3>
                 <p className="text-sm text-background/75 mt-2 max-w-xs">Fresh deals dropped every Monday — top brands at our lowest prices.</p>
               </div>
-              <span className="inline-flex items-center text-sm font-bold uppercase tracking-wider mt-4 text-brand group-hover:translate-x-1 transition-transform">
+              <span className="inline-flex items-center text-sm font-bold uppercase tracking-wider mt-4 text-brand-light group-hover:translate-x-1 transition-transform">
                 Shop specials <ArrowRight className="ml-1 h-4 w-4" />
+              </span>
               </span>
             </Link>
           </div>
