@@ -30,6 +30,7 @@ import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BrandsRouteImport } from './routes/brands'
 import { Route as BlogsRouteImport } from './routes/blogs'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as BestSellersRouteImport } from './routes/best-sellers'
 import { Route as AuthenticityRouteImport } from './routes/authenticity'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -158,6 +159,11 @@ const BlogsRoute = BlogsRouteImport.update({
   path: '/blogs',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BestSellersRoute = BestSellersRouteImport.update({
   id: '/best-sellers',
   path: '/best-sellers',
@@ -199,9 +205,9 @@ const CollectionsIndexRoute = CollectionsIndexRouteImport.update({
   getParentRoute: () => CollectionsRoute,
 } as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
-  id: '/blog/',
-  path: '/blog/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => BlogRoute,
 } as any)
 const StoresHandleRoute = StoresHandleRouteImport.update({
   id: '/$handle',
@@ -259,9 +265,9 @@ const BlogsSplatRoute = BlogsSplatRouteImport.update({
   getParentRoute: () => BlogsRoute,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: '/blog/$slug',
-  path: '/blog/$slug',
-  getParentRoute: () => rootRouteImport,
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
 } as any)
 const ApiPublicInventoryRoute = ApiPublicInventoryRouteImport.update({
   id: '/api/public/inventory',
@@ -276,6 +282,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/authenticity': typeof AuthenticityRoute
   '/best-sellers': typeof BestSellersRoute
+  '/blog': typeof BlogRouteWithChildren
   '/blogs': typeof BlogsRouteWithChildren
   '/brands': typeof BrandsRoute
   '/categories': typeof CategoriesRoute
@@ -366,6 +373,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/authenticity': typeof AuthenticityRoute
   '/best-sellers': typeof BestSellersRoute
+  '/blog': typeof BlogRouteWithChildren
   '/blogs': typeof BlogsRouteWithChildren
   '/brands': typeof BrandsRoute
   '/categories': typeof CategoriesRoute
@@ -413,6 +421,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/authenticity'
     | '/best-sellers'
+    | '/blog'
     | '/blogs'
     | '/brands'
     | '/categories'
@@ -502,6 +511,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/authenticity'
     | '/best-sellers'
+    | '/blog'
     | '/blogs'
     | '/brands'
     | '/categories'
@@ -548,6 +558,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   AuthenticityRoute: typeof AuthenticityRoute
   BestSellersRoute: typeof BestSellersRoute
+  BlogRoute: typeof BlogRouteWithChildren
   BlogsRoute: typeof BlogsRouteWithChildren
   BrandsRoute: typeof BrandsRoute
   CategoriesRoute: typeof CategoriesRoute
@@ -569,14 +580,12 @@ export interface RootRouteChildren {
   TrackOrderRoute: typeof TrackOrderRoute
   WhyChooseUsRoute: typeof WhyChooseUsRoute
   WishlistRoute: typeof WishlistRoute
-  BlogSlugRoute: typeof BlogSlugRoute
   IngredientsSlugRoute: typeof IngredientsSlugRoute
   LocalSlugRoute: typeof LocalSlugRoute
   PagesHandleRoute: typeof PagesHandleRoute
   PoliciesHandleRoute: typeof PoliciesHandleRoute
   ProductCategoryHandleRoute: typeof ProductCategoryHandleRoute
   ProductHandleRoute: typeof ProductHandleRoute
-  BlogIndexRoute: typeof BlogIndexRoute
   LocalIndexRoute: typeof LocalIndexRoute
   ApiPublicInventoryRoute: typeof ApiPublicInventoryRoute
 }
@@ -730,6 +739,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/best-sellers': {
       id: '/best-sellers'
       path: '/best-sellers'
@@ -788,10 +804,10 @@ declare module '@tanstack/react-router' {
     }
     '/blog/': {
       id: '/blog/'
-      path: '/blog'
+      path: '/'
       fullPath: '/blog/'
       preLoaderRoute: typeof BlogIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof BlogRoute
     }
     '/stores/$handle': {
       id: '/stores/$handle'
@@ -872,10 +888,10 @@ declare module '@tanstack/react-router' {
     }
     '/blog/$slug': {
       id: '/blog/$slug'
-      path: '/blog/$slug'
+      path: '/$slug'
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof BlogRoute
     }
     '/api/public/inventory': {
       id: '/api/public/inventory'
@@ -886,6 +902,18 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface BlogRouteChildren {
+  BlogSlugRoute: typeof BlogSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogSlugRoute: BlogSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 interface BlogsRouteChildren {
   BlogsSplatRoute: typeof BlogsSplatRoute
@@ -943,6 +971,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   AuthenticityRoute: AuthenticityRoute,
   BestSellersRoute: BestSellersRoute,
+  BlogRoute: BlogRouteWithChildren,
   BlogsRoute: BlogsRouteWithChildren,
   BrandsRoute: BrandsRoute,
   CategoriesRoute: CategoriesRoute,
@@ -964,14 +993,12 @@ const rootRouteChildren: RootRouteChildren = {
   TrackOrderRoute: TrackOrderRoute,
   WhyChooseUsRoute: WhyChooseUsRoute,
   WishlistRoute: WishlistRoute,
-  BlogSlugRoute: BlogSlugRoute,
   IngredientsSlugRoute: IngredientsSlugRoute,
   LocalSlugRoute: LocalSlugRoute,
   PagesHandleRoute: PagesHandleRoute,
   PoliciesHandleRoute: PoliciesHandleRoute,
   ProductCategoryHandleRoute: ProductCategoryHandleRoute,
   ProductHandleRoute: ProductHandleRoute,
-  BlogIndexRoute: BlogIndexRoute,
   LocalIndexRoute: LocalIndexRoute,
   ApiPublicInventoryRoute: ApiPublicInventoryRoute,
 }
