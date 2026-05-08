@@ -13,6 +13,7 @@ import { Route as TrackOrderRouteImport } from './routes/track-order'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ShippingRouteImport } from './routes/shipping'
+import { Route as SearchRouteImport } from './routes/search'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as ReturnsRouteImport } from './routes/returns'
 import { Route as ProductsRouteImport } from './routes/products'
@@ -21,6 +22,7 @@ import { Route as PriceMatchRouteImport } from './routes/price-match'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BrandsRouteImport } from './routes/brands'
 import { Route as BlogRouteImport } from './routes/blog'
@@ -28,7 +30,11 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductsHandleRouteImport } from './routes/products.$handle'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
+import { Route as PoliciesHandleRouteImport } from './routes/policies.$handle'
+import { Route as PagesHandleRouteImport } from './routes/pages.$handle'
+import { Route as CollectionsAllRouteImport } from './routes/collections.all'
 import { Route as CollectionsHandleRouteImport } from './routes/collections.$handle'
+import { Route as BlogsSplatRouteImport } from './routes/blogs.$'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ApiPublicInventoryRouteImport } from './routes/api/public/inventory'
 
@@ -50,6 +56,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ShippingRoute = ShippingRouteImport.update({
   id: '/shipping',
   path: '/shipping',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
@@ -92,6 +103,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CollectionsRoute = CollectionsRouteImport.update({
+  id: '/collections',
+  path: '/collections',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CategoriesRoute = CategoriesRouteImport.update({
   id: '/categories',
   path: '/categories',
@@ -127,9 +143,29 @@ const ProductHandleRoute = ProductHandleRouteImport.update({
   path: '/product/$handle',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PoliciesHandleRoute = PoliciesHandleRouteImport.update({
+  id: '/policies/$handle',
+  path: '/policies/$handle',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagesHandleRoute = PagesHandleRouteImport.update({
+  id: '/pages/$handle',
+  path: '/pages/$handle',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CollectionsAllRoute = CollectionsAllRouteImport.update({
+  id: '/all',
+  path: '/all',
+  getParentRoute: () => CollectionsRoute,
+} as any)
 const CollectionsHandleRoute = CollectionsHandleRouteImport.update({
-  id: '/collections/$handle',
-  path: '/collections/$handle',
+  id: '/$handle',
+  path: '/$handle',
+  getParentRoute: () => CollectionsRoute,
+} as any)
+const BlogsSplatRoute = BlogsSplatRouteImport.update({
+  id: '/blogs/$',
+  path: '/blogs/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
@@ -149,6 +185,7 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRouteWithChildren
   '/brands': typeof BrandsRoute
   '/categories': typeof CategoriesRoute
+  '/collections': typeof CollectionsRouteWithChildren
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/faq': typeof FaqRoute
@@ -157,12 +194,17 @@ export interface FileRoutesByFullPath {
   '/products': typeof ProductsRouteWithChildren
   '/returns': typeof ReturnsRoute
   '/robots.txt': typeof RobotsDottxtRoute
+  '/search': typeof SearchRoute
   '/shipping': typeof ShippingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/blogs/$': typeof BlogsSplatRoute
   '/collections/$handle': typeof CollectionsHandleRoute
+  '/collections/all': typeof CollectionsAllRoute
+  '/pages/$handle': typeof PagesHandleRoute
+  '/policies/$handle': typeof PoliciesHandleRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/api/public/inventory': typeof ApiPublicInventoryRoute
@@ -173,6 +215,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRouteWithChildren
   '/brands': typeof BrandsRoute
   '/categories': typeof CategoriesRoute
+  '/collections': typeof CollectionsRouteWithChildren
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/faq': typeof FaqRoute
@@ -181,12 +224,17 @@ export interface FileRoutesByTo {
   '/products': typeof ProductsRouteWithChildren
   '/returns': typeof ReturnsRoute
   '/robots.txt': typeof RobotsDottxtRoute
+  '/search': typeof SearchRoute
   '/shipping': typeof ShippingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/blogs/$': typeof BlogsSplatRoute
   '/collections/$handle': typeof CollectionsHandleRoute
+  '/collections/all': typeof CollectionsAllRoute
+  '/pages/$handle': typeof PagesHandleRoute
+  '/policies/$handle': typeof PoliciesHandleRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/api/public/inventory': typeof ApiPublicInventoryRoute
@@ -198,6 +246,7 @@ export interface FileRoutesById {
   '/blog': typeof BlogRouteWithChildren
   '/brands': typeof BrandsRoute
   '/categories': typeof CategoriesRoute
+  '/collections': typeof CollectionsRouteWithChildren
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/faq': typeof FaqRoute
@@ -206,12 +255,17 @@ export interface FileRoutesById {
   '/products': typeof ProductsRouteWithChildren
   '/returns': typeof ReturnsRoute
   '/robots.txt': typeof RobotsDottxtRoute
+  '/search': typeof SearchRoute
   '/shipping': typeof ShippingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/blogs/$': typeof BlogsSplatRoute
   '/collections/$handle': typeof CollectionsHandleRoute
+  '/collections/all': typeof CollectionsAllRoute
+  '/pages/$handle': typeof PagesHandleRoute
+  '/policies/$handle': typeof PoliciesHandleRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/api/public/inventory': typeof ApiPublicInventoryRoute
@@ -224,6 +278,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/brands'
     | '/categories'
+    | '/collections'
     | '/contact'
     | '/disclaimer'
     | '/faq'
@@ -232,12 +287,17 @@ export interface FileRouteTypes {
     | '/products'
     | '/returns'
     | '/robots.txt'
+    | '/search'
     | '/shipping'
     | '/sitemap.xml'
     | '/terms'
     | '/track-order'
     | '/blog/$slug'
+    | '/blogs/$'
     | '/collections/$handle'
+    | '/collections/all'
+    | '/pages/$handle'
+    | '/policies/$handle'
     | '/product/$handle'
     | '/products/$handle'
     | '/api/public/inventory'
@@ -248,6 +308,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/brands'
     | '/categories'
+    | '/collections'
     | '/contact'
     | '/disclaimer'
     | '/faq'
@@ -256,12 +317,17 @@ export interface FileRouteTypes {
     | '/products'
     | '/returns'
     | '/robots.txt'
+    | '/search'
     | '/shipping'
     | '/sitemap.xml'
     | '/terms'
     | '/track-order'
     | '/blog/$slug'
+    | '/blogs/$'
     | '/collections/$handle'
+    | '/collections/all'
+    | '/pages/$handle'
+    | '/policies/$handle'
     | '/product/$handle'
     | '/products/$handle'
     | '/api/public/inventory'
@@ -272,6 +338,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/brands'
     | '/categories'
+    | '/collections'
     | '/contact'
     | '/disclaimer'
     | '/faq'
@@ -280,12 +347,17 @@ export interface FileRouteTypes {
     | '/products'
     | '/returns'
     | '/robots.txt'
+    | '/search'
     | '/shipping'
     | '/sitemap.xml'
     | '/terms'
     | '/track-order'
     | '/blog/$slug'
+    | '/blogs/$'
     | '/collections/$handle'
+    | '/collections/all'
+    | '/pages/$handle'
+    | '/policies/$handle'
     | '/product/$handle'
     | '/products/$handle'
     | '/api/public/inventory'
@@ -297,6 +369,7 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRouteWithChildren
   BrandsRoute: typeof BrandsRoute
   CategoriesRoute: typeof CategoriesRoute
+  CollectionsRoute: typeof CollectionsRouteWithChildren
   ContactRoute: typeof ContactRoute
   DisclaimerRoute: typeof DisclaimerRoute
   FaqRoute: typeof FaqRoute
@@ -305,11 +378,14 @@ export interface RootRouteChildren {
   ProductsRoute: typeof ProductsRouteWithChildren
   ReturnsRoute: typeof ReturnsRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
+  SearchRoute: typeof SearchRoute
   ShippingRoute: typeof ShippingRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   TrackOrderRoute: typeof TrackOrderRoute
-  CollectionsHandleRoute: typeof CollectionsHandleRoute
+  BlogsSplatRoute: typeof BlogsSplatRoute
+  PagesHandleRoute: typeof PagesHandleRoute
+  PoliciesHandleRoute: typeof PoliciesHandleRoute
   ProductHandleRoute: typeof ProductHandleRoute
   ApiPublicInventoryRoute: typeof ApiPublicInventoryRoute
 }
@@ -342,6 +418,13 @@ declare module '@tanstack/react-router' {
       path: '/shipping'
       fullPath: '/shipping'
       preLoaderRoute: typeof ShippingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/robots.txt': {
@@ -400,6 +483,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/collections': {
+      id: '/collections'
+      path: '/collections'
+      fullPath: '/collections'
+      preLoaderRoute: typeof CollectionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/categories': {
       id: '/categories'
       path: '/categories'
@@ -449,11 +539,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductHandleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/policies/$handle': {
+      id: '/policies/$handle'
+      path: '/policies/$handle'
+      fullPath: '/policies/$handle'
+      preLoaderRoute: typeof PoliciesHandleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pages/$handle': {
+      id: '/pages/$handle'
+      path: '/pages/$handle'
+      fullPath: '/pages/$handle'
+      preLoaderRoute: typeof PagesHandleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/collections/all': {
+      id: '/collections/all'
+      path: '/all'
+      fullPath: '/collections/all'
+      preLoaderRoute: typeof CollectionsAllRouteImport
+      parentRoute: typeof CollectionsRoute
+    }
     '/collections/$handle': {
       id: '/collections/$handle'
-      path: '/collections/$handle'
+      path: '/$handle'
       fullPath: '/collections/$handle'
       preLoaderRoute: typeof CollectionsHandleRouteImport
+      parentRoute: typeof CollectionsRoute
+    }
+    '/blogs/$': {
+      id: '/blogs/$'
+      path: '/blogs/$'
+      fullPath: '/blogs/$'
+      preLoaderRoute: typeof BlogsSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/$slug': {
@@ -483,6 +601,20 @@ const BlogRouteChildren: BlogRouteChildren = {
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
+interface CollectionsRouteChildren {
+  CollectionsHandleRoute: typeof CollectionsHandleRoute
+  CollectionsAllRoute: typeof CollectionsAllRoute
+}
+
+const CollectionsRouteChildren: CollectionsRouteChildren = {
+  CollectionsHandleRoute: CollectionsHandleRoute,
+  CollectionsAllRoute: CollectionsAllRoute,
+}
+
+const CollectionsRouteWithChildren = CollectionsRoute._addFileChildren(
+  CollectionsRouteChildren,
+)
+
 interface ProductsRouteChildren {
   ProductsHandleRoute: typeof ProductsHandleRoute
 }
@@ -501,6 +633,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRouteWithChildren,
   BrandsRoute: BrandsRoute,
   CategoriesRoute: CategoriesRoute,
+  CollectionsRoute: CollectionsRouteWithChildren,
   ContactRoute: ContactRoute,
   DisclaimerRoute: DisclaimerRoute,
   FaqRoute: FaqRoute,
@@ -509,14 +642,26 @@ const rootRouteChildren: RootRouteChildren = {
   ProductsRoute: ProductsRouteWithChildren,
   ReturnsRoute: ReturnsRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
+  SearchRoute: SearchRoute,
   ShippingRoute: ShippingRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   TrackOrderRoute: TrackOrderRoute,
-  CollectionsHandleRoute: CollectionsHandleRoute,
+  BlogsSplatRoute: BlogsSplatRoute,
+  PagesHandleRoute: PagesHandleRoute,
+  PoliciesHandleRoute: PoliciesHandleRoute,
   ProductHandleRoute: ProductHandleRoute,
   ApiPublicInventoryRoute: ApiPublicInventoryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
