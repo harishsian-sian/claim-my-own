@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TrackOrderRouteImport } from './routes/track-order'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ShippingRouteImport } from './routes/shipping'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as ReturnsRouteImport } from './routes/returns'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PrivacyRouteImport } from './routes/privacy'
@@ -42,6 +43,11 @@ const TermsRoute = TermsRouteImport.update({
 const ShippingRoute = ShippingRouteImport.update({
   id: '/shipping',
   path: '/shipping',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReturnsRoute = ReturnsRouteImport.update({
@@ -138,6 +144,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/products': typeof ProductsRouteWithChildren
   '/returns': typeof ReturnsRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/shipping': typeof ShippingRoute
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
@@ -159,6 +166,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/products': typeof ProductsRouteWithChildren
   '/returns': typeof ReturnsRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/shipping': typeof ShippingRoute
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
@@ -181,6 +189,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/products': typeof ProductsRouteWithChildren
   '/returns': typeof ReturnsRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/shipping': typeof ShippingRoute
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
@@ -204,6 +213,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/products'
     | '/returns'
+    | '/robots.txt'
     | '/shipping'
     | '/terms'
     | '/track-order'
@@ -225,6 +235,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/products'
     | '/returns'
+    | '/robots.txt'
     | '/shipping'
     | '/terms'
     | '/track-order'
@@ -246,6 +257,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/products'
     | '/returns'
+    | '/robots.txt'
     | '/shipping'
     | '/terms'
     | '/track-order'
@@ -268,6 +280,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   ProductsRoute: typeof ProductsRouteWithChildren
   ReturnsRoute: typeof ReturnsRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
   ShippingRoute: typeof ShippingRoute
   TermsRoute: typeof TermsRoute
   TrackOrderRoute: typeof TrackOrderRoute
@@ -296,6 +309,13 @@ declare module '@tanstack/react-router' {
       path: '/shipping'
       fullPath: '/shipping'
       preLoaderRoute: typeof ShippingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/returns': {
@@ -448,6 +468,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   ProductsRoute: ProductsRouteWithChildren,
   ReturnsRoute: ReturnsRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
   ShippingRoute: ShippingRoute,
   TermsRoute: TermsRoute,
   TrackOrderRoute: TrackOrderRoute,
