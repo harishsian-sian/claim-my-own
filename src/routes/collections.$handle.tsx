@@ -10,6 +10,8 @@ import {
   COLLECTION_PRODUCTS_QUERY,
   type ShopifyProduct,
 } from "@/lib/shopify";
+import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
+import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
 
 export const Route = createFileRoute("/collections/$handle")({
   component: CollectionPage,
@@ -34,6 +36,10 @@ const PAGE_SIZE = 24;
 
 function CollectionPage() {
   const { handle } = Route.useParams();
+  const legacyCategoryHandle = getLegacyCategoryHandle(handle);
+  const canonicalPath = BRAND_COLLECTION_HANDLES.has(handle)
+    ? `/collections/${handle}`
+    : `/product-category/${legacyCategoryHandle}`;
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [cursor, setCursor] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
@@ -90,6 +96,9 @@ function CollectionPage() {
     <div className="min-h-screen flex flex-col bg-background">
       <SiteHeader />
       <main className="flex-1 container mx-auto px-4 py-10">
+        {!BRAND_COLLECTION_HANDLES.has(handle) && (
+          <link rel="canonical" href={`https://meltonsupps.com.au${canonicalPath}`} />
+        )}
         <div className="mb-8">
           <h1 className="font-display text-3xl md:text-4xl font-bold uppercase">
             {collectionTitle ?? handle}
