@@ -601,25 +601,81 @@ function ProductDetail() {
               {/* Quantity */}
               <div className="border-t pt-4">
                 <p className="text-[11px] uppercase tracking-wider font-bold mb-2">Quantity</p>
-                <div className="flex items-center border rounded-md w-fit">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-10 w-10"
-                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  >
-                    <Minus className="h-4 w-4" />
-                  </Button>
-                  <span className="w-10 text-center font-semibold">{quantity}</span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-10 w-10"
-                    onClick={() => setQuantity((q) => q + 1)}
-                  >
-                    <Plus className="h-4 w-4" />
-                  </Button>
+                <div className="flex items-center gap-3 flex-wrap">
+                  <div className="flex items-center border rounded-md w-fit">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-10 w-10"
+                      onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                    >
+                      <Minus className="h-4 w-4" />
+                    </Button>
+                    <span className="w-10 text-center font-semibold">{quantity}</span>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-10 w-10"
+                      onClick={() => setQuantity((q) => q + 1)}
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <div className="flex gap-1.5">
+                    {[2, 3].map((n) => {
+                      const pct = n === 2 ? 15 : 20;
+                      const active = quantity === n;
+                      return (
+                        <button
+                          key={n}
+                          onClick={() => setQuantity(n)}
+                          className={`px-3 h-10 text-xs font-bold uppercase tracking-wide rounded-md border transition-colors ${
+                            active
+                              ? "border-brand bg-brand text-brand-foreground"
+                              : "border-border hover:border-brand text-foreground"
+                          }`}
+                        >
+                          Buy {n} · {pct}% OFF
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
+                {(() => {
+                  const unit = parseFloat(price.amount);
+                  const subtotal = unit * quantity;
+                  const pct = quantity >= 3 ? 0.2 : quantity === 2 ? 0.15 : 0;
+                  const savings = subtotal * pct;
+                  const total = subtotal - savings;
+                  if (pct === 0) return null;
+                  return (
+                    <div className="mt-3 rounded-md border border-brand/30 bg-brand/5 p-3 text-sm">
+                      <div className="flex items-center justify-between">
+                        <span className="text-muted-foreground">Subtotal ({quantity}×)</span>
+                        <span className="line-through text-muted-foreground">
+                          {formatMoney(subtotal.toFixed(2), price.currencyCode)}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between text-brand font-semibold">
+                        <span>Bundle saving ({Math.round(pct * 100)}% OFF)</span>
+                        <span>− {formatMoney(savings.toFixed(2), price.currencyCode)}</span>
+                      </div>
+                      <div className="flex items-center justify-between mt-1 pt-1 border-t border-brand/20">
+                        <span className="font-bold">You pay</span>
+                        <span className="font-display font-black text-lg">
+                          {formatMoney(total.toFixed(2), price.currencyCode)}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-muted-foreground mt-1">
+                        Use code{" "}
+                        <span className="font-mono font-bold text-foreground">
+                          {quantity >= 3 ? "BUY3SAVE20" : "BUY2SAVE15"}
+                        </span>{" "}
+                        at checkout.
+                      </p>
+                    </div>
+                  );
+                })()}
               </div>
 
               {/* Availability */}
