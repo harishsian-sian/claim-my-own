@@ -89,8 +89,11 @@ export const Route = createFileRoute("/api/public/inventory")({
           // Convert Storefront variant GIDs (gid://shopify/ProductVariant/123) to numeric IDs
           const numericIds = variantIds
             .map((v) => v.split("/").pop())
-            .filter(Boolean)
-            .join(",");
+            .filter((id): id is string => Boolean(id));
+
+          if (numericIds.length === 0) {
+            return Response.json({ locations, inventory: {} });
+          }
 
           const variantGidByNumericId = new Map(
             variantIds
@@ -98,16 +101,15 @@ export const Route = createFileRoute("/api/public/inventory")({
               .filter(([id]) => Boolean(id)),
           );
 
-          // Get variants -> inventory_item_id
-          const varResult = await fetchAdminJson(
-            `/variants.json?ids=${numericIds}&fields=id,inventory_item_id`,
-            token,
+          // Get variants -> inventory_item_id. Shopify's global variants list can ignore
+          // an ids filter, so fetch each requested variant explicitly to avoid mismatches.
+          const variantResults = await Promise.all(
+            numericIds.map((id) => fetchAdminJson(`/variants/${id}.json?fields=id,inventory_item_id`, token)),
           );
-          if (!varResult.ok) {
-            return Response.json({ locations, inventory: {} });
-          }
-          const variants: ShopifyVariantInventory[] =
-            (varResult.data as { variants?: ShopifyVariantInventory[] })?.variants ?? [];
+          const variants: ShopifyVariantInventory[] = variantResults
+            .filter((result) => result.ok)
+            .map((result) => (result.data as { variant?: ShopifyVariantInventory }).variant)
+            .filter((variant): variant is ShopifyVariantInventory => Boolean(variant));
           const itemToVariant = new Map<number, string>();
           variants.forEach((v) => {
             itemToVariant.set(
