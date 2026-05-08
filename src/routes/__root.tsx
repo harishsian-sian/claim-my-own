@@ -116,6 +116,14 @@ function RootComponent() {
   useCartSync();
   return (
     <>
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-KQQ42DK2"
+          height="0"
+          width="0"
+          style={{ display: "none", visibility: "hidden" }}
+        />
+      </noscript>
       <Outlet />
       <Toaster position="top-right" />
     </>
