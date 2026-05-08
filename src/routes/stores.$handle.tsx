@@ -111,7 +111,7 @@ function StorePage() {
                 <dd className="mt-2">
                   <table className="w-full text-sm">
                     <tbody>
-                      {s.hours.map((h) => (
+                      {s.hours.map((h: { day: string; time: string }) => (
                         <tr key={h.day} className="border-b last:border-0">
                           <td className="py-2 font-semibold">{h.day}</td>
                           <td className="py-2 text-right text-muted-foreground">{h.time}</td>
