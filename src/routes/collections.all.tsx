@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ProductsPageContent } from "./products";
 
 export const Route = createFileRoute("/collections/all")({
@@ -6,5 +6,7 @@ export const Route = createFileRoute("/collections/all")({
 });
 
 function CollectionsAllPage() {
-  return <ProductsPageContent />;
+  const navigate = useNavigate({ from: "/collections/all" });
+
+  return <ProductsPageContent onSearchChange={(search) => navigate({ to: "/products", search })} />;
 }
