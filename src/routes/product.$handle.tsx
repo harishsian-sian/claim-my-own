@@ -70,8 +70,9 @@ export const Route = createFileRoute("/product/$handle")({
         links: [{ rel: "canonical", href: url }],
       };
     }
-    const title = `${seo.title} — MeltonSupps`;
-    const desc = seo.description || `Buy ${seo.title} online at MeltonSupps. Free shipping over $150.`;
+    const title = `${seo.title} — 10% OFF with code JAN10 | MeltonSupps`;
+    const baseDesc = seo.description || `Buy ${seo.title} online at MeltonSupps. Free shipping over $150.`;
+    const desc = `${baseDesc} Use code JAN10 at checkout for 10% off.`.slice(0, 300);
     return {
       meta: [
         { title },
@@ -102,12 +103,19 @@ export const Route = createFileRoute("/product/$handle")({
             offers: seo.price
               ? {
                   "@type": "Offer",
-                  price: seo.price,
+                  price: (parseFloat(seo.price) * 0.9).toFixed(2),
                   priceCurrency: seo.currency,
                   availability: seo.available
                     ? "https://schema.org/InStock"
                     : "https://schema.org/OutOfStock",
                   url,
+                  priceValidUntil: "2026-12-31",
+                  priceSpecification: {
+                    "@type": "UnitPriceSpecification",
+                    price: (parseFloat(seo.price) * 0.9).toFixed(2),
+                    priceCurrency: seo.currency,
+                    valueAddedTaxIncluded: true,
+                  },
                 }
               : undefined,
           }),
@@ -529,13 +537,21 @@ function ProductDetail() {
           <div className="lg:col-span-3">
             <div className="lg:sticky lg:top-24 border-2 rounded-2xl p-5 bg-card shadow-sm space-y-4">
               <div>
-                <p className="font-display text-3xl font-black text-destructive">
-                  {formatMoney(price.amount, price.currencyCode)}
+                <div className="flex items-baseline gap-2 flex-wrap">
+                  <p className="font-display text-3xl font-black text-destructive">
+                    {formatMoney((parseFloat(price.amount) * 0.9).toFixed(2), price.currencyCode)}
+                  </p>
+                  <p className="text-base text-muted-foreground line-through">
+                    {formatMoney(price.amount, price.currencyCode)}
+                  </p>
+                </div>
+                <p className="mt-2 inline-flex items-center gap-1 bg-brand/10 text-brand px-2 py-1 rounded text-[11px] font-bold uppercase tracking-wider">
+                  Save 10% with code JAN10 at checkout
                 </p>
-                <p className="text-xs text-muted-foreground mt-1">
+                <p className="text-xs text-muted-foreground mt-2">
                   or 4 interest-free payments of{" "}
                   <span className="font-semibold text-foreground">
-                    {formatMoney(parseFloat(price.amount) / 4, price.currencyCode)}
+                    {formatMoney((parseFloat(price.amount) * 0.9) / 4, price.currencyCode)}
                   </span>
                 </p>
               </div>
