@@ -99,29 +99,129 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "creatine-monohydrate-vs-hcl-which-works-better",
-    title: "Creatine Monohydrate vs HCL: Which One Actually Works Better?",
-    excerpt: "Confused between creatine monohydrate vs HCL? Here's which one actually works better for strength, performance and muscle growth.",
+    title: "Creatine Monohydrate vs HCL: Which One Actually Works Better — And Which Should You Be Using?",
+    excerpt: "Creatine monohydrate vs HCL — full breakdown of absorption, dosing, bloating, results and cost. The honest answer most brands won't give you.",
     date: "2026-05-07",
-    minutes: 6,
+    minutes: 11,
     category: "supplement-comparisons",
-    metaTitle: "Creatine Monohydrate vs HCL — Which Is Better? | MeltonSupps",
-    metaDescription: "Creatine monohydrate vs HCL head-to-head. Absorption, dosing, bloating and which form actually delivers better results.",
-    intro: "Walk into any gym and you'll get conflicting advice. 'Monohydrate is outdated.' 'HCL absorbs better.' Let's look at what the research actually says.",
-    toc: ["What is creatine monohydrate?", "What is creatine HCL?", "Absorption & dosing", "Bloating & water retention", "Cost per serve", "The verdict"],
+    metaTitle: "Creatine Monohydrate vs HCL: Which Works Better? | MeltonSupps",
+    metaDescription: "Honest, in-depth breakdown of creatine monohydrate vs HCL. Absorption, dosing, bloating, results, cost and which to actually buy in 2026.",
+    intro:
+      "Creatine is the most-researched supplement in sports nutrition. But walk into any gym and you'll get conflicting advice on which form is best — monohydrate or HCL. One side swears HCL absorbs better and skips the bloat. The other says monohydrate is the only form with real evidence behind it. So who is right? In this guide we cut through the marketing and give you the no-nonsense answer based on the research, real-world results and what we see on the floor at MeltonSupps every day.",
+    toc: [
+      "What is creatine and why it works",
+      "Creatine Monohydrate explained",
+      "Creatine HCL explained",
+      "Absorption and bioavailability",
+      "Dosing protocols",
+      "Bloating and water retention",
+      "Strength, size and performance",
+      "Cost per effective dose",
+      "Who should use which",
+      "Our verdict",
+      "Recommended products",
+    ],
     sections: [
-      { h: "What is creatine monohydrate?", p: "The most-researched supplement in history. 5g/day saturates your muscles in ~3–4 weeks and improves strength, power, recovery and lean mass." },
-      { h: "What is creatine HCL?", p: "Creatine bonded to hydrochloric acid. Marketed as more soluble and absorbable, requiring smaller doses (1–2g)." },
-      { h: "Absorption & dosing", p: "HCL absorbs faster, but monohydrate is fully absorbed too — just over a slightly longer window. End result in muscle saturation: identical." },
-      { h: "Bloating & water retention", p: "Some users report less bloating with HCL. Most 'bloat' on monohydrate is intramuscular water (a good thing for performance)." },
-      { h: "Cost per serve", p: "Monohydrate: ~$0.20/serve. HCL: ~$1+/serve. You're paying 5x for marginal absorption gains." },
-      { h: "The verdict", p: "Monohydrate wins on evidence, results and price. HCL is fine if you're sensitive to bloating and don't mind paying more." },
+      {
+        h: "What is creatine and why it works",
+        p: "Creatine is a naturally occurring compound your body produces from amino acids and stores primarily in skeletal muscle as phosphocreatine. Its job is to rapidly regenerate ATP — the energy currency your muscles burn in the first 10 seconds of any explosive effort.",
+        paragraphs: [
+          "When you supplement with creatine, you saturate the phosphocreatine pool inside your muscle cells. The result is more available energy for sets 2, 3 and 4, faster recovery between sets, increased training volume, and over time — more strength and lean muscle mass.",
+          "Over 700 peer-reviewed studies confirm creatine's benefits not just for strength athletes, but for endurance, brain function, recovery from injury and even healthy ageing. It is, by a wide margin, the most validated performance supplement on the market.",
+        ],
+      },
+      {
+        h: "Creatine Monohydrate explained",
+        p: "Creatine monohydrate is one creatine molecule bound to one water molecule. It's the original form, the most studied form, and the cheapest to manufacture. The premium standard is Creapure®, a German-produced micronised monohydrate with the highest purity testing in the industry.",
+        bullets: [
+          "Decades of clinical research behind it",
+          "Daily 5g dose saturates muscles within 3–4 weeks",
+          "Optional loading phase (20g/day for 5–7 days) speeds saturation",
+          "Cost: typically $0.15–$0.25 per serve in Australia",
+        ],
+      },
+      {
+        h: "Creatine HCL explained",
+        p: "Creatine HCL (hydrochloride) is creatine bonded to a hydrochloric acid group. The marketing claim is that the acid bond increases solubility and intestinal absorption, allowing for smaller doses (1–2g) with the same end result.",
+        paragraphs: [
+          "It's a real product with a real benefit — solubility in water is dramatically higher than monohydrate. If you've ever stirred monohydrate into a glass and watched grit settle at the bottom, HCL avoids that completely.",
+          "But solubility in a glass is not the same thing as bioavailability inside your body — and that's where most marketing claims start to fall apart.",
+        ],
+      },
+      {
+        h: "Absorption and bioavailability",
+        p: "Independent studies have shown that creatine monohydrate is already absorbed at close to 99% in healthy adults. There is essentially no room for HCL to be 'better absorbed' in any meaningful sense.",
+        paragraphs: [
+          "What HCL does change is the speed of absorption. Because it dissolves more readily, it can hit the bloodstream slightly faster. End-state muscle creatine saturation, however, is identical between the two forms when total dose is matched.",
+          "In simple terms: HCL is not magic. Both forms get you to the same destination — monohydrate just takes the scenic route.",
+        ],
+      },
+      {
+        h: "Dosing protocols",
+        p: "Monohydrate: 3–5g per day, every day, ideally with a carbohydrate-containing meal or post-workout shake. No need to cycle.",
+        paragraphs: [
+          "HCL: typical label dosing is 1–2g per day. Some brands push 750mg as 'enough', but the underlying creatine content per gram is similar to monohydrate, which means you still need a comparable total creatine load to fully saturate muscle stores.",
+          "If you take 1g of HCL daily expecting it to outperform 5g of monohydrate, you'll be under-dosed and disappointed. Real-world dosing for HCL is closer to 3–4g/day for serious lifters.",
+        ],
+      },
+      {
+        h: "Bloating and water retention",
+        p: "This is where HCL has its strongest case. A small percentage of users report stomach bloating, mild GI upset or excessive water retention on monohydrate, especially during loading.",
+        paragraphs: [
+          "Most of the 'bloat' people experience on monohydrate is actually intramuscular water — water pulled into the muscle cell, which is a positive for performance and aesthetics.",
+          "If you genuinely react badly to monohydrate, HCL is a legitimate alternative. For everyone else, the bloat narrative is largely overblown and driven by brands trying to differentiate a more expensive product.",
+        ],
+      },
+      {
+        h: "Strength, size and performance",
+        p: "Head-to-head studies between monohydrate and HCL show no statistically significant difference in strength gains, lean mass, power output or recovery when total creatine intake is matched.",
+        paragraphs: [
+          "In the gym, this matches what we see at MeltonSupps. Lifters who run 5g of monohydrate for 8–12 weeks consistently report stronger lifts, fuller muscles and better recovery — the same outcomes as our HCL users, at a fraction of the price.",
+        ],
+      },
+      {
+        h: "Cost per effective dose",
+        p: "Creatine monohydrate (Creapure or quality Australian-made) costs around $0.20 per serve. HCL typically runs $0.80–$1.30 per serve.",
+        paragraphs: [
+          "Over 12 months, that's a difference of $200–$400 for the exact same end result. For 95% of lifters, that money is better spent on protein, food or training equipment.",
+        ],
+      },
+      {
+        h: "Who should use which",
+        p: "Creatine HCL is worth considering if you've genuinely tried monohydrate and experienced ongoing GI discomfort, or if convenience and mixability are non-negotiable for you.",
+        bullets: [
+          "Choose Monohydrate if: you want maximum results for minimum spend, you're new to creatine, or you train hard and want the most-researched option.",
+          "Choose HCL if: you've tried monohydrate and had real GI issues, you travel often and want easy mixability, or you simply prefer a smaller dose.",
+        ],
+      },
+      {
+        h: "Our verdict",
+        p: "Monohydrate wins. It's cheaper, more researched, equally effective, and the form we recommend to 9 out of 10 customers walking into MeltonSupps.",
+        callout: "If you're starting today, buy a tub of Creapure-based creatine monohydrate, take 5g daily, and don't overthink it.",
+      },
+      {
+        h: "Recommended products",
+        p: "Below are the creatine products we trust and recommend for Aussie lifters. All are third-party tested and stocked in store and online.",
+        bullets: [
+          "Optimum Nutrition Creatine Monohydrate (Creapure-based, gold-standard pick)",
+          "Switch Nutrition 100% Creatine Monohydrate (Aussie-made, premium quality)",
+          "EHP Labs Crea-8 (HCL option for sensitive users)",
+          "Rule 1 Creatine 5g (clean, transparent label)",
+        ],
+      },
     ],
     faqs: [
-      { q: "Do I need to load creatine?", a: "No. 5g/day reaches saturation in 3–4 weeks. Loading just gets you there faster." },
-      { q: "Best brand?", a: "Anything using Creapure® or any reputable Australian-made monohydrate. Brand matters less than consistency." },
-      { q: "Take it pre or post workout?", a: "Doesn't matter. Daily consistency is what counts." },
+      { q: "Do I need to load creatine?", a: "No. 5g/day reaches full saturation in 3–4 weeks. Loading just gets you there faster." },
+      { q: "Best brand to start with?", a: "Anything Creapure®-based or a reputable Australian-made monohydrate. Brand matters less than daily consistency." },
+      { q: "Should I take it pre or post workout?", a: "Doesn't matter. Daily consistency is what counts — pick a time you'll actually remember." },
+      { q: "Is creatine safe long term?", a: "Yes. Decades of clinical research show creatine is one of the safest supplements available for healthy adults." },
+      { q: "Can women take creatine?", a: "Absolutely. Women see the same strength, lean mass and cognitive benefits as men with no negative effects." },
     ],
-    relatedProducts: [{ title: "Shop Creatine", to: "/product-category/creatine" }],
+    relatedProducts: [
+      { title: "Shop Creatine Monohydrate", to: "/product-category/creatine" },
+      { title: "Shop Creatine HCL", to: "/product-category/creatine" },
+      { title: "Shop All Creatine", to: "/product-category/creatine" },
+    ],
   },
   {
     slug: "the-foundation-most-people-skip",
