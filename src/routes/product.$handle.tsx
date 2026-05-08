@@ -37,7 +37,7 @@ export const Route = createFileRoute("/product/$handle")({
   loader: async ({ params }) => {
     try {
       const data = await storefrontApiRequest(PRODUCT_BY_HANDLE_QUERY, { handle: params.handle });
-      const p = data?.data?.productByHandle;
+      const p = data?.data?.product;
       if (!p) return { seo: null };
       const img = p.images?.edges?.[0]?.node?.url ?? null;
       const price = p.priceRange?.minVariantPrice?.amount ?? null;
