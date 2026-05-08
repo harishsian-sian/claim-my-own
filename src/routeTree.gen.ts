@@ -32,6 +32,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CollectionsIndexRouteImport } from './routes/collections.index'
 import { Route as ProductsHandleRouteImport } from './routes/products.$handle'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
+import { Route as ProductCategoryHandleRouteImport } from './routes/product-category.$handle'
 import { Route as PoliciesHandleRouteImport } from './routes/policies.$handle'
 import { Route as PagesHandleRouteImport } from './routes/pages.$handle'
 import { Route as CollectionsAllRouteImport } from './routes/collections.all'
@@ -155,6 +156,11 @@ const ProductHandleRoute = ProductHandleRouteImport.update({
   path: '/product/$handle',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductCategoryHandleRoute = ProductCategoryHandleRouteImport.update({
+  id: '/product-category/$handle',
+  path: '/product-category/$handle',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PoliciesHandleRoute = PoliciesHandleRouteImport.update({
   id: '/policies/$handle',
   path: '/policies/$handle',
@@ -218,6 +224,7 @@ export interface FileRoutesByFullPath {
   '/collections/all': typeof CollectionsAllRoute
   '/pages/$handle': typeof PagesHandleRoute
   '/policies/$handle': typeof PoliciesHandleRoute
+  '/product-category/$handle': typeof ProductCategoryHandleRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/collections/': typeof CollectionsIndexRoute
@@ -249,6 +256,7 @@ export interface FileRoutesByTo {
   '/collections/all': typeof CollectionsAllRoute
   '/pages/$handle': typeof PagesHandleRoute
   '/policies/$handle': typeof PoliciesHandleRoute
+  '/product-category/$handle': typeof ProductCategoryHandleRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/collections': typeof CollectionsIndexRoute
@@ -282,6 +290,7 @@ export interface FileRoutesById {
   '/collections/all': typeof CollectionsAllRoute
   '/pages/$handle': typeof PagesHandleRoute
   '/policies/$handle': typeof PoliciesHandleRoute
+  '/product-category/$handle': typeof ProductCategoryHandleRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/collections/': typeof CollectionsIndexRoute
@@ -316,6 +325,7 @@ export interface FileRouteTypes {
     | '/collections/all'
     | '/pages/$handle'
     | '/policies/$handle'
+    | '/product-category/$handle'
     | '/product/$handle'
     | '/products/$handle'
     | '/collections/'
@@ -347,6 +357,7 @@ export interface FileRouteTypes {
     | '/collections/all'
     | '/pages/$handle'
     | '/policies/$handle'
+    | '/product-category/$handle'
     | '/product/$handle'
     | '/products/$handle'
     | '/collections'
@@ -379,6 +390,7 @@ export interface FileRouteTypes {
     | '/collections/all'
     | '/pages/$handle'
     | '/policies/$handle'
+    | '/product-category/$handle'
     | '/product/$handle'
     | '/products/$handle'
     | '/collections/'
@@ -408,6 +420,7 @@ export interface RootRouteChildren {
   TrackOrderRoute: typeof TrackOrderRoute
   PagesHandleRoute: typeof PagesHandleRoute
   PoliciesHandleRoute: typeof PoliciesHandleRoute
+  ProductCategoryHandleRoute: typeof ProductCategoryHandleRoute
   ProductHandleRoute: typeof ProductHandleRoute
   ApiPublicInventoryRoute: typeof ApiPublicInventoryRoute
 }
@@ -575,6 +588,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductHandleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/product-category/$handle': {
+      id: '/product-category/$handle'
+      path: '/product-category/$handle'
+      fullPath: '/product-category/$handle'
+      preLoaderRoute: typeof ProductCategoryHandleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/policies/$handle': {
       id: '/policies/$handle'
       path: '/policies/$handle'
@@ -698,6 +718,7 @@ const rootRouteChildren: RootRouteChildren = {
   TrackOrderRoute: TrackOrderRoute,
   PagesHandleRoute: PagesHandleRoute,
   PoliciesHandleRoute: PoliciesHandleRoute,
+  ProductCategoryHandleRoute: ProductCategoryHandleRoute,
   ProductHandleRoute: ProductHandleRoute,
   ApiPublicInventoryRoute: ApiPublicInventoryRoute,
 }

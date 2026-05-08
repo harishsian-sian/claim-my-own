@@ -10,6 +10,8 @@ import {
   COLLECTION_PRODUCTS_QUERY,
   type ShopifyProduct,
 } from "@/lib/shopify";
+import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
+import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
 
 export const Route = createFileRoute("/collections/$handle")({
   component: CollectionPage,
@@ -18,6 +20,10 @@ export const Route = createFileRoute("/collections/$handle")({
       .split("-")
       .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
       .join(" ");
+    const legacyCategoryHandle = getLegacyCategoryHandle(params.handle);
+    const canonicalPath = BRAND_COLLECTION_HANDLES.has(params.handle)
+      ? `/collections/${params.handle}`
+      : `/product-category/${legacyCategoryHandle}`;
     return {
       meta: [
         { title: `${title} — MeltonSupps` },
@@ -26,6 +32,7 @@ export const Route = createFileRoute("/collections/$handle")({
           content: `Shop ${title} at MeltonSupps. Use code JAN10 at checkout for 10% off.`,
         },
       ],
+      links: [{ rel: "canonical", href: `https://meltonsupps.com.au${canonicalPath}` }],
     };
   },
 });

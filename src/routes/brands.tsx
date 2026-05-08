@@ -82,8 +82,8 @@ function BrandsPage() {
               {brands.map((b) => (
                 <Link
                   key={b.handle}
-                  to="/products"
-                  search={{ collection: b.handle }}
+                  to="/collections/$handle"
+                  params={{ handle: b.handle }}
                   aria-label={b.title}
                   className="group relative aspect-square rounded-2xl overflow-hidden bg-background border hover:border-brand hover:shadow-lg transition-all flex items-center justify-center p-4"
                 >

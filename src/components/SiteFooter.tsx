@@ -56,8 +56,8 @@ export function SiteFooter() {
             <li><Link to="/products" className="hover:text-brand">Shop All</Link></li>
             <li><Link to="/categories" className="hover:text-brand">Categories</Link></li>
             <li><Link to="/brands" className="hover:text-brand">Brands</Link></li>
-            <li><Link to="/products" search={{ collection: "specials" }} className="hover:text-brand">Specials</Link></li>
-            <li><Link to="/products" search={{ collection: "clearance" }} className="hover:text-brand">Clearance</Link></li>
+            <li><Link to="/product-category/$handle" params={{ handle: "specials" }} className="hover:text-brand">Specials</Link></li>
+            <li><Link to="/product-category/$handle" params={{ handle: "clearance" }} className="hover:text-brand">Clearance</Link></li>
           </ul>
         </div>
 

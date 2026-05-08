@@ -9,6 +9,7 @@ import {
   type ShopifyCollection,
 } from "@/lib/shopify";
 import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
+import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
 
 export const Route = createFileRoute("/categories")({
   component: CategoriesPageContent,
@@ -82,8 +83,8 @@ export function CategoriesPageContent() {
               {cats.map((c) => (
                 <Link
                   key={c.handle}
-                  to="/products"
-                  search={{ collection: c.handle }}
+                  to="/product-category/$handle"
+                  params={{ handle: getLegacyCategoryHandle(c.handle) }}
                   className="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-gradient-to-br from-brand-dark to-ink flex items-end p-4 md:p-5 hover:scale-[1.02] transition-transform"
                 >
                   {c.image?.url ? (

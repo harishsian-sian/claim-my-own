@@ -35,8 +35,8 @@ export function BrandStrip() {
           {loop.map((b, idx) => (
             <Link
               key={`${b.handle}-${idx}`}
-              to="/products"
-              search={{ collection: b.handle }}
+              to="/collections/$handle"
+              params={{ handle: b.handle }}
               aria-label={b.title}
               className="flex-shrink-0 w-32 h-20 md:w-40 md:h-24 rounded-xl border bg-background flex items-center justify-center p-3 hover:border-brand hover:shadow-md transition-all"
             >
