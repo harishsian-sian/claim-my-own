@@ -19,7 +19,47 @@ export const Route = createFileRoute("/local/$slug")({
   },
   head: ({ loaderData }) => {
     const p = loaderData?.page;
+    const s = loaderData?.store;
     if (!p) return {};
+    const url = `https://meltonsupps.com.au/local/${p.slug}`;
+    const ld: object[] = [
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://meltonsupps.com.au/" },
+          { "@type": "ListItem", position: 2, name: "Local", item: "https://meltonsupps.com.au/stores" },
+          { "@type": "ListItem", position: 3, name: p.h1, item: url },
+        ],
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: p.faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      },
+    ];
+    if (s) {
+      ld.push({
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: `MeltonSupps ${s.shortName}`,
+        url,
+        telephone: s.phone,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: s.address,
+          addressLocality: s.suburb,
+          addressRegion: s.state,
+          postalCode: s.postcode,
+          addressCountry: "AU",
+        },
+        priceRange: "$$",
+      });
+    }
     return {
       meta: [
         { title: p.metaTitle },
@@ -27,7 +67,10 @@ export const Route = createFileRoute("/local/$slug")({
         { name: "keywords", content: p.keywords.join(", ") },
         { property: "og:title", content: p.metaTitle },
         { property: "og:description", content: p.metaDescription },
+        { property: "og:url", content: url },
       ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: ld.map((obj) => ({ type: "application/ld+json", children: JSON.stringify(obj) })),
     };
   },
   notFoundComponent: () => (
