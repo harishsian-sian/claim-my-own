@@ -103,7 +103,7 @@ export const Route = createFileRoute("/product/$handle")({
             offers: seo.price
               ? {
                   "@type": "Offer",
-                  price: (parseFloat(seo.price) * 0.9).toFixed(2),
+                  price: parseFloat(seo.price).toFixed(2),
                   priceCurrency: seo.currency,
                   availability: seo.available
                     ? "https://schema.org/InStock"
@@ -112,7 +112,7 @@ export const Route = createFileRoute("/product/$handle")({
                   priceValidUntil: "2026-12-31",
                   priceSpecification: {
                     "@type": "UnitPriceSpecification",
-                    price: (parseFloat(seo.price) * 0.9).toFixed(2),
+                    price: parseFloat(seo.price).toFixed(2),
                     priceCurrency: seo.currency,
                     valueAddedTaxIncluded: true,
                   },
