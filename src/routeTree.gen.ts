@@ -39,6 +39,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LocalIndexRouteImport } from './routes/local.index'
 import { Route as CollectionsIndexRouteImport } from './routes/collections.index'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as StoresHandleRouteImport } from './routes/stores.$handle'
 import { Route as ProductsHandleRouteImport } from './routes/products.$handle'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
@@ -203,6 +204,11 @@ const CollectionsIndexRoute = CollectionsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => CollectionsRoute,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BlogRoute,
+} as any)
 const StoresHandleRoute = StoresHandleRouteImport.update({
   id: '/$handle',
   path: '/$handle',
@@ -310,6 +316,7 @@ export interface FileRoutesByFullPath {
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/stores/$handle': typeof StoresHandleRoute
+  '/blog/': typeof BlogIndexRoute
   '/collections/': typeof CollectionsIndexRoute
   '/local/': typeof LocalIndexRoute
   '/api/public/inventory': typeof ApiPublicInventoryRoute
@@ -321,7 +328,6 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/authenticity': typeof AuthenticityRoute
   '/best-sellers': typeof BestSellersRoute
-  '/blog': typeof BlogRouteWithChildren
   '/blogs': typeof BlogsRouteWithChildren
   '/brands': typeof BrandsRoute
   '/categories': typeof CategoriesRoute
@@ -354,6 +360,7 @@ export interface FileRoutesByTo {
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/stores/$handle': typeof StoresHandleRoute
+  '/blog': typeof BlogIndexRoute
   '/collections': typeof CollectionsIndexRoute
   '/local': typeof LocalIndexRoute
   '/api/public/inventory': typeof ApiPublicInventoryRoute
@@ -400,6 +407,7 @@ export interface FileRoutesById {
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/stores/$handle': typeof StoresHandleRoute
+  '/blog/': typeof BlogIndexRoute
   '/collections/': typeof CollectionsIndexRoute
   '/local/': typeof LocalIndexRoute
   '/api/public/inventory': typeof ApiPublicInventoryRoute
@@ -447,6 +455,7 @@ export interface FileRouteTypes {
     | '/product/$handle'
     | '/products/$handle'
     | '/stores/$handle'
+    | '/blog/'
     | '/collections/'
     | '/local/'
     | '/api/public/inventory'
@@ -458,7 +467,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/authenticity'
     | '/best-sellers'
-    | '/blog'
     | '/blogs'
     | '/brands'
     | '/categories'
@@ -491,6 +499,7 @@ export interface FileRouteTypes {
     | '/product/$handle'
     | '/products/$handle'
     | '/stores/$handle'
+    | '/blog'
     | '/collections'
     | '/local'
     | '/api/public/inventory'
@@ -536,6 +545,7 @@ export interface FileRouteTypes {
     | '/product/$handle'
     | '/products/$handle'
     | '/stores/$handle'
+    | '/blog/'
     | '/collections/'
     | '/local/'
     | '/api/public/inventory'
@@ -792,6 +802,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollectionsIndexRouteImport
       parentRoute: typeof CollectionsRoute
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof BlogRoute
+    }
     '/stores/$handle': {
       id: '/stores/$handle'
       path: '/$handle'
@@ -888,10 +905,12 @@ declare module '@tanstack/react-router' {
 
 interface BlogRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
 }
 
 const BlogRouteChildren: BlogRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
 }
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
