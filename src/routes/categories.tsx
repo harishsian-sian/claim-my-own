@@ -11,7 +11,7 @@ import {
 import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
 
 export const Route = createFileRoute("/categories")({
-  component: CategoriesPage,
+  component: CategoriesPageContent,
   head: () => ({
     meta: [
       { title: "Shop by Category — MeltonSupps" },
