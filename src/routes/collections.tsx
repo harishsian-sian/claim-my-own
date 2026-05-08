@@ -1,9 +1,10 @@
-import { createFileRoute, Navigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { CategoriesPageContent } from "./categories";
 
 export const Route = createFileRoute("/collections")({
-  component: CollectionsRedirect,
+  component: CollectionsPage,
 });
 
-function CollectionsRedirect() {
-  return <Navigate to="/categories" replace />;
+function CollectionsPage() {
+  return <CategoriesPageContent />;
 }

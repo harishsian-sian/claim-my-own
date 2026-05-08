@@ -24,7 +24,7 @@ export const Route = createFileRoute("/categories")({
   }),
 });
 
-function CategoriesPage() {
+export function CategoriesPageContent() {
   const [cats, setCats] = useState<ShopifyCollection[]>([]);
   const [loading, setLoading] = useState(true);
 
