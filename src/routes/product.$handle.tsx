@@ -70,9 +70,9 @@ export const Route = createFileRoute("/product/$handle")({
         links: [{ rel: "canonical", href: url }],
       };
     }
-    const title = `${seo.title} — 10% OFF with code JAN10 | MeltonSupps`;
+    const title = `${seo.title} — 10% OFF with code MAY10 | MeltonSupps`;
     const baseDesc = seo.description || `Buy ${seo.title} online at MeltonSupps. Free shipping over $150.`;
-    const desc = `${baseDesc} Use code JAN10 at checkout for 10% off.`.slice(0, 300);
+    const desc = `${baseDesc} Use code MAY10 at checkout for 10% off.`.slice(0, 300);
     return {
       meta: [
         { title },
@@ -546,7 +546,7 @@ function ProductDetail() {
                   </p>
                 </div>
                 <p className="mt-2 inline-flex items-center gap-1 bg-brand/10 text-brand px-2 py-1 rounded text-[11px] font-bold uppercase tracking-wider">
-                  Save 10% with code JAN10 at checkout
+                  Save 10% with code MAY10 at checkout
                 </p>
                 <p className="text-xs text-muted-foreground mt-2">
                   or 4 interest-free payments of{" "}
