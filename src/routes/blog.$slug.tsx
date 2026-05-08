@@ -4,8 +4,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FAQAccordion } from "@/components/FAQAccordion";
-import { NewsletterCTA } from "@/components/NewsletterCTA";
-import { getPostBySlug, getRelatedPosts, CATEGORY_META, DEFAULT_AUTHOR } from "@/lib/blogData";
+import { getPostBySlug, getRelatedPosts, CATEGORY_META, DEFAULT_AUTHOR, type BlogPost, type BlogSection } from "@/lib/blogData";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
