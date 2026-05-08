@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WishlistRouteImport } from './routes/wishlist'
 import { Route as TrackOrderRouteImport } from './routes/track-order'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -27,6 +28,8 @@ import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BrandsRouteImport } from './routes/brands'
 import { Route as BlogsRouteImport } from './routes/blogs'
 import { Route as BlogRouteImport } from './routes/blog'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AccountRouteImport } from './routes/account'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CollectionsIndexRouteImport } from './routes/collections.index'
@@ -41,6 +44,11 @@ import { Route as BlogsSplatRouteImport } from './routes/blogs.$'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ApiPublicInventoryRouteImport } from './routes/api/public/inventory'
 
+const WishlistRoute = WishlistRouteImport.update({
+  id: '/wishlist',
+  path: '/wishlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TrackOrderRoute = TrackOrderRouteImport.update({
   id: '/track-order',
   path: '/track-order',
@@ -131,6 +139,16 @@ const BlogRoute = BlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -200,6 +218,8 @@ const ApiPublicInventoryRoute = ApiPublicInventoryRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
+  '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
   '/blogs': typeof BlogsRouteWithChildren
   '/brands': typeof BrandsRoute
@@ -218,6 +238,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
+  '/wishlist': typeof WishlistRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blogs/$': typeof BlogsSplatRoute
   '/collections/$handle': typeof CollectionsHandleRoute
@@ -233,6 +254,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
+  '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
   '/blogs': typeof BlogsRouteWithChildren
   '/brands': typeof BrandsRoute
@@ -250,6 +273,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
+  '/wishlist': typeof WishlistRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blogs/$': typeof BlogsSplatRoute
   '/collections/$handle': typeof CollectionsHandleRoute
@@ -266,6 +290,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
+  '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
   '/blogs': typeof BlogsRouteWithChildren
   '/brands': typeof BrandsRoute
@@ -284,6 +310,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
+  '/wishlist': typeof WishlistRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blogs/$': typeof BlogsSplatRoute
   '/collections/$handle': typeof CollectionsHandleRoute
@@ -301,6 +328,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/account'
+    | '/auth'
     | '/blog'
     | '/blogs'
     | '/brands'
@@ -319,6 +348,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/track-order'
+    | '/wishlist'
     | '/blog/$slug'
     | '/blogs/$'
     | '/collections/$handle'
@@ -334,6 +364,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/account'
+    | '/auth'
     | '/blog'
     | '/blogs'
     | '/brands'
@@ -351,6 +383,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/track-order'
+    | '/wishlist'
     | '/blog/$slug'
     | '/blogs/$'
     | '/collections/$handle'
@@ -366,6 +399,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/account'
+    | '/auth'
     | '/blog'
     | '/blogs'
     | '/brands'
@@ -384,6 +419,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/track-order'
+    | '/wishlist'
     | '/blog/$slug'
     | '/blogs/$'
     | '/collections/$handle'
@@ -400,6 +436,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AccountRoute: typeof AccountRoute
+  AuthRoute: typeof AuthRoute
   BlogRoute: typeof BlogRouteWithChildren
   BlogsRoute: typeof BlogsRouteWithChildren
   BrandsRoute: typeof BrandsRoute
@@ -418,6 +456,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   TrackOrderRoute: typeof TrackOrderRoute
+  WishlistRoute: typeof WishlistRoute
   PagesHandleRoute: typeof PagesHandleRoute
   PoliciesHandleRoute: typeof PoliciesHandleRoute
   ProductCategoryHandleRoute: typeof ProductCategoryHandleRoute
@@ -427,6 +466,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/wishlist': {
+      id: '/wishlist'
+      path: '/wishlist'
+      fullPath: '/wishlist'
+      preLoaderRoute: typeof WishlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/track-order': {
       id: '/track-order'
       path: '/track-order'
@@ -551,6 +597,20 @@ declare module '@tanstack/react-router' {
       path: '/blog'
       fullPath: '/blog'
       preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -698,6 +758,8 @@ const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AccountRoute: AccountRoute,
+  AuthRoute: AuthRoute,
   BlogRoute: BlogRouteWithChildren,
   BlogsRoute: BlogsRouteWithChildren,
   BrandsRoute: BrandsRoute,
@@ -716,6 +778,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   TrackOrderRoute: TrackOrderRoute,
+  WishlistRoute: WishlistRoute,
   PagesHandleRoute: PagesHandleRoute,
   PoliciesHandleRoute: PoliciesHandleRoute,
   ProductCategoryHandleRoute: ProductCategoryHandleRoute,

@@ -55,12 +55,12 @@ export function SiteHeader() {
           </form>
 
           <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
-            <button className="hidden md:flex h-10 w-10 items-center justify-center rounded-full hover:bg-background/10 transition-colors" aria-label="Account">
+            <Link to="/account" className="hidden md:flex h-10 w-10 items-center justify-center rounded-full hover:bg-background/10 transition-colors" aria-label="Account">
               <User className="h-5 w-5" />
-            </button>
-            <button className="hidden md:flex h-10 w-10 items-center justify-center rounded-full hover:bg-background/10 transition-colors" aria-label="Wishlist">
+            </Link>
+            <Link to="/wishlist" className="hidden md:flex h-10 w-10 items-center justify-center rounded-full hover:bg-background/10 transition-colors" aria-label="Wishlist">
               <Heart className="h-5 w-5" />
-            </button>
+            </Link>
             <CartDrawer />
             <Link
               to="/products"
