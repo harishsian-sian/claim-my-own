@@ -546,12 +546,15 @@ function ProductDetail() {
                   Use code MAY5 for 5% OFF — pay{" "}
                   {formatMoney((parseFloat(price.amount) * 0.95).toFixed(2), price.currencyCode)}
                 </p>
-                <p className="text-xs text-muted-foreground mt-2">
-                  or 4 interest-free payments of{" "}
+                <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
+                  <span>or 4 interest-free payments of</span>
                   <span className="font-semibold text-foreground">
                     {formatMoney((parseFloat(price.amount) / 4).toFixed(2), price.currencyCode)}
                   </span>
-                </p>
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-[#B2FCE4] text-black font-bold tracking-tight text-[11px]">
+                    afterpay
+                  </span>
+                </div>
               </div>
 
               {/* Options */}
