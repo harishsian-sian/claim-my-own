@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Search, User, Heart, MapPin, Package, Tag, Sparkles, Dumbbell, Truck, ChevronDown } from "lucide-react";
+import { Search, User, Heart, MapPin, Package, Tag, Sparkles, Dumbbell, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { CartDrawer } from "./CartDrawer";
 import { PromoBar } from "./PromoBar";
