@@ -19,7 +19,7 @@ interface Search {
 }
 
 export const Route = createFileRoute("/products")({
-  component: Products,
+  component: ProductsRoutePage,
   validateSearch: (search: Record<string, unknown>): Search => ({
     q: typeof search.q === "string" ? search.q : undefined,
     collection: typeof search.collection === "string" ? search.collection : undefined,
@@ -38,9 +38,22 @@ export const Route = createFileRoute("/products")({
 
 const PAGE_SIZE = 24;
 
-function Products() {
-  const { q, collection } = Route.useSearch();
+function ProductsRoutePage() {
+  const search = Route.useSearch();
   const navigate = useNavigate({ from: "/products" });
+
+  return <ProductsPageContent q={search.q} collection={search.collection} onSearchChange={(nextSearch) => navigate({ search: nextSearch })} />;
+}
+
+export function ProductsPageContent({
+  q,
+  collection,
+  onSearchChange,
+}: {
+  q?: string;
+  collection?: string;
+  onSearchChange?: (search: Search) => void;
+}) {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [cursor, setCursor] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
@@ -120,7 +133,7 @@ function Products() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     const v = searchInput.trim();
-    navigate({ search: v ? { q: v } : {} });
+    onSearchChange?.(v ? { q: v } : {});
   };
 
   return (
@@ -152,7 +165,7 @@ function Products() {
             Search
           </Button>
           {q && (
-            <Button type="button" variant="outline" className="h-11" onClick={() => { setSearchInput(""); navigate({ search: {} }); }}>
+            <Button type="button" variant="outline" className="h-11" onClick={() => { setSearchInput(""); onSearchChange?.({}); }}>
               Clear
             </Button>
           )}

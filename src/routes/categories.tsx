@@ -11,7 +11,7 @@ import {
 import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
 
 export const Route = createFileRoute("/categories")({
-  component: CategoriesPage,
+  component: CategoriesPageContent,
   head: () => ({
     meta: [
       { title: "Shop by Category — MeltonSupps" },
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/categories")({
   }),
 });
 
-function CategoriesPage() {
+export function CategoriesPageContent() {
   const [cats, setCats] = useState<ShopifyCollection[]>([]);
   const [loading, setLoading] = useState(true);
 
