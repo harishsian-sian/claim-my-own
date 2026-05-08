@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
 import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
+import { LOCAL_PAGES } from "@/lib/localSeo";
+import { BLOG_POSTS } from "@/lib/blogData";
+import { STORES } from "@/lib/stores";
 
 const SHOP = "ded508-e8.myshopify.com";
 const API = "2025-07";
@@ -10,18 +13,27 @@ const SITE = "https://meltonsupps.com.au";
 const STATIC_PATHS = [
   "/",
   "/products",
+  "/best-sellers",
+  "/new-arrivals",
   "/categories",
   "/brands",
   "/about",
+  "/why-choose-us",
+  "/authenticity",
   "/contact",
   "/faq",
   "/shipping",
   "/returns",
   "/price-match",
   "/blog",
+  "/stores",
+  "/local",
   "/privacy",
   "/terms",
   "/disclaimer",
+  ...LOCAL_PAGES.map((p) => `/local/${p.slug}`),
+  ...BLOG_POSTS.map((p) => `/blog/${p.slug}`),
+  ...STORES.map((s) => `/stores/${s.handle}`),
 ];
 
 const QUERY = `
