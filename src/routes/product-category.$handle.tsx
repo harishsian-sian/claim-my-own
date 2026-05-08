@@ -15,7 +15,7 @@ export const Route = createFileRoute("/product-category/$handle")({
         { title: `${title} — MeltonSupps` },
         {
           name: "description",
-          content: `Shop ${title} at MeltonSupps. Use code JAN10 at checkout for 10% off.`,
+          content: `Shop ${title} at MeltonSupps. Use code MAY10 at checkout for 10% off.`,
         },
       ],
       links: [

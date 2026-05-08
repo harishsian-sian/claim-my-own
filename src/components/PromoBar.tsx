@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const MESSAGES = [
-  "🎉 Use code JAN10 at checkout for 10% OFF your order",
+  "🎉 Use code MAY10 at checkout for 10% OFF your order",
   "Spend $150 and get FREE shipping Australia-wide",
   "AfterPay & ZipPay available at checkout",
   "Price match guarantee — found it cheaper? We'll match it",

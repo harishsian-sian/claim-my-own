@@ -76,7 +76,7 @@ export function ProductCard({ product }: { product: ShopifyProduct }) {
             </span>
             <span className="text-[10px] text-muted-foreground leading-tight">
               <span className="line-through">{formatMoney(price.amount, price.currencyCode)}</span>
-              <span className="ml-1 text-brand font-semibold">with JAN10</span>
+              <span className="ml-1 text-brand font-semibold">with MAY10</span>
             </span>
           </div>
           <Button
