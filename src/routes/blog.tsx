@@ -113,6 +113,9 @@ function BlogPage() {
               <p className="text-xs text-muted-foreground mt-3">
                 {new Date(p.date).toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" })} · {p.minutes} min
               </p>
+              <span className="inline-flex items-center gap-1 mt-4 text-brand text-xs font-bold uppercase tracking-wider">
+                Read article <ArrowRight className="h-3 w-3" />
+              </span>
             </Link>
           ))}
         </div>
