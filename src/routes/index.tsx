@@ -191,7 +191,6 @@ function Index() {
               <span className="inline-flex items-center text-sm font-bold uppercase tracking-wider mt-4 text-brand-light group-hover:translate-x-1 transition-transform">
                 Shop specials <ArrowRight className="ml-1 h-4 w-4" />
               </span>
-              </span>
             </Link>
           </div>
         </section>
