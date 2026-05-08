@@ -12,6 +12,7 @@ export function ProductCard({ product }: { product: ShopifyProduct }) {
   const variant = node.variants.edges[0]?.node;
   const image = node.images.edges[0]?.node;
   const price = node.priceRange.minVariantPrice;
+  const discountedPrice = (parseFloat(price.amount) * 0.9).toFixed(2);
   const hasMultipleVariants = node.variants.edges.length > 1;
   const available = variant?.availableForSale ?? false;
 
@@ -73,6 +74,9 @@ export function ProductCard({ product }: { product: ShopifyProduct }) {
           <div className="flex flex-col">
             <span className="font-display font-bold text-lg text-foreground">
               {formatMoney(price.amount, price.currencyCode)}
+            </span>
+            <span className="text-xs font-semibold text-brand leading-snug">
+              Use code MAY10 — pay {formatMoney(discountedPrice, price.currencyCode)}
             </span>
           </div>
           <Button
