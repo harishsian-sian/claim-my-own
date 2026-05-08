@@ -245,7 +245,7 @@ export const LOCAL_PAGES: LocalSeoPage[] = [
       { title: "Recovery stacks", desc: "EAA, BCAA, glutamine, magnesium, sleep formulas." },
     ],
     faqs: [
-      { q: "Best pre-workout for beginners?", o: undefined as never, a: "EHP Labs Oxyshred or Rule 1 Pre-Train are great starter pre-workouts — strong focus, smooth energy, no jitters." },
+      { q: "Best pre-workout for beginners?", a: "EHP Labs Oxyshred or Rule 1 Pre-Train are great starter pre-workouts — strong focus, smooth energy, no jitters." },
       { q: "Does creatine actually work?", a: "Yes — creatine monohydrate is the most-researched supplement in sports nutrition. 5g/day improves strength, power and recovery." },
       { q: "Closest gyms to your Braybrook store?", a: "We're a short walk or drive from most western Melbourne gyms — Anytime Fitness, Plus Fitness, Snap and many independent strength studios in Sunshine and Footscray." },
     ],
