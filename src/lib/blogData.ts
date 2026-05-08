@@ -648,6 +648,475 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     relatedProducts: [{ title: "Shop Whey", to: "/product-category/whey-protein" }],
   },
+  // ===================== FOCUS & ENERGY =====================
+  {
+    slug: "best-supplements-for-focus-and-concentration",
+    title: "Best Supplements for Focus and Concentration: The Ultimate 2026 Guide",
+    excerpt: "Struggling to stay locked in at work or in the gym? These are the most effective focus supplements — backed by science, ranked by results.",
+    date: "2026-05-08",
+    minutes: 10,
+    category: "focus-energy",
+    metaTitle: "Best Supplements for Focus & Concentration 2026 | MeltonSupps",
+    metaDescription: "The most effective focus supplements ranked. Caffeine + L-theanine, Alpha-GPC, Lion's Mane, Rhodiola and more — what works, what doesn't.",
+    intro:
+      "Whether you're grinding through a workday, locking in for a heavy training session, or studying for exams, focus is the difference between productive hours and wasted ones. The supplement industry has flooded the market with so-called 'nootropics' — most of them overpriced, under-dosed and barely effective. This guide cuts through the noise and ranks the focus supplements that actually deliver, with the dosing protocols and stacking strategies we recommend at MeltonSupps every day.",
+    toc: [
+      "What real focus feels like",
+      "Caffeine + L-Theanine",
+      "Alpha-GPC",
+      "Lion's Mane",
+      "Rhodiola Rosea",
+      "L-Tyrosine",
+      "Citicoline",
+      "Stacking for all-day focus",
+      "Recommended products",
+    ],
+    sections: [
+      {
+        h: "What real focus feels like",
+        p: "True focus isn't a wired, racing-heart caffeine high. It's a calm, locked-in state where distractions slip past you and the task in front of you feels effortless.",
+        paragraphs: [
+          "The best focus supplements support this state by balancing dopamine, acetylcholine and stress hormones rather than just blasting your nervous system with stimulants.",
+        ],
+      },
+      {
+        h: "Caffeine + L-Theanine",
+        p: "The most reliable, evidence-backed focus combo on the planet. 100mg of caffeine paired with 200mg of L-theanine gives you the alertness of caffeine without the jitters, anxiety or crash.",
+        bullets: [
+          "100mg caffeine + 200mg L-theanine, 1–2 times per day",
+          "Take 30 minutes before deep work or training",
+          "Cycle off stimulants every 6–8 weeks to maintain sensitivity",
+        ],
+      },
+      {
+        h: "Alpha-GPC",
+        p: "Alpha-GPC is one of the most bioavailable forms of choline, the raw material for acetylcholine — your brain's primary 'focus' neurotransmitter.",
+        paragraphs: [
+          "Studies show 300–600mg of Alpha-GPC improves reaction time, mind-muscle connection and power output, which is why it's a staple ingredient in premium pre-workouts.",
+        ],
+      },
+      {
+        h: "Lion's Mane",
+        p: "Lion's Mane mushroom supports nerve growth factor (NGF), which helps maintain and grow brain cells over time. It's not a same-day stimulant — it's a long-term cognitive investment.",
+        paragraphs: [
+          "Daily users typically report sharper memory, better recall and improved verbal fluency after 4–6 weeks of consistent use at 1–2g per day.",
+        ],
+      },
+      {
+        h: "Rhodiola Rosea",
+        p: "An adaptogen with a strong evidence base for reducing mental fatigue, improving stress tolerance and supporting endurance under cognitive load.",
+        bullets: ["200–400mg in the morning", "Best for high-stress weeks and exam periods", "Stack with caffeine for sustained focus without crash"],
+      },
+      {
+        h: "L-Tyrosine",
+        p: "An amino acid precursor to dopamine and noradrenaline. Particularly effective when sleep-deprived, jet-lagged or under acute stress.",
+        paragraphs: ["Take 500–2000mg about 30 minutes before challenging cognitive work or training when you're not feeling 100%."],
+      },
+      {
+        h: "Citicoline (CDP-Choline)",
+        p: "Another premium choline source that crosses the blood-brain barrier easily. Improves attention, working memory and visual processing.",
+        paragraphs: ["Typical dose: 250–500mg per day. Often stacked with Alpha-GPC for serious nootropic users."],
+      },
+      {
+        h: "Stacking for all-day focus",
+        p: "Here's the simple, evidence-based stack we recommend for sustainable daily focus:",
+        bullets: [
+          "Morning: Caffeine + L-Theanine + Rhodiola",
+          "Mid-morning (deep work): Alpha-GPC + Citicoline",
+          "Daily (long-term): Lion's Mane",
+          "As needed: L-Tyrosine before high-stakes tasks",
+        ],
+        callout: "Pick 2–3 supplements from this list, dose them properly for 8 weeks, and you'll notice a tangible difference in mental output.",
+      },
+      {
+        h: "Recommended products",
+        p: "These are the focus and nootropic products we trust at MeltonSupps:",
+        bullets: [
+          "Switch Nutrition Adrenal Switch (with L-tyrosine and adaptogens)",
+          "ATP Science NoWay Brain Boost",
+          "Bare Performance Nutrition Strong Mind",
+          "Rule 1 Train+ Daily nootropic",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "What's the best single focus supplement?", a: "Caffeine + L-theanine. Hard to beat for cost, evidence and consistency." },
+      { q: "How long until nootropics work?", a: "Stimulant-based combos work the same day. Adaptogens and Lion's Mane take 2–6 weeks of consistent use." },
+      { q: "Are nootropics safe daily?", a: "Most are well tolerated. Cycle stimulants every 6–8 weeks. Always check ingredients if you take prescribed medication." },
+    ],
+    relatedProducts: [
+      { title: "Shop Focus & Nootropics", to: "/product-category/health-and-wellness" },
+      { title: "Shop Pre-Workouts", to: "/product-category/pre-workouts" },
+    ],
+  },
+  {
+    slug: "best-supplements-for-natural-energy",
+    title: "Best Supplements for Natural Energy (Without the Crash)",
+    excerpt: "Tired of energy drink crashes? These are the supplements that deliver clean, sustained, all-day energy — no jitters, no comedown.",
+    date: "2026-05-07",
+    minutes: 10,
+    category: "focus-energy",
+    metaTitle: "Best Supplements for Natural Energy 2026 | MeltonSupps",
+    metaDescription: "Clean, sustained energy without the crash. The best natural energy supplements ranked — B-vitamins, CoQ10, adaptogens and more.",
+    intro:
+      "If you rely on three coffees and an energy drink just to make it through the day, your body is screaming for help. Chronic fatigue rarely has a single cause — it's usually a combination of poor sleep, low key micronutrients, blood sugar swings and a depleted nervous system. The good news: the right supplement stack can transform your energy levels in weeks, without ever touching a sugary energy drink. Here's exactly what to use, how to dose it, and how to combine it for clean, sustained energy from morning to evening.",
+    toc: [
+      "Why you're tired",
+      "B-Complex Vitamins",
+      "CoQ10 (Ubiquinol)",
+      "Iron (if deficient)",
+      "Cordyceps and Adaptogens",
+      "Electrolytes",
+      "Caffeine done right",
+      "Building your daily energy stack",
+      "Recommended products",
+    ],
+    sections: [
+      {
+        h: "Why you're tired",
+        p: "Most fatigue isn't laziness — it's biochemistry. Common causes include B-vitamin deficiency, low iron, dehydration, chronic stress, blood sugar dysregulation and poor sleep architecture.",
+        paragraphs: [
+          "Before reaching for stimulants, address the foundations: 7–9 hours of sleep, 30g+ protein at breakfast, sunlight within 30 minutes of waking, and adequate hydration with electrolytes. Then stack the supplements below for a real shift.",
+        ],
+      },
+      {
+        h: "B-Complex Vitamins",
+        p: "B vitamins are the engine of cellular energy production. Deficiencies in B12, folate or B6 are some of the most common causes of unexplained fatigue, especially for vegans, vegetarians and women on the pill.",
+        bullets: [
+          "Look for methylated forms (methylfolate, methylcobalamin)",
+          "Take with breakfast, never on an empty stomach",
+          "Allow 3–4 weeks for noticeable energy improvement",
+        ],
+      },
+      {
+        h: "CoQ10 (Ubiquinol)",
+        p: "CoQ10 powers the mitochondria — the energy factories inside every cell. Levels naturally decline after age 30 and drop further on statin medications.",
+        paragraphs: ["Ubiquinol (the reduced form) is significantly more bioavailable. Typical dose: 100–200mg per day with a fat-containing meal."],
+      },
+      {
+        h: "Iron (if deficient)",
+        p: "Iron deficiency is the world's most common nutrient deficiency and the leading cause of fatigue in women. Symptoms include tiredness, breathlessness, brain fog and brittle nails.",
+        callout: "Get a blood test before supplementing iron. Excess iron is harmful — never take it blindly.",
+      },
+      {
+        h: "Cordyceps and Adaptogens",
+        p: "Cordyceps Sinensis is a medicinal mushroom traditionally used for endurance and energy. Modern research backs it up — improved oxygen utilisation, ATP production and exercise tolerance.",
+        bullets: ["Cordyceps: 1–3g daily extract", "Rhodiola: 200–400mg morning", "Ashwagandha: 300–600mg KSM-66 for stress-related fatigue"],
+      },
+      {
+        h: "Electrolytes",
+        p: "Even mild dehydration drops energy and cognitive performance fast. Add 800–1000mg of sodium plus potassium and magnesium to your morning water.",
+        paragraphs: ["This single change has bigger short-term energy effects for most people than any supplement on this list."],
+      },
+      {
+        h: "Caffeine done right",
+        p: "Caffeine isn't the enemy — overuse is. Stick to 200–400mg per day, never after 2pm, and pair with L-theanine for smooth, crash-free focus.",
+        paragraphs: ["Cycle off completely for 7–10 days every 3 months to fully restore sensitivity."],
+      },
+      {
+        h: "Building your daily energy stack",
+        p: "Here's our go-to natural energy protocol:",
+        bullets: [
+          "On waking: electrolytes + 30g protein + sunlight",
+          "Breakfast: B-Complex + CoQ10 (with fat)",
+          "Mid-morning: caffeine + L-theanine",
+          "Daily long-term: Cordyceps + Ashwagandha",
+        ],
+        callout: "Run this protocol for 4 weeks before judging it. Real natural energy compounds — it doesn't switch on overnight.",
+      },
+      {
+        h: "Recommended products",
+        p: "Trusted natural energy supplements at MeltonSupps:",
+        bullets: [
+          "ATP Science Multifood",
+          "Switch Nutrition Adrenal Switch",
+          "BPN Electrolytes",
+          "Herbs of Gold Cordyceps",
+          "Optimum Nutrition CoQ10",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Are natural energy supplements better than energy drinks?", a: "Yes — for sustained energy without crash, blood sugar spikes or stimulant tolerance issues." },
+      { q: "How long until I notice changes?", a: "Electrolytes and caffeine work same-day. Adaptogens, B-vitamins and CoQ10 take 2–4 weeks." },
+      { q: "Can I take all of these together?", a: "Yes — none of these supplements interact negatively. Start with 2–3 and add more if needed." },
+    ],
+    relatedProducts: [
+      { title: "Shop Energy & Adaptogens", to: "/product-category/health-and-wellness" },
+      { title: "Shop Vitamins & Minerals", to: "/product-category/vitamins-and-mineral" },
+      { title: "Shop Electrolytes", to: "/product-category/intra-workout" },
+    ],
+  },
+  // ===================== MENTAL ALERTNESS =====================
+  {
+    slug: "supplements-for-mental-alertness-and-reaction-time",
+    title: "Supplements for Mental Alertness and Reaction Time: A Lifter's Guide",
+    excerpt: "From the gym floor to the boardroom — the supplements that sharpen mental alertness, decision speed and reaction time.",
+    date: "2026-05-06",
+    minutes: 9,
+    category: "mental-alertness",
+    metaTitle: "Supplements for Mental Alertness & Reaction Time | MeltonSupps",
+    metaDescription: "The best supplements for mental alertness, reaction time and decision speed — Alpha-GPC, Tyrosine, Caffeine, Theacrine and more.",
+    intro:
+      "Mental alertness is the speed at which your brain processes information and responds to the world. It's the difference between catching a barbell that slips, hitting your last rep with perfect form, or reacting cleanly during a sport or driving situation. Just like physical strength, mental alertness can be trained — and supported with the right supplements. Here are the most effective options based on real research.",
+    toc: ["What mental alertness really is", "Alpha-GPC", "L-Tyrosine", "Caffeine + Theacrine", "Citicoline", "Bacopa Monnieri", "Stacking strategy", "Recommended products"],
+    sections: [
+      {
+        h: "What mental alertness really is",
+        p: "Mental alertness combines arousal (how 'awake' your nervous system is), attention (how well you focus on a single stimulus) and processing speed (how quickly you respond).",
+        paragraphs: ["Sleep and stress dictate the baseline. Supplements push the ceiling higher when you need to perform — but they can't compensate for chronically poor sleep."],
+      },
+      {
+        h: "Alpha-GPC",
+        p: "Alpha-GPC delivers choline directly to the brain to support acetylcholine production — the key neurotransmitter for attention and reaction time.",
+        paragraphs: ["Studies on athletes show 600mg pre-training improves reaction time and explosive power output measurably within 60 minutes."],
+      },
+      {
+        h: "L-Tyrosine",
+        p: "Tyrosine is the amino acid precursor to dopamine, noradrenaline and adrenaline. Under acute stress (sleep loss, deadline pressure, hard training), supplementation maintains cognitive performance.",
+        bullets: ["500–2000mg, 30 minutes before high-stakes tasks", "Best on an empty stomach", "Particularly useful when sleep-deprived"],
+      },
+      {
+        h: "Caffeine + Theacrine",
+        p: "Theacrine is caffeine's smoother cousin. It binds to similar receptors but downregulates them more slowly, meaning longer effect with less crash.",
+        paragraphs: ["100mg caffeine + 100mg theacrine is a top-shelf alertness combo for athletes, drivers and shift workers."],
+      },
+      {
+        h: "Citicoline (CDP-Choline)",
+        p: "Citicoline is a precursor to both acetylcholine and phosphatidylcholine. Long-term use supports membrane health and processing speed.",
+        paragraphs: ["Most clinical studies use 250–500mg per day for 4–8 weeks before measuring outcomes."],
+      },
+      {
+        h: "Bacopa Monnieri",
+        p: "An ayurvedic herb shown to improve memory, learning and reaction time after 8–12 weeks of daily use. Not a same-day stimulant — a long-term brain investment.",
+        callout: "Bacopa works on the slow-burn principle: take it daily for at least 12 weeks before judging effect.",
+      },
+      {
+        h: "Stacking strategy",
+        p: "Here's how to combine these supplements effectively:",
+        bullets: [
+          "Pre-training/competition: Alpha-GPC + Caffeine + Tyrosine",
+          "Daily long-term: Citicoline + Bacopa",
+          "Stress weeks: add Rhodiola or Ashwagandha",
+        ],
+      },
+      {
+        h: "Recommended products",
+        p: "Mental alertness products we recommend:",
+        bullets: [
+          "Bare Performance Nutrition Strong Mind",
+          "ATP Science NoWay Brain Boost",
+          "Switch Nutrition Power Switch (Theacrine + caffeine combo)",
+          "Herbs of Gold Brain Brilliance Bacopa",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Are these safe to take with pre-workout?", a: "Pre-workouts often contain Alpha-GPC, caffeine and tyrosine already. Check the label and avoid stacking duplicates above safe doses." },
+      { q: "What's the fastest-acting alertness supplement?", a: "Caffeine + theacrine + Alpha-GPC works within 30–60 minutes." },
+    ],
+    relatedProducts: [
+      { title: "Shop Brain & Nootropics", to: "/product-category/health-and-wellness" },
+      { title: "Shop Pre-Workouts", to: "/product-category/pre-workouts" },
+    ],
+  },
+  // ===================== JOINT HEALTH =====================
+  {
+    slug: "best-joint-supplements-for-lifters",
+    title: "Best Joint Supplements for Lifters: Protect Your Knees, Shoulders and Elbows",
+    excerpt: "Heavy training is brutal on your joints. The right joint supplements keep you lifting pain-free for decades — here are the ones that work.",
+    date: "2026-05-05",
+    minutes: 10,
+    category: "joint-health",
+    metaTitle: "Best Joint Supplements for Lifters 2026 | MeltonSupps",
+    metaDescription: "Protect your joints with the best supplements for lifters — collagen, glucosamine, MSM, omega-3, curcumin and more. Full guide.",
+    intro:
+      "If you've been training seriously for more than a few years, your joints have a story to tell. Cranky knees, achy shoulders, stiff wrists — they're the price of progress. The good news: joint discomfort isn't inevitable. The right combination of training, recovery and supplements can keep your knees, shoulders and elbows feeling strong long into your 40s, 50s and beyond. Here's the joint stack that actually works, used and recommended every day at MeltonSupps.",
+    toc: [
+      "Why joints break down",
+      "Collagen Peptides",
+      "Glucosamine + Chondroitin",
+      "MSM",
+      "Omega-3 (Fish Oil)",
+      "Curcumin (Turmeric)",
+      "Boswellia",
+      "How to stack them",
+      "Recommended products",
+    ],
+    sections: [
+      {
+        h: "Why joints break down",
+        p: "Joints are made up of cartilage, synovial fluid, ligaments and tendons. Heavy training creates micro-damage to these tissues — normal and necessary, as long as recovery keeps pace.",
+        paragraphs: [
+          "Problems start when training volume outruns recovery: cartilage thins, inflammation lingers, and pain becomes chronic. Supplements help by providing the raw materials for tissue repair, controlling inflammation and supporting synovial fluid production.",
+        ],
+      },
+      {
+        h: "Collagen Peptides",
+        p: "Collagen is the primary structural protein in your joints, tendons and ligaments. Supplementing with hydrolysed collagen peptides has been shown to improve joint comfort, support cartilage and reduce activity-related pain.",
+        bullets: [
+          "10–20g daily of hydrolysed collagen peptides",
+          "Pair with 50mg vitamin C for collagen synthesis",
+          "Take 30–60 minutes before training for maximum joint delivery",
+        ],
+      },
+      {
+        h: "Glucosamine + Chondroitin",
+        p: "The classic joint stack. Glucosamine provides the building blocks for cartilage, while chondroitin helps maintain its structure and water retention.",
+        paragraphs: ["Most clinical studies use 1500mg glucosamine sulfate + 1200mg chondroitin daily for 8–12 weeks. Effects are gradual but durable."],
+      },
+      {
+        h: "MSM (Methylsulfonylmethane)",
+        p: "MSM is a sulfur compound that supports connective tissue repair and reduces exercise-induced inflammation.",
+        paragraphs: ["Typical dose: 1–3g daily. Often combined with glucosamine and chondroitin in joint formulas like Animal Flex."],
+      },
+      {
+        h: "Omega-3 (Fish Oil)",
+        p: "EPA and DHA are powerful anti-inflammatories. For joint health, aim for 2–3g of combined EPA + DHA daily — that usually means 4–6 standard fish oil capsules.",
+        callout: "Quality matters here. Cheap fish oil oxidises easily and can do more harm than good. Stick to reputable brands with third-party testing.",
+      },
+      {
+        h: "Curcumin (Turmeric)",
+        p: "Curcumin is one of the most potent natural anti-inflammatories available. Standard turmeric powder absorbs poorly — look for formulas with piperine, lecithin (Meriva) or BCM-95 for real results.",
+        bullets: ["500–1000mg curcumin extract daily", "Always with fat or a bioavailability enhancer", "Pairs well with omega-3 for compounded effect"],
+      },
+      {
+        h: "Boswellia",
+        p: "Boswellia (Indian Frankincense) is a herbal anti-inflammatory with strong evidence for reducing joint discomfort and stiffness, especially in the knees.",
+        paragraphs: ["300–500mg of standardised AKBA extract daily for 4–8 weeks shows the best results in clinical trials."],
+      },
+      {
+        h: "How to stack them",
+        p: "Here's the straight-forward joint stack we recommend for serious lifters:",
+        bullets: [
+          "Daily morning: Collagen + Vitamin C + Omega-3",
+          "Daily with food: Curcumin + Boswellia",
+          "Long-term (10+ year lifters): Add Glucosamine + Chondroitin + MSM",
+          "Pre-training: Extra collagen 30 minutes before",
+        ],
+        callout: "Joint supplements work on a 6–12 week timeline. Be consistent and track how you feel.",
+      },
+      {
+        h: "Recommended products",
+        p: "Joint products we trust at MeltonSupps:",
+        bullets: [
+          "Animal Flex (complete joint stack — our #1 pick)",
+          "Switch Nutrition Collagen Switch",
+          "ATP Science Cort RX (anti-inflammatory adaptogen blend)",
+          "Optimum Nutrition Glucosamine + Chondroitin + MSM",
+          "Nordic Naturals Ultimate Omega",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "How long before joint supplements work?", a: "Allow 6–12 weeks of consistent daily use. Some users notice changes earlier, but real cartilage and connective tissue support takes time." },
+      { q: "Are joint supplements safe daily?", a: "Yes — collagen, fish oil, curcumin, glucosamine and MSM are all safe long-term for healthy adults." },
+      { q: "Do I need joint supplements if I'm under 30?", a: "Collagen and omega-3 are smart for any lifter. Glucosamine and chondroitin are more relevant once you're 30+ or experiencing symptoms." },
+    ],
+    relatedProducts: [
+      { title: "Shop Joint Support", to: "/product-category/health-and-wellness" },
+      { title: "Shop Collagen", to: "/product-category/health-and-wellness" },
+      { title: "Shop Omega-3", to: "/product-category/vitamins-and-mineral" },
+    ],
+  },
+  // ===================== LIVER (additional in-depth) =====================
+  {
+    slug: "complete-guide-to-liver-support-for-athletes",
+    title: "Complete Guide to Liver Support for Athletes and Hard Trainers",
+    excerpt: "Hard training, harsh supplements and modern life take a toll on your liver. Here's the complete supplement protocol to keep it healthy.",
+    date: "2026-05-04",
+    minutes: 11,
+    category: "liver-health",
+    metaTitle: "Complete Guide to Liver Support for Athletes | MeltonSupps",
+    metaDescription: "The complete liver support guide for athletes — TUDCA, NAC, milk thistle, curcumin and how to keep your liver healthy under hard training.",
+    intro:
+      "Your liver is the unsung hero of your training. It processes everything that enters your body — protein, supplements, alcohol, medications and environmental toxins. For serious athletes running heavy supplement protocols, harsh pre-workouts, or simply living a modern Australian lifestyle, supporting your liver isn't optional — it's foundational. Here's the complete supplement protocol we recommend for liver protection, regeneration and long-term health.",
+    toc: [
+      "Why athletes need liver support",
+      "Signs your liver needs help",
+      "TUDCA",
+      "NAC (N-Acetyl Cysteine)",
+      "Milk Thistle (Silymarin)",
+      "Curcumin",
+      "Choline",
+      "Building your liver stack",
+      "Lifestyle protocol",
+      "Recommended products",
+    ],
+    sections: [
+      {
+        h: "Why athletes need liver support",
+        p: "Hard training, high-protein diets, harsh stimulants, NSAIDs, alcohol and any cycled compounds all increase liver workload. The liver is incredibly resilient, but resilience has a cost — over time, function can drift even in young, healthy lifters.",
+        paragraphs: ["Smart liver support keeps enzyme markers in check, supports bile flow, and provides the antioxidants needed to regenerate liver cells."],
+      },
+      {
+        h: "Signs your liver needs help",
+        p: "Common signs include sluggish digestion, brain fog, mid-morning fatigue, poor recovery, skin breakouts and a heavy feeling under the right ribs.",
+        callout: "Persistent symptoms? Get a blood test (ALT, AST, GGT) before assuming a supplement will fix it.",
+      },
+      {
+        h: "TUDCA (Tauroursodeoxycholic Acid)",
+        p: "TUDCA is a bile acid that protects liver cells, improves bile flow and supports overall liver function. Particularly favoured by athletes running aggressive supplement stacks.",
+        bullets: ["250–500mg per day with food", "Take consistently for 6–12 weeks at a time", "Often cycled with NAC"],
+      },
+      {
+        h: "NAC (N-Acetyl Cysteine)",
+        p: "NAC is the precursor to glutathione, the body's master antioxidant. Used for decades in hospitals to treat acetaminophen overdose because of its liver-protective properties.",
+        paragraphs: ["Typical dose: 600–1200mg per day, often split between morning and evening. Safe for long-term daily use."],
+      },
+      {
+        h: "Milk Thistle (Silymarin)",
+        p: "Milk thistle is the original liver herb. Silymarin extract supports liver cell regeneration and has thousands of years of traditional use plus solid modern evidence.",
+        paragraphs: ["Standardised extracts at 200–400mg per day, ideally containing 70–80% silymarin."],
+      },
+      {
+        h: "Curcumin",
+        p: "Curcumin reduces inflammatory markers in the liver and supports bile production. Use a bioavailable form (Meriva, BCM-95 or with piperine) for actual results.",
+        paragraphs: ["500–1000mg of high-bioavailability curcumin extract daily."],
+      },
+      {
+        h: "Choline",
+        p: "Choline (especially as Alpha-GPC, citicoline or phosphatidylcholine) supports fat metabolism in the liver and helps prevent non-alcoholic fatty liver disease.",
+        paragraphs: ["Aim for 500mg+ of total choline per day from food and supplements combined."],
+      },
+      {
+        h: "Building your liver stack",
+        p: "Our recommended liver protection stack for serious lifters:",
+        bullets: [
+          "Daily baseline: NAC + Milk Thistle + Curcumin",
+          "Cycled (8–12 weeks): TUDCA",
+          "Foundational: Choline + Omega-3",
+          "Annual reset: 4 weeks off all stimulants/harsh supplements",
+        ],
+      },
+      {
+        h: "Lifestyle protocol",
+        p: "No supplement compensates for poor habits. Limit alcohol to occasional, hydrate properly, prioritise cruciferous vegetables, train consistently but recover fully, and get blood markers checked yearly.",
+        callout: "Liver health is the sum of supplements + lifestyle. The supplements are the multiplier — not the foundation.",
+      },
+      {
+        h: "Recommended products",
+        p: "Liver support products we trust at MeltonSupps:",
+        bullets: [
+          "ATP Science Liver Bro / Liver Sis",
+          "Switch Nutrition NAC Switch",
+          "Animal Flex (liver-friendly joint pack)",
+          "Herbs of Gold Milk Thistle 35,000",
+          "Premium TUDCA from trusted Australian distributors",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Do I really need liver support if I'm healthy?", a: "If you train hard, take supplements daily and live a busy modern life — yes, basic liver care is wise." },
+      { q: "Can I take TUDCA and NAC together?", a: "Yes, they work via different pathways and are commonly stacked. Start with one for 4 weeks before adding the other." },
+      { q: "Is liver support safe long term?", a: "Most are. Cycle TUDCA and curcumin every few months. NAC and milk thistle are safe daily for years." },
+    ],
+    relatedProducts: [
+      { title: "Shop Liver Support", to: "/product-category/health-and-wellness" },
+      { title: "Shop NAC", to: "/product-category/health-and-wellness" },
+      { title: "Shop TUDCA", to: "/product-category/health-and-wellness" },
+    ],
+  },
 ];
 
 export const getPostBySlug = (slug: string) => BLOG_POSTS.find((p) => p.slug === slug);
