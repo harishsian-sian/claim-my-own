@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WishlistRouteImport } from './routes/wishlist'
+import { Route as WhyChooseUsRouteImport } from './routes/why-choose-us'
 import { Route as TrackOrderRouteImport } from './routes/track-order'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as StoresRouteImport } from './routes/stores'
@@ -21,6 +22,7 @@ import { Route as ReturnsRouteImport } from './routes/returns'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PriceMatchRouteImport } from './routes/price-match'
+import { Route as NewArrivalsRouteImport } from './routes/new-arrivals'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -29,10 +31,13 @@ import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BrandsRouteImport } from './routes/brands'
 import { Route as BlogsRouteImport } from './routes/blogs'
 import { Route as BlogRouteImport } from './routes/blog'
+import { Route as BestSellersRouteImport } from './routes/best-sellers'
+import { Route as AuthenticityRouteImport } from './routes/authenticity'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LocalIndexRouteImport } from './routes/local.index'
 import { Route as CollectionsIndexRouteImport } from './routes/collections.index'
 import { Route as StoresHandleRouteImport } from './routes/stores.$handle'
 import { Route as ProductsHandleRouteImport } from './routes/products.$handle'
@@ -40,6 +45,7 @@ import { Route as ProductHandleRouteImport } from './routes/product.$handle'
 import { Route as ProductCategoryHandleRouteImport } from './routes/product-category.$handle'
 import { Route as PoliciesHandleRouteImport } from './routes/policies.$handle'
 import { Route as PagesHandleRouteImport } from './routes/pages.$handle'
+import { Route as LocalSlugRouteImport } from './routes/local.$slug'
 import { Route as CollectionsAllRouteImport } from './routes/collections.all'
 import { Route as CollectionsHandleRouteImport } from './routes/collections.$handle'
 import { Route as BlogsSplatRouteImport } from './routes/blogs.$'
@@ -49,6 +55,11 @@ import { Route as ApiPublicInventoryRouteImport } from './routes/api/public/inve
 const WishlistRoute = WishlistRouteImport.update({
   id: '/wishlist',
   path: '/wishlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WhyChooseUsRoute = WhyChooseUsRouteImport.update({
+  id: '/why-choose-us',
+  path: '/why-choose-us',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TrackOrderRoute = TrackOrderRouteImport.update({
@@ -106,6 +117,11 @@ const PriceMatchRoute = PriceMatchRouteImport.update({
   path: '/price-match',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NewArrivalsRoute = NewArrivalsRouteImport.update({
+  id: '/new-arrivals',
+  path: '/new-arrivals',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
@@ -146,6 +162,16 @@ const BlogRoute = BlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BestSellersRoute = BestSellersRouteImport.update({
+  id: '/best-sellers',
+  path: '/best-sellers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticityRoute = AuthenticityRouteImport.update({
+  id: '/authenticity',
+  path: '/authenticity',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -164,6 +190,11 @@ const AboutRoute = AboutRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocalIndexRoute = LocalIndexRouteImport.update({
+  id: '/local/',
+  path: '/local/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CollectionsIndexRoute = CollectionsIndexRouteImport.update({
@@ -201,6 +232,11 @@ const PagesHandleRoute = PagesHandleRouteImport.update({
   path: '/pages/$handle',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LocalSlugRoute = LocalSlugRouteImport.update({
+  id: '/local/$slug',
+  path: '/local/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CollectionsAllRoute = CollectionsAllRouteImport.update({
   id: '/all',
   path: '/all',
@@ -232,6 +268,8 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/account': typeof AccountRoute
   '/auth': typeof AuthRoute
+  '/authenticity': typeof AuthenticityRoute
+  '/best-sellers': typeof BestSellersRoute
   '/blog': typeof BlogRouteWithChildren
   '/blogs': typeof BlogsRouteWithChildren
   '/brands': typeof BrandsRoute
@@ -240,6 +278,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/faq': typeof FaqRoute
+  '/new-arrivals': typeof NewArrivalsRoute
   '/price-match': typeof PriceMatchRoute
   '/privacy': typeof PrivacyRoute
   '/products': typeof ProductsRouteWithChildren
@@ -251,11 +290,13 @@ export interface FileRoutesByFullPath {
   '/stores': typeof StoresRouteWithChildren
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
+  '/why-choose-us': typeof WhyChooseUsRoute
   '/wishlist': typeof WishlistRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blogs/$': typeof BlogsSplatRoute
   '/collections/$handle': typeof CollectionsHandleRoute
   '/collections/all': typeof CollectionsAllRoute
+  '/local/$slug': typeof LocalSlugRoute
   '/pages/$handle': typeof PagesHandleRoute
   '/policies/$handle': typeof PoliciesHandleRoute
   '/product-category/$handle': typeof ProductCategoryHandleRoute
@@ -263,6 +304,7 @@ export interface FileRoutesByFullPath {
   '/products/$handle': typeof ProductsHandleRoute
   '/stores/$handle': typeof StoresHandleRoute
   '/collections/': typeof CollectionsIndexRoute
+  '/local/': typeof LocalIndexRoute
   '/api/public/inventory': typeof ApiPublicInventoryRoute
 }
 export interface FileRoutesByTo {
@@ -270,6 +312,8 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/account': typeof AccountRoute
   '/auth': typeof AuthRoute
+  '/authenticity': typeof AuthenticityRoute
+  '/best-sellers': typeof BestSellersRoute
   '/blog': typeof BlogRouteWithChildren
   '/blogs': typeof BlogsRouteWithChildren
   '/brands': typeof BrandsRoute
@@ -277,6 +321,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/faq': typeof FaqRoute
+  '/new-arrivals': typeof NewArrivalsRoute
   '/price-match': typeof PriceMatchRoute
   '/privacy': typeof PrivacyRoute
   '/products': typeof ProductsRouteWithChildren
@@ -288,11 +333,13 @@ export interface FileRoutesByTo {
   '/stores': typeof StoresRouteWithChildren
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
+  '/why-choose-us': typeof WhyChooseUsRoute
   '/wishlist': typeof WishlistRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blogs/$': typeof BlogsSplatRoute
   '/collections/$handle': typeof CollectionsHandleRoute
   '/collections/all': typeof CollectionsAllRoute
+  '/local/$slug': typeof LocalSlugRoute
   '/pages/$handle': typeof PagesHandleRoute
   '/policies/$handle': typeof PoliciesHandleRoute
   '/product-category/$handle': typeof ProductCategoryHandleRoute
@@ -300,6 +347,7 @@ export interface FileRoutesByTo {
   '/products/$handle': typeof ProductsHandleRoute
   '/stores/$handle': typeof StoresHandleRoute
   '/collections': typeof CollectionsIndexRoute
+  '/local': typeof LocalIndexRoute
   '/api/public/inventory': typeof ApiPublicInventoryRoute
 }
 export interface FileRoutesById {
@@ -308,6 +356,8 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/account': typeof AccountRoute
   '/auth': typeof AuthRoute
+  '/authenticity': typeof AuthenticityRoute
+  '/best-sellers': typeof BestSellersRoute
   '/blog': typeof BlogRouteWithChildren
   '/blogs': typeof BlogsRouteWithChildren
   '/brands': typeof BrandsRoute
@@ -316,6 +366,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/faq': typeof FaqRoute
+  '/new-arrivals': typeof NewArrivalsRoute
   '/price-match': typeof PriceMatchRoute
   '/privacy': typeof PrivacyRoute
   '/products': typeof ProductsRouteWithChildren
@@ -327,11 +378,13 @@ export interface FileRoutesById {
   '/stores': typeof StoresRouteWithChildren
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
+  '/why-choose-us': typeof WhyChooseUsRoute
   '/wishlist': typeof WishlistRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blogs/$': typeof BlogsSplatRoute
   '/collections/$handle': typeof CollectionsHandleRoute
   '/collections/all': typeof CollectionsAllRoute
+  '/local/$slug': typeof LocalSlugRoute
   '/pages/$handle': typeof PagesHandleRoute
   '/policies/$handle': typeof PoliciesHandleRoute
   '/product-category/$handle': typeof ProductCategoryHandleRoute
@@ -339,6 +392,7 @@ export interface FileRoutesById {
   '/products/$handle': typeof ProductsHandleRoute
   '/stores/$handle': typeof StoresHandleRoute
   '/collections/': typeof CollectionsIndexRoute
+  '/local/': typeof LocalIndexRoute
   '/api/public/inventory': typeof ApiPublicInventoryRoute
 }
 export interface FileRouteTypes {
@@ -348,6 +402,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/account'
     | '/auth'
+    | '/authenticity'
+    | '/best-sellers'
     | '/blog'
     | '/blogs'
     | '/brands'
@@ -356,6 +412,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/disclaimer'
     | '/faq'
+    | '/new-arrivals'
     | '/price-match'
     | '/privacy'
     | '/products'
@@ -367,11 +424,13 @@ export interface FileRouteTypes {
     | '/stores'
     | '/terms'
     | '/track-order'
+    | '/why-choose-us'
     | '/wishlist'
     | '/blog/$slug'
     | '/blogs/$'
     | '/collections/$handle'
     | '/collections/all'
+    | '/local/$slug'
     | '/pages/$handle'
     | '/policies/$handle'
     | '/product-category/$handle'
@@ -379,6 +438,7 @@ export interface FileRouteTypes {
     | '/products/$handle'
     | '/stores/$handle'
     | '/collections/'
+    | '/local/'
     | '/api/public/inventory'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -386,6 +446,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/account'
     | '/auth'
+    | '/authenticity'
+    | '/best-sellers'
     | '/blog'
     | '/blogs'
     | '/brands'
@@ -393,6 +455,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/disclaimer'
     | '/faq'
+    | '/new-arrivals'
     | '/price-match'
     | '/privacy'
     | '/products'
@@ -404,11 +467,13 @@ export interface FileRouteTypes {
     | '/stores'
     | '/terms'
     | '/track-order'
+    | '/why-choose-us'
     | '/wishlist'
     | '/blog/$slug'
     | '/blogs/$'
     | '/collections/$handle'
     | '/collections/all'
+    | '/local/$slug'
     | '/pages/$handle'
     | '/policies/$handle'
     | '/product-category/$handle'
@@ -416,6 +481,7 @@ export interface FileRouteTypes {
     | '/products/$handle'
     | '/stores/$handle'
     | '/collections'
+    | '/local'
     | '/api/public/inventory'
   id:
     | '__root__'
@@ -423,6 +489,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/account'
     | '/auth'
+    | '/authenticity'
+    | '/best-sellers'
     | '/blog'
     | '/blogs'
     | '/brands'
@@ -431,6 +499,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/disclaimer'
     | '/faq'
+    | '/new-arrivals'
     | '/price-match'
     | '/privacy'
     | '/products'
@@ -442,11 +511,13 @@ export interface FileRouteTypes {
     | '/stores'
     | '/terms'
     | '/track-order'
+    | '/why-choose-us'
     | '/wishlist'
     | '/blog/$slug'
     | '/blogs/$'
     | '/collections/$handle'
     | '/collections/all'
+    | '/local/$slug'
     | '/pages/$handle'
     | '/policies/$handle'
     | '/product-category/$handle'
@@ -454,6 +525,7 @@ export interface FileRouteTypes {
     | '/products/$handle'
     | '/stores/$handle'
     | '/collections/'
+    | '/local/'
     | '/api/public/inventory'
   fileRoutesById: FileRoutesById
 }
@@ -462,6 +534,8 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AccountRoute: typeof AccountRoute
   AuthRoute: typeof AuthRoute
+  AuthenticityRoute: typeof AuthenticityRoute
+  BestSellersRoute: typeof BestSellersRoute
   BlogRoute: typeof BlogRouteWithChildren
   BlogsRoute: typeof BlogsRouteWithChildren
   BrandsRoute: typeof BrandsRoute
@@ -470,6 +544,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   DisclaimerRoute: typeof DisclaimerRoute
   FaqRoute: typeof FaqRoute
+  NewArrivalsRoute: typeof NewArrivalsRoute
   PriceMatchRoute: typeof PriceMatchRoute
   PrivacyRoute: typeof PrivacyRoute
   ProductsRoute: typeof ProductsRouteWithChildren
@@ -481,11 +556,14 @@ export interface RootRouteChildren {
   StoresRoute: typeof StoresRouteWithChildren
   TermsRoute: typeof TermsRoute
   TrackOrderRoute: typeof TrackOrderRoute
+  WhyChooseUsRoute: typeof WhyChooseUsRoute
   WishlistRoute: typeof WishlistRoute
+  LocalSlugRoute: typeof LocalSlugRoute
   PagesHandleRoute: typeof PagesHandleRoute
   PoliciesHandleRoute: typeof PoliciesHandleRoute
   ProductCategoryHandleRoute: typeof ProductCategoryHandleRoute
   ProductHandleRoute: typeof ProductHandleRoute
+  LocalIndexRoute: typeof LocalIndexRoute
   ApiPublicInventoryRoute: typeof ApiPublicInventoryRoute
 }
 
@@ -496,6 +574,13 @@ declare module '@tanstack/react-router' {
       path: '/wishlist'
       fullPath: '/wishlist'
       preLoaderRoute: typeof WishlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/why-choose-us': {
+      id: '/why-choose-us'
+      path: '/why-choose-us'
+      fullPath: '/why-choose-us'
+      preLoaderRoute: typeof WhyChooseUsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/track-order': {
@@ -575,6 +660,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PriceMatchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/new-arrivals': {
+      id: '/new-arrivals'
+      path: '/new-arrivals'
+      fullPath: '/new-arrivals'
+      preLoaderRoute: typeof NewArrivalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/faq': {
       id: '/faq'
       path: '/faq'
@@ -631,6 +723,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/best-sellers': {
+      id: '/best-sellers'
+      path: '/best-sellers'
+      fullPath: '/best-sellers'
+      preLoaderRoute: typeof BestSellersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/authenticity': {
+      id: '/authenticity'
+      path: '/authenticity'
+      fullPath: '/authenticity'
+      preLoaderRoute: typeof AuthenticityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -657,6 +763,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/local/': {
+      id: '/local/'
+      path: '/local'
+      fullPath: '/local/'
+      preLoaderRoute: typeof LocalIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/collections/': {
@@ -706,6 +819,13 @@ declare module '@tanstack/react-router' {
       path: '/pages/$handle'
       fullPath: '/pages/$handle'
       preLoaderRoute: typeof PagesHandleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/local/$slug': {
+      id: '/local/$slug'
+      path: '/local/$slug'
+      fullPath: '/local/$slug'
+      preLoaderRoute: typeof LocalSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/collections/all': {
@@ -810,6 +930,8 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AccountRoute: AccountRoute,
   AuthRoute: AuthRoute,
+  AuthenticityRoute: AuthenticityRoute,
+  BestSellersRoute: BestSellersRoute,
   BlogRoute: BlogRouteWithChildren,
   BlogsRoute: BlogsRouteWithChildren,
   BrandsRoute: BrandsRoute,
@@ -818,6 +940,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   DisclaimerRoute: DisclaimerRoute,
   FaqRoute: FaqRoute,
+  NewArrivalsRoute: NewArrivalsRoute,
   PriceMatchRoute: PriceMatchRoute,
   PrivacyRoute: PrivacyRoute,
   ProductsRoute: ProductsRouteWithChildren,
@@ -829,11 +952,14 @@ const rootRouteChildren: RootRouteChildren = {
   StoresRoute: StoresRouteWithChildren,
   TermsRoute: TermsRoute,
   TrackOrderRoute: TrackOrderRoute,
+  WhyChooseUsRoute: WhyChooseUsRoute,
   WishlistRoute: WishlistRoute,
+  LocalSlugRoute: LocalSlugRoute,
   PagesHandleRoute: PagesHandleRoute,
   PoliciesHandleRoute: PoliciesHandleRoute,
   ProductCategoryHandleRoute: ProductCategoryHandleRoute,
   ProductHandleRoute: ProductHandleRoute,
+  LocalIndexRoute: LocalIndexRoute,
   ApiPublicInventoryRoute: ApiPublicInventoryRoute,
 }
 export const routeTree = rootRouteImport
