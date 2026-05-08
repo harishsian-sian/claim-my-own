@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Search, User, Heart, MapPin, Package, Tag, Sparkles, Dumbbell, Truck, ChevronDown } from "lucide-react";
+import { Search, User, Heart, MapPin, Package, Tag, Sparkles, Dumbbell, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { CartDrawer } from "./CartDrawer";
 import { PromoBar } from "./PromoBar";
@@ -114,12 +114,12 @@ export function SiteHeader() {
                 Specials
               </Link>
               <Link
-                to="/products"
+                to="/stores"
                 onMouseEnter={() => setOpenMenu(null)}
                 className="flex items-center gap-2 whitespace-nowrap text-background/85 hover:text-brand transition-colors"
               >
-                <Truck className="h-4 w-4" />
-                Pickup & Delivery
+                <MapPin className="h-4 w-4" />
+                Find a Store
               </Link>
             </nav>
           </div>

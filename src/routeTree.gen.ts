@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WishlistRouteImport } from './routes/wishlist'
 import { Route as TrackOrderRouteImport } from './routes/track-order'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as StoresRouteImport } from './routes/stores'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ShippingRouteImport } from './routes/shipping'
 import { Route as SearchRouteImport } from './routes/search'
@@ -33,6 +34,7 @@ import { Route as AccountRouteImport } from './routes/account'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CollectionsIndexRouteImport } from './routes/collections.index'
+import { Route as StoresHandleRouteImport } from './routes/stores.$handle'
 import { Route as ProductsHandleRouteImport } from './routes/products.$handle'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
 import { Route as ProductCategoryHandleRouteImport } from './routes/product-category.$handle'
@@ -57,6 +59,11 @@ const TrackOrderRoute = TrackOrderRouteImport.update({
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StoresRoute = StoresRouteImport.update({
+  id: '/stores',
+  path: '/stores',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -164,6 +171,11 @@ const CollectionsIndexRoute = CollectionsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => CollectionsRoute,
 } as any)
+const StoresHandleRoute = StoresHandleRouteImport.update({
+  id: '/$handle',
+  path: '/$handle',
+  getParentRoute: () => StoresRoute,
+} as any)
 const ProductsHandleRoute = ProductsHandleRouteImport.update({
   id: '/$handle',
   path: '/$handle',
@@ -236,6 +248,7 @@ export interface FileRoutesByFullPath {
   '/search': typeof SearchRoute
   '/shipping': typeof ShippingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/stores': typeof StoresRouteWithChildren
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
   '/wishlist': typeof WishlistRoute
@@ -248,6 +261,7 @@ export interface FileRoutesByFullPath {
   '/product-category/$handle': typeof ProductCategoryHandleRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
+  '/stores/$handle': typeof StoresHandleRoute
   '/collections/': typeof CollectionsIndexRoute
   '/api/public/inventory': typeof ApiPublicInventoryRoute
 }
@@ -271,6 +285,7 @@ export interface FileRoutesByTo {
   '/search': typeof SearchRoute
   '/shipping': typeof ShippingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/stores': typeof StoresRouteWithChildren
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
   '/wishlist': typeof WishlistRoute
@@ -283,6 +298,7 @@ export interface FileRoutesByTo {
   '/product-category/$handle': typeof ProductCategoryHandleRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
+  '/stores/$handle': typeof StoresHandleRoute
   '/collections': typeof CollectionsIndexRoute
   '/api/public/inventory': typeof ApiPublicInventoryRoute
 }
@@ -308,6 +324,7 @@ export interface FileRoutesById {
   '/search': typeof SearchRoute
   '/shipping': typeof ShippingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/stores': typeof StoresRouteWithChildren
   '/terms': typeof TermsRoute
   '/track-order': typeof TrackOrderRoute
   '/wishlist': typeof WishlistRoute
@@ -320,6 +337,7 @@ export interface FileRoutesById {
   '/product-category/$handle': typeof ProductCategoryHandleRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
+  '/stores/$handle': typeof StoresHandleRoute
   '/collections/': typeof CollectionsIndexRoute
   '/api/public/inventory': typeof ApiPublicInventoryRoute
 }
@@ -346,6 +364,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/shipping'
     | '/sitemap.xml'
+    | '/stores'
     | '/terms'
     | '/track-order'
     | '/wishlist'
@@ -358,6 +377,7 @@ export interface FileRouteTypes {
     | '/product-category/$handle'
     | '/product/$handle'
     | '/products/$handle'
+    | '/stores/$handle'
     | '/collections/'
     | '/api/public/inventory'
   fileRoutesByTo: FileRoutesByTo
@@ -381,6 +401,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/shipping'
     | '/sitemap.xml'
+    | '/stores'
     | '/terms'
     | '/track-order'
     | '/wishlist'
@@ -393,6 +414,7 @@ export interface FileRouteTypes {
     | '/product-category/$handle'
     | '/product/$handle'
     | '/products/$handle'
+    | '/stores/$handle'
     | '/collections'
     | '/api/public/inventory'
   id:
@@ -417,6 +439,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/shipping'
     | '/sitemap.xml'
+    | '/stores'
     | '/terms'
     | '/track-order'
     | '/wishlist'
@@ -429,6 +452,7 @@ export interface FileRouteTypes {
     | '/product-category/$handle'
     | '/product/$handle'
     | '/products/$handle'
+    | '/stores/$handle'
     | '/collections/'
     | '/api/public/inventory'
   fileRoutesById: FileRoutesById
@@ -454,6 +478,7 @@ export interface RootRouteChildren {
   SearchRoute: typeof SearchRoute
   ShippingRoute: typeof ShippingRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  StoresRoute: typeof StoresRouteWithChildren
   TermsRoute: typeof TermsRoute
   TrackOrderRoute: typeof TrackOrderRoute
   WishlistRoute: typeof WishlistRoute
@@ -485,6 +510,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stores': {
+      id: '/stores'
+      path: '/stores'
+      fullPath: '/stores'
+      preLoaderRoute: typeof StoresRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -634,6 +666,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollectionsIndexRouteImport
       parentRoute: typeof CollectionsRoute
     }
+    '/stores/$handle': {
+      id: '/stores/$handle'
+      path: '/$handle'
+      fullPath: '/stores/$handle'
+      preLoaderRoute: typeof StoresHandleRouteImport
+      parentRoute: typeof StoresRoute
+    }
     '/products/$handle': {
       id: '/products/$handle'
       path: '/$handle'
@@ -755,6 +794,17 @@ const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
   ProductsRouteChildren,
 )
 
+interface StoresRouteChildren {
+  StoresHandleRoute: typeof StoresHandleRoute
+}
+
+const StoresRouteChildren: StoresRouteChildren = {
+  StoresHandleRoute: StoresHandleRoute,
+}
+
+const StoresRouteWithChildren =
+  StoresRoute._addFileChildren(StoresRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -776,6 +826,7 @@ const rootRouteChildren: RootRouteChildren = {
   SearchRoute: SearchRoute,
   ShippingRoute: ShippingRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  StoresRoute: StoresRouteWithChildren,
   TermsRoute: TermsRoute,
   TrackOrderRoute: TrackOrderRoute,
   WishlistRoute: WishlistRoute,
