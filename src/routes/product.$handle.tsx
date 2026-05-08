@@ -103,12 +103,19 @@ export const Route = createFileRoute("/product/$handle")({
             offers: seo.price
               ? {
                   "@type": "Offer",
-                  price: seo.price,
+                  price: (parseFloat(seo.price) * 0.9).toFixed(2),
                   priceCurrency: seo.currency,
                   availability: seo.available
                     ? "https://schema.org/InStock"
                     : "https://schema.org/OutOfStock",
                   url,
+                  priceValidUntil: "2026-12-31",
+                  priceSpecification: {
+                    "@type": "UnitPriceSpecification",
+                    price: (parseFloat(seo.price) * 0.9).toFixed(2),
+                    priceCurrency: seo.currency,
+                    valueAddedTaxIncluded: true,
+                  },
                 }
               : undefined,
           }),
