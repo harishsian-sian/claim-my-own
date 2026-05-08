@@ -538,20 +538,17 @@ function ProductDetail() {
             <div className="lg:sticky lg:top-24 border-2 rounded-2xl p-5 bg-card shadow-sm space-y-4">
               <div>
                 <div className="flex items-baseline gap-2 flex-wrap">
-                  <p className="font-display text-3xl font-black text-destructive">
-                    {formatMoney((parseFloat(price.amount) * 0.9).toFixed(2), price.currencyCode)}
-                  </p>
-                  <p className="text-base text-muted-foreground line-through">
+                  <p className="font-display text-3xl font-black text-foreground">
                     {formatMoney(price.amount, price.currencyCode)}
                   </p>
                 </div>
                 <p className="mt-2 inline-flex items-center gap-1 bg-brand/10 text-brand px-2 py-1 rounded text-[11px] font-bold uppercase tracking-wider">
-                  Save 10% with code MAY10 at checkout
+                  Use code MAY10 for 10% OFF — pay {formatMoney((parseFloat(price.amount) * 0.9).toFixed(2), price.currencyCode)}
                 </p>
                 <p className="text-xs text-muted-foreground mt-2">
                   or 4 interest-free payments of{" "}
                   <span className="font-semibold text-foreground">
-                    {formatMoney((parseFloat(price.amount) * 0.9) / 4, price.currencyCode)}
+                    {formatMoney((parseFloat(price.amount) / 4).toFixed(2), price.currencyCode)}
                   </span>
                 </p>
               </div>
