@@ -74,9 +74,6 @@ export function ProductCard({ product }: { product: ShopifyProduct }) {
             <span className="font-display font-bold text-lg text-foreground">
               {formatMoney(price.amount, price.currencyCode)}
             </span>
-            <span className="text-[10px] text-brand font-semibold leading-tight">
-              {formatMoney((parseFloat(price.amount) * 0.9).toFixed(2), price.currencyCode)} with MAY10
-            </span>
           </div>
           <Button
             size="icon"

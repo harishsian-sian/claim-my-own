@@ -29,7 +29,7 @@ export const Route = createFileRoute("/collections/$handle")({
         { title: `${title} — MeltonSupps` },
         {
           name: "description",
-          content: `Shop ${title} at MeltonSupps. Use code MAY10 at checkout for 10% off.`,
+          content: `Shop ${title} at MeltonSupps.`,
         },
       ],
       links: [{ rel: "canonical", href: `https://meltonsupps.com.au${canonicalPath}` }],
