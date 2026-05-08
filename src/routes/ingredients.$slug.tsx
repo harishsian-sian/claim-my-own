@@ -111,7 +111,7 @@ function IngredientPage() {
         <section className="container mx-auto px-4 pb-12">
           <h2 className="font-display text-3xl font-black uppercase">Key Benefits</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-            {i.benefits.map((b) => (
+            {i.benefits.map((b: { title: string; desc: string }) => (
               <div key={b.title} className="border rounded-2xl p-5 bg-muted/20">
                 <ShieldCheck className="h-5 w-5 text-brand" />
                 <h3 className="font-display text-lg font-bold uppercase mt-2">{b.title}</h3>

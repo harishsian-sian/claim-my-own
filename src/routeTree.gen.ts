@@ -46,6 +46,7 @@ import { Route as ProductCategoryHandleRouteImport } from './routes/product-cate
 import { Route as PoliciesHandleRouteImport } from './routes/policies.$handle'
 import { Route as PagesHandleRouteImport } from './routes/pages.$handle'
 import { Route as LocalSlugRouteImport } from './routes/local.$slug'
+import { Route as IngredientsSlugRouteImport } from './routes/ingredients.$slug'
 import { Route as CollectionsAllRouteImport } from './routes/collections.all'
 import { Route as CollectionsHandleRouteImport } from './routes/collections.$handle'
 import { Route as BlogsSplatRouteImport } from './routes/blogs.$'
@@ -237,6 +238,11 @@ const LocalSlugRoute = LocalSlugRouteImport.update({
   path: '/local/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IngredientsSlugRoute = IngredientsSlugRouteImport.update({
+  id: '/ingredients/$slug',
+  path: '/ingredients/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CollectionsAllRoute = CollectionsAllRouteImport.update({
   id: '/all',
   path: '/all',
@@ -296,6 +302,7 @@ export interface FileRoutesByFullPath {
   '/blogs/$': typeof BlogsSplatRoute
   '/collections/$handle': typeof CollectionsHandleRoute
   '/collections/all': typeof CollectionsAllRoute
+  '/ingredients/$slug': typeof IngredientsSlugRoute
   '/local/$slug': typeof LocalSlugRoute
   '/pages/$handle': typeof PagesHandleRoute
   '/policies/$handle': typeof PoliciesHandleRoute
@@ -339,6 +346,7 @@ export interface FileRoutesByTo {
   '/blogs/$': typeof BlogsSplatRoute
   '/collections/$handle': typeof CollectionsHandleRoute
   '/collections/all': typeof CollectionsAllRoute
+  '/ingredients/$slug': typeof IngredientsSlugRoute
   '/local/$slug': typeof LocalSlugRoute
   '/pages/$handle': typeof PagesHandleRoute
   '/policies/$handle': typeof PoliciesHandleRoute
@@ -384,6 +392,7 @@ export interface FileRoutesById {
   '/blogs/$': typeof BlogsSplatRoute
   '/collections/$handle': typeof CollectionsHandleRoute
   '/collections/all': typeof CollectionsAllRoute
+  '/ingredients/$slug': typeof IngredientsSlugRoute
   '/local/$slug': typeof LocalSlugRoute
   '/pages/$handle': typeof PagesHandleRoute
   '/policies/$handle': typeof PoliciesHandleRoute
@@ -430,6 +439,7 @@ export interface FileRouteTypes {
     | '/blogs/$'
     | '/collections/$handle'
     | '/collections/all'
+    | '/ingredients/$slug'
     | '/local/$slug'
     | '/pages/$handle'
     | '/policies/$handle'
@@ -473,6 +483,7 @@ export interface FileRouteTypes {
     | '/blogs/$'
     | '/collections/$handle'
     | '/collections/all'
+    | '/ingredients/$slug'
     | '/local/$slug'
     | '/pages/$handle'
     | '/policies/$handle'
@@ -517,6 +528,7 @@ export interface FileRouteTypes {
     | '/blogs/$'
     | '/collections/$handle'
     | '/collections/all'
+    | '/ingredients/$slug'
     | '/local/$slug'
     | '/pages/$handle'
     | '/policies/$handle'
@@ -558,6 +570,7 @@ export interface RootRouteChildren {
   TrackOrderRoute: typeof TrackOrderRoute
   WhyChooseUsRoute: typeof WhyChooseUsRoute
   WishlistRoute: typeof WishlistRoute
+  IngredientsSlugRoute: typeof IngredientsSlugRoute
   LocalSlugRoute: typeof LocalSlugRoute
   PagesHandleRoute: typeof PagesHandleRoute
   PoliciesHandleRoute: typeof PoliciesHandleRoute
@@ -828,6 +841,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocalSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ingredients/$slug': {
+      id: '/ingredients/$slug'
+      path: '/ingredients/$slug'
+      fullPath: '/ingredients/$slug'
+      preLoaderRoute: typeof IngredientsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/collections/all': {
       id: '/collections/all'
       path: '/all'
@@ -954,6 +974,7 @@ const rootRouteChildren: RootRouteChildren = {
   TrackOrderRoute: TrackOrderRoute,
   WhyChooseUsRoute: WhyChooseUsRoute,
   WishlistRoute: WishlistRoute,
+  IngredientsSlugRoute: IngredientsSlugRoute,
   LocalSlugRoute: LocalSlugRoute,
   PagesHandleRoute: PagesHandleRoute,
   PoliciesHandleRoute: PoliciesHandleRoute,
