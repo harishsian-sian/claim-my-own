@@ -34,6 +34,87 @@ import {
 } from "@/lib/shopify";
 
 export const Route = createFileRoute("/product/$handle")({
+  loader: async ({ params }) => {
+    try {
+      const data = await storefrontApiRequest(PRODUCT_BY_HANDLE_QUERY, { handle: params.handle });
+      const p = data?.data?.product;
+      if (!p) return { seo: null };
+      const img = p.images?.edges?.[0]?.node?.url ?? null;
+      const price = p.priceRange?.minVariantPrice?.amount ?? null;
+      const currency = p.priceRange?.minVariantPrice?.currencyCode ?? "AUD";
+      const desc = (p.description ?? "").replace(/\s+/g, " ").trim().slice(0, 160);
+      return {
+        seo: {
+          handle: params.handle,
+          title: p.title as string,
+          description: desc,
+          image: img as string | null,
+          price,
+          currency,
+          available: !!p.availableForSale,
+        },
+      };
+    } catch {
+      return { seo: null };
+    }
+  },
+  head: ({ loaderData, params }) => {
+    const seo = loaderData?.seo;
+    const url = `https://meltonsupps.com.au/product/${params.handle}`;
+    if (!seo) {
+      return {
+        meta: [
+          { title: "Product — MeltonSupps" },
+          { name: "robots", content: "noindex" },
+        ],
+        links: [{ rel: "canonical", href: url }],
+      };
+    }
+    const title = `${seo.title} — MeltonSupps`;
+    const desc = seo.description || `Buy ${seo.title} online at MeltonSupps. Free shipping over $150.`;
+    return {
+      meta: [
+        { title },
+        { name: "description", content: desc },
+        { property: "og:type", content: "product" },
+        { property: "og:title", content: title },
+        { property: "og:description", content: desc },
+        { property: "og:url", content: url },
+        ...(seo.image ? [{ property: "og:image", content: seo.image }] : []),
+        ...(seo.image ? [{ name: "twitter:image", content: seo.image }] : []),
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: desc },
+        ...(seo.price ? [{ property: "product:price:amount", content: String(seo.price) }] : []),
+        { property: "product:price:currency", content: seo.currency },
+        { property: "product:availability", content: seo.available ? "in stock" : "out of stock" },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: seo.title,
+            description: desc,
+            image: seo.image ? [seo.image] : undefined,
+            url,
+            offers: seo.price
+              ? {
+                  "@type": "Offer",
+                  price: seo.price,
+                  priceCurrency: seo.currency,
+                  availability: seo.available
+                    ? "https://schema.org/InStock"
+                    : "https://schema.org/OutOfStock",
+                  url,
+                }
+              : undefined,
+          }),
+        },
+      ],
+    };
+  },
   component: ProductDetail,
   errorComponent: ({ error }) => (
     <div className="min-h-screen flex flex-col">
