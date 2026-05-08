@@ -1,21 +1,15 @@
 import { createFileRoute, Navigate } from "@tanstack/react-router";
 
-const POLICY_REDIRECTS: Record<string, string> = {
-  "privacy-policy": "/privacy",
-  "refund-policy": "/returns",
-  "shipping-policy": "/shipping",
-  "terms-of-service": "/terms",
-  "legal-notice": "/terms",
-  "subscription-policy": "/terms",
-};
-
 export const Route = createFileRoute("/policies/$handle")({
   component: PoliciesRedirect,
 });
 
 function PoliciesRedirect() {
   const { handle } = Route.useParams();
-  const to = POLICY_REDIRECTS[handle] ?? "/terms";
 
-  return <Navigate to={to} replace />;
+  if (handle === "privacy-policy") return <Navigate to="/privacy" replace />;
+  if (handle === "refund-policy") return <Navigate to="/returns" replace />;
+  if (handle === "shipping-policy") return <Navigate to="/shipping" replace />;
+
+  return <Navigate to="/terms" replace />;
 }

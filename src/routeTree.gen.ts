@@ -25,6 +25,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BrandsRouteImport } from './routes/brands'
+import { Route as BlogsRouteImport } from './routes/blogs'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -118,6 +119,11 @@ const BrandsRoute = BrandsRouteImport.update({
   path: '/brands',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogsRoute = BlogsRouteImport.update({
+  id: '/blogs',
+  path: '/blogs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogRoute = BlogRouteImport.update({
   id: '/blog',
   path: '/blog',
@@ -164,9 +170,9 @@ const CollectionsHandleRoute = CollectionsHandleRouteImport.update({
   getParentRoute: () => CollectionsRoute,
 } as any)
 const BlogsSplatRoute = BlogsSplatRouteImport.update({
-  id: '/blogs/$',
-  path: '/blogs/$',
-  getParentRoute: () => rootRouteImport,
+  id: '/$',
+  path: '/$',
+  getParentRoute: () => BlogsRoute,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
@@ -183,6 +189,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
+  '/blogs': typeof BlogsRouteWithChildren
   '/brands': typeof BrandsRoute
   '/categories': typeof CategoriesRoute
   '/collections': typeof CollectionsRouteWithChildren
@@ -213,6 +220,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
+  '/blogs': typeof BlogsRouteWithChildren
   '/brands': typeof BrandsRoute
   '/categories': typeof CategoriesRoute
   '/collections': typeof CollectionsRouteWithChildren
@@ -244,6 +252,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
+  '/blogs': typeof BlogsRouteWithChildren
   '/brands': typeof BrandsRoute
   '/categories': typeof CategoriesRoute
   '/collections': typeof CollectionsRouteWithChildren
@@ -276,6 +285,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/blog'
+    | '/blogs'
     | '/brands'
     | '/categories'
     | '/collections'
@@ -306,6 +316,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/blog'
+    | '/blogs'
     | '/brands'
     | '/categories'
     | '/collections'
@@ -336,6 +347,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/blog'
+    | '/blogs'
     | '/brands'
     | '/categories'
     | '/collections'
@@ -367,6 +379,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   BlogRoute: typeof BlogRouteWithChildren
+  BlogsRoute: typeof BlogsRouteWithChildren
   BrandsRoute: typeof BrandsRoute
   CategoriesRoute: typeof CategoriesRoute
   CollectionsRoute: typeof CollectionsRouteWithChildren
@@ -383,7 +396,6 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   TrackOrderRoute: typeof TrackOrderRoute
-  BlogsSplatRoute: typeof BlogsSplatRoute
   PagesHandleRoute: typeof PagesHandleRoute
   PoliciesHandleRoute: typeof PoliciesHandleRoute
   ProductHandleRoute: typeof ProductHandleRoute
@@ -504,6 +516,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrandsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blogs': {
+      id: '/blogs'
+      path: '/blogs'
+      fullPath: '/blogs'
+      preLoaderRoute: typeof BlogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog': {
       id: '/blog'
       path: '/blog'
@@ -569,10 +588,10 @@ declare module '@tanstack/react-router' {
     }
     '/blogs/$': {
       id: '/blogs/$'
-      path: '/blogs/$'
+      path: '/$'
       fullPath: '/blogs/$'
       preLoaderRoute: typeof BlogsSplatRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof BlogsRoute
     }
     '/blog/$slug': {
       id: '/blog/$slug'
@@ -600,6 +619,16 @@ const BlogRouteChildren: BlogRouteChildren = {
 }
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
+
+interface BlogsRouteChildren {
+  BlogsSplatRoute: typeof BlogsSplatRoute
+}
+
+const BlogsRouteChildren: BlogsRouteChildren = {
+  BlogsSplatRoute: BlogsSplatRoute,
+}
+
+const BlogsRouteWithChildren = BlogsRoute._addFileChildren(BlogsRouteChildren)
 
 interface CollectionsRouteChildren {
   CollectionsHandleRoute: typeof CollectionsHandleRoute
@@ -631,6 +660,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BlogRoute: BlogRouteWithChildren,
+  BlogsRoute: BlogsRouteWithChildren,
   BrandsRoute: BrandsRoute,
   CategoriesRoute: CategoriesRoute,
   CollectionsRoute: CollectionsRouteWithChildren,
@@ -647,7 +677,6 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   TrackOrderRoute: TrackOrderRoute,
-  BlogsSplatRoute: BlogsSplatRoute,
   PagesHandleRoute: PagesHandleRoute,
   PoliciesHandleRoute: PoliciesHandleRoute,
   ProductHandleRoute: ProductHandleRoute,
