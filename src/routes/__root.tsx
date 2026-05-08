@@ -2,6 +2,7 @@ import { Outlet, createRootRoute, HeadContent, Scripts, Link } from "@tanstack/r
 import { Toaster } from "@/components/ui/sonner";
 import { useCartSync } from "@/hooks/useCartSync";
 import { AuthProvider } from "@/hooks/useAuth";
+import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 
 import appCss from "../styles.css?url";
 
@@ -126,6 +127,7 @@ function RootComponent() {
         />
       </noscript>
       <Outlet />
+      <FloatingWhatsApp />
       <Toaster position="top-right" />
     </AuthProvider>
   );

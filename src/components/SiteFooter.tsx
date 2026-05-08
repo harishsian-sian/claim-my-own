@@ -54,6 +54,8 @@ export function SiteFooter() {
           <h4 className="font-display text-sm uppercase tracking-wider mb-4">Shop</h4>
           <ul className="space-y-2 text-sm text-background/70">
             <li><Link to="/products" className="hover:text-brand">Shop All</Link></li>
+            <li><Link to="/best-sellers" className="hover:text-brand">Best Sellers</Link></li>
+            <li><Link to="/new-arrivals" className="hover:text-brand">New Arrivals</Link></li>
             <li><Link to="/categories" className="hover:text-brand">Categories</Link></li>
             <li><Link to="/brands" className="hover:text-brand">Brands</Link></li>
             <li><Link to="/product-category/$handle" params={{ handle: "specials" }} className="hover:text-brand">Specials</Link></li>
@@ -78,6 +80,9 @@ export function SiteFooter() {
           <h4 className="font-display text-sm uppercase tracking-wider mb-4">Company</h4>
           <ul className="space-y-2 text-sm text-background/70">
             <li><Link to="/about" className="hover:text-brand">About Us</Link></li>
+            <li><Link to="/why-choose-us" className="hover:text-brand">Why Choose Us</Link></li>
+            <li><Link to="/authenticity" className="hover:text-brand">Authenticity Guarantee</Link></li>
+            <li><Link to="/stores" className="hover:text-brand">Find a Store</Link></li>
             <li><Link to="/contact" className="hover:text-brand">Contact</Link></li>
             <li><Link to="/blog" className="hover:text-brand">Blog &amp; Guides</Link></li>
           </ul>
