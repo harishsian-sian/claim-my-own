@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
+import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
 
 const SHOP = "ded508-e8.myshopify.com";
 const API = "2025-07";
@@ -31,6 +33,15 @@ const QUERY = `
   }
 `;
 
+const COLLECTIONS_QUERY = `
+  query SitemapCollections($first: Int!, $after: String) {
+    collections(first: $first, after: $after) {
+      pageInfo { hasNextPage endCursor }
+      edges { node { handle updatedAt } }
+    }
+  }
+`;
+
 async function fetchAllProducts(): Promise<Array<{ handle: string; updatedAt: string }>> {
   const all: Array<{ handle: string; updatedAt: string }> = [];
   let after: string | null = null;
@@ -52,6 +63,31 @@ async function fetchAllProducts(): Promise<Array<{ handle: string; updatedAt: st
     }
     if (!products.pageInfo?.hasNextPage) break;
     after = products.pageInfo.endCursor;
+  }
+  return all;
+}
+
+async function fetchAllCollections(): Promise<Array<{ handle: string; updatedAt: string }>> {
+  const all: Array<{ handle: string; updatedAt: string }> = [];
+  let after: string | null = null;
+  for (let i = 0; i < 10; i++) {
+    const res: Response = await fetch(`https://${SHOP}/api/${API}/graphql.json`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Shopify-Storefront-Access-Token": TOKEN,
+      },
+      body: JSON.stringify({ query: COLLECTIONS_QUERY, variables: { first: 250, after } }),
+    });
+    if (!res.ok) break;
+    const json: any = await res.json();
+    const collections = json?.data?.collections;
+    if (!collections) break;
+    for (const e of collections.edges ?? []) {
+      all.push({ handle: e.node.handle, updatedAt: e.node.updatedAt ?? new Date().toISOString() });
+    }
+    if (!collections.pageInfo?.hasNextPage) break;
+    after = collections.pageInfo.endCursor;
   }
   return all;
 }
