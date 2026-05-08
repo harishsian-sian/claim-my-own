@@ -97,7 +97,7 @@ function escapeXml(s: string): string {
 }
 
 export const Route = createFileRoute("/sitemap.xml")({
-  // @ts-expect-error - server handlers supported at runtime by TanStack Start
+  // @ts-ignore - server handlers supported at runtime by TanStack Start
   server: {
     handlers: {
       GET: async () => {
