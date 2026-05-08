@@ -8,7 +8,7 @@ import { NewsletterCTA } from "@/components/NewsletterCTA";
 import { BLOG_POSTS, CATEGORY_META, type BlogCategory } from "@/lib/blogData";
 import { Input } from "@/components/ui/input";
 
-export const Route = createFileRoute("/blog")({
+export const Route = createFileRoute("/blog/")({
   component: BlogPage,
   head: () => ({
     meta: [

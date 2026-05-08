@@ -30,7 +30,6 @@ import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BrandsRouteImport } from './routes/brands'
 import { Route as BlogsRouteImport } from './routes/blogs'
-import { Route as BlogRouteImport } from './routes/blog'
 import { Route as BestSellersRouteImport } from './routes/best-sellers'
 import { Route as AuthenticityRouteImport } from './routes/authenticity'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -39,6 +38,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LocalIndexRouteImport } from './routes/local.index'
 import { Route as CollectionsIndexRouteImport } from './routes/collections.index'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as StoresHandleRouteImport } from './routes/stores.$handle'
 import { Route as ProductsHandleRouteImport } from './routes/products.$handle'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
@@ -158,11 +158,6 @@ const BlogsRoute = BlogsRouteImport.update({
   path: '/blogs',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogRoute = BlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const BestSellersRoute = BestSellersRouteImport.update({
   id: '/best-sellers',
   path: '/best-sellers',
@@ -202,6 +197,11 @@ const CollectionsIndexRoute = CollectionsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => CollectionsRoute,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const StoresHandleRoute = StoresHandleRouteImport.update({
   id: '/$handle',
@@ -259,9 +259,9 @@ const BlogsSplatRoute = BlogsSplatRouteImport.update({
   getParentRoute: () => BlogsRoute,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => BlogRoute,
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicInventoryRoute = ApiPublicInventoryRouteImport.update({
   id: '/api/public/inventory',
@@ -276,7 +276,6 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/authenticity': typeof AuthenticityRoute
   '/best-sellers': typeof BestSellersRoute
-  '/blog': typeof BlogRouteWithChildren
   '/blogs': typeof BlogsRouteWithChildren
   '/brands': typeof BrandsRoute
   '/categories': typeof CategoriesRoute
@@ -310,6 +309,7 @@ export interface FileRoutesByFullPath {
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/stores/$handle': typeof StoresHandleRoute
+  '/blog/': typeof BlogIndexRoute
   '/collections/': typeof CollectionsIndexRoute
   '/local/': typeof LocalIndexRoute
   '/api/public/inventory': typeof ApiPublicInventoryRoute
@@ -321,7 +321,6 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/authenticity': typeof AuthenticityRoute
   '/best-sellers': typeof BestSellersRoute
-  '/blog': typeof BlogRouteWithChildren
   '/blogs': typeof BlogsRouteWithChildren
   '/brands': typeof BrandsRoute
   '/categories': typeof CategoriesRoute
@@ -354,6 +353,7 @@ export interface FileRoutesByTo {
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/stores/$handle': typeof StoresHandleRoute
+  '/blog': typeof BlogIndexRoute
   '/collections': typeof CollectionsIndexRoute
   '/local': typeof LocalIndexRoute
   '/api/public/inventory': typeof ApiPublicInventoryRoute
@@ -366,7 +366,6 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/authenticity': typeof AuthenticityRoute
   '/best-sellers': typeof BestSellersRoute
-  '/blog': typeof BlogRouteWithChildren
   '/blogs': typeof BlogsRouteWithChildren
   '/brands': typeof BrandsRoute
   '/categories': typeof CategoriesRoute
@@ -400,6 +399,7 @@ export interface FileRoutesById {
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/stores/$handle': typeof StoresHandleRoute
+  '/blog/': typeof BlogIndexRoute
   '/collections/': typeof CollectionsIndexRoute
   '/local/': typeof LocalIndexRoute
   '/api/public/inventory': typeof ApiPublicInventoryRoute
@@ -413,7 +413,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/authenticity'
     | '/best-sellers'
-    | '/blog'
     | '/blogs'
     | '/brands'
     | '/categories'
@@ -447,6 +446,7 @@ export interface FileRouteTypes {
     | '/product/$handle'
     | '/products/$handle'
     | '/stores/$handle'
+    | '/blog/'
     | '/collections/'
     | '/local/'
     | '/api/public/inventory'
@@ -458,7 +458,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/authenticity'
     | '/best-sellers'
-    | '/blog'
     | '/blogs'
     | '/brands'
     | '/categories'
@@ -491,6 +490,7 @@ export interface FileRouteTypes {
     | '/product/$handle'
     | '/products/$handle'
     | '/stores/$handle'
+    | '/blog'
     | '/collections'
     | '/local'
     | '/api/public/inventory'
@@ -502,7 +502,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/authenticity'
     | '/best-sellers'
-    | '/blog'
     | '/blogs'
     | '/brands'
     | '/categories'
@@ -536,6 +535,7 @@ export interface FileRouteTypes {
     | '/product/$handle'
     | '/products/$handle'
     | '/stores/$handle'
+    | '/blog/'
     | '/collections/'
     | '/local/'
     | '/api/public/inventory'
@@ -548,7 +548,6 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   AuthenticityRoute: typeof AuthenticityRoute
   BestSellersRoute: typeof BestSellersRoute
-  BlogRoute: typeof BlogRouteWithChildren
   BlogsRoute: typeof BlogsRouteWithChildren
   BrandsRoute: typeof BrandsRoute
   CategoriesRoute: typeof CategoriesRoute
@@ -570,12 +569,14 @@ export interface RootRouteChildren {
   TrackOrderRoute: typeof TrackOrderRoute
   WhyChooseUsRoute: typeof WhyChooseUsRoute
   WishlistRoute: typeof WishlistRoute
+  BlogSlugRoute: typeof BlogSlugRoute
   IngredientsSlugRoute: typeof IngredientsSlugRoute
   LocalSlugRoute: typeof LocalSlugRoute
   PagesHandleRoute: typeof PagesHandleRoute
   PoliciesHandleRoute: typeof PoliciesHandleRoute
   ProductCategoryHandleRoute: typeof ProductCategoryHandleRoute
   ProductHandleRoute: typeof ProductHandleRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   LocalIndexRoute: typeof LocalIndexRoute
   ApiPublicInventoryRoute: typeof ApiPublicInventoryRoute
 }
@@ -729,13 +730,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog': {
-      id: '/blog'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof BlogRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/best-sellers': {
       id: '/best-sellers'
       path: '/best-sellers'
@@ -791,6 +785,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/collections/'
       preLoaderRoute: typeof CollectionsIndexRouteImport
       parentRoute: typeof CollectionsRoute
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/stores/$handle': {
       id: '/stores/$handle'
@@ -871,10 +872,10 @@ declare module '@tanstack/react-router' {
     }
     '/blog/$slug': {
       id: '/blog/$slug'
-      path: '/$slug'
+      path: '/blog/$slug'
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
-      parentRoute: typeof BlogRoute
+      parentRoute: typeof rootRouteImport
     }
     '/api/public/inventory': {
       id: '/api/public/inventory'
@@ -885,16 +886,6 @@ declare module '@tanstack/react-router' {
     }
   }
 }
-
-interface BlogRouteChildren {
-  BlogSlugRoute: typeof BlogSlugRoute
-}
-
-const BlogRouteChildren: BlogRouteChildren = {
-  BlogSlugRoute: BlogSlugRoute,
-}
-
-const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 interface BlogsRouteChildren {
   BlogsSplatRoute: typeof BlogsSplatRoute
@@ -952,7 +943,6 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   AuthenticityRoute: AuthenticityRoute,
   BestSellersRoute: BestSellersRoute,
-  BlogRoute: BlogRouteWithChildren,
   BlogsRoute: BlogsRouteWithChildren,
   BrandsRoute: BrandsRoute,
   CategoriesRoute: CategoriesRoute,
@@ -974,15 +964,26 @@ const rootRouteChildren: RootRouteChildren = {
   TrackOrderRoute: TrackOrderRoute,
   WhyChooseUsRoute: WhyChooseUsRoute,
   WishlistRoute: WishlistRoute,
+  BlogSlugRoute: BlogSlugRoute,
   IngredientsSlugRoute: IngredientsSlugRoute,
   LocalSlugRoute: LocalSlugRoute,
   PagesHandleRoute: PagesHandleRoute,
   PoliciesHandleRoute: PoliciesHandleRoute,
   ProductCategoryHandleRoute: ProductCategoryHandleRoute,
   ProductHandleRoute: ProductHandleRoute,
+  BlogIndexRoute: BlogIndexRoute,
   LocalIndexRoute: LocalIndexRoute,
   ApiPublicInventoryRoute: ApiPublicInventoryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
