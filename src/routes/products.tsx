@@ -19,7 +19,7 @@ interface Search {
 }
 
 export const Route = createFileRoute("/products")({
-  component: Products,
+  component: ProductsPageContent,
   validateSearch: (search: Record<string, unknown>): Search => ({
     q: typeof search.q === "string" ? search.q : undefined,
     collection: typeof search.collection === "string" ? search.collection : undefined,
