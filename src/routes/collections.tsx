@@ -1,10 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { CategoriesPageContent } from "./categories";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/collections")({
-  component: CollectionsPage,
+  component: CollectionsLayout,
 });
 
-function CollectionsPage() {
-  return <CategoriesPageContent />;
+function CollectionsLayout() {
+  return <Outlet />;
 }
