@@ -29,6 +29,7 @@ import { Route as BlogsRouteImport } from './routes/blogs'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CollectionsIndexRouteImport } from './routes/collections.index'
 import { Route as ProductsHandleRouteImport } from './routes/products.$handle'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
 import { Route as PoliciesHandleRouteImport } from './routes/policies.$handle'
@@ -139,6 +140,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CollectionsIndexRoute = CollectionsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CollectionsRoute,
+} as any)
 const ProductsHandleRoute = ProductsHandleRouteImport.update({
   id: '/$handle',
   path: '/$handle',
@@ -214,6 +220,7 @@ export interface FileRoutesByFullPath {
   '/policies/$handle': typeof PoliciesHandleRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
+  '/collections/': typeof CollectionsIndexRoute
   '/api/public/inventory': typeof ApiPublicInventoryRoute
 }
 export interface FileRoutesByTo {
@@ -223,7 +230,6 @@ export interface FileRoutesByTo {
   '/blogs': typeof BlogsRouteWithChildren
   '/brands': typeof BrandsRoute
   '/categories': typeof CategoriesRoute
-  '/collections': typeof CollectionsRouteWithChildren
   '/contact': typeof ContactRoute
   '/disclaimer': typeof DisclaimerRoute
   '/faq': typeof FaqRoute
@@ -245,6 +251,7 @@ export interface FileRoutesByTo {
   '/policies/$handle': typeof PoliciesHandleRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
+  '/collections': typeof CollectionsIndexRoute
   '/api/public/inventory': typeof ApiPublicInventoryRoute
 }
 export interface FileRoutesById {
@@ -277,6 +284,7 @@ export interface FileRoutesById {
   '/policies/$handle': typeof PoliciesHandleRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
+  '/collections/': typeof CollectionsIndexRoute
   '/api/public/inventory': typeof ApiPublicInventoryRoute
 }
 export interface FileRouteTypes {
@@ -310,6 +318,7 @@ export interface FileRouteTypes {
     | '/policies/$handle'
     | '/product/$handle'
     | '/products/$handle'
+    | '/collections/'
     | '/api/public/inventory'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -319,7 +328,6 @@ export interface FileRouteTypes {
     | '/blogs'
     | '/brands'
     | '/categories'
-    | '/collections'
     | '/contact'
     | '/disclaimer'
     | '/faq'
@@ -341,6 +349,7 @@ export interface FileRouteTypes {
     | '/policies/$handle'
     | '/product/$handle'
     | '/products/$handle'
+    | '/collections'
     | '/api/public/inventory'
   id:
     | '__root__'
@@ -372,6 +381,7 @@ export interface FileRouteTypes {
     | '/policies/$handle'
     | '/product/$handle'
     | '/products/$handle'
+    | '/collections/'
     | '/api/public/inventory'
   fileRoutesById: FileRoutesById
 }
@@ -544,6 +554,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/collections/': {
+      id: '/collections/'
+      path: '/'
+      fullPath: '/collections/'
+      preLoaderRoute: typeof CollectionsIndexRouteImport
+      parentRoute: typeof CollectionsRoute
+    }
     '/products/$handle': {
       id: '/products/$handle'
       path: '/$handle'
@@ -633,11 +650,13 @@ const BlogsRouteWithChildren = BlogsRoute._addFileChildren(BlogsRouteChildren)
 interface CollectionsRouteChildren {
   CollectionsHandleRoute: typeof CollectionsHandleRoute
   CollectionsAllRoute: typeof CollectionsAllRoute
+  CollectionsIndexRoute: typeof CollectionsIndexRoute
 }
 
 const CollectionsRouteChildren: CollectionsRouteChildren = {
   CollectionsHandleRoute: CollectionsHandleRoute,
   CollectionsAllRoute: CollectionsAllRoute,
+  CollectionsIndexRoute: CollectionsIndexRoute,
 }
 
 const CollectionsRouteWithChildren = CollectionsRoute._addFileChildren(
