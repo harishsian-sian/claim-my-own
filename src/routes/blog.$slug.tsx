@@ -56,7 +56,8 @@ export const Route = createFileRoute("/blog/$slug")({
 });
 
 function BlogPostPage() {
-  const { post, related } = Route.useLoaderData();
+  const data = Route.useLoaderData() as { post: BlogPost; related: BlogPost[] };
+  const { post, related } = data;
   const author = post.author ?? DEFAULT_AUTHOR;
   const url = typeof window !== "undefined" ? window.location.href : `https://meltonsupps.com.au/blog/${post.slug}`;
 
@@ -104,7 +105,7 @@ function BlogPostPage() {
             <nav className="mt-8 border rounded-2xl p-5 bg-muted/30">
               <p className="text-xs uppercase tracking-widest text-brand font-bold">In this article</p>
               <ol className="mt-3 space-y-1.5 text-sm list-decimal pl-5">
-                {post.toc.map((t) => (
+                {post.toc.map((t: string) => (
                   <li key={t}><a href={`#${slugify(t)}`} className="hover:text-brand">{t}</a></li>
                 ))}
               </ol>
@@ -112,7 +113,7 @@ function BlogPostPage() {
           )}
 
           {/* Sections */}
-          {post.sections.map((s) => (
+          {post.sections.map((s: BlogSection) => (
             <section key={s.h} id={slugify(s.h)} className="mt-10">
               <h2 className="font-display text-2xl font-bold uppercase">{s.h}</h2>
               <p className="mt-3 text-foreground/90 leading-relaxed">{s.p}</p>
@@ -124,7 +125,7 @@ function BlogPostPage() {
             <section className="mt-12 border rounded-2xl p-6 bg-muted/30">
               <h3 className="font-display text-lg font-black uppercase">Featured Products</h3>
               <div className="grid sm:grid-cols-2 gap-3 mt-4">
-                {post.relatedProducts.map((rp) => (
+                {post.relatedProducts.map((rp: { title: string; to: string }) => (
                   <a
                     key={rp.title}
                     href={rp.to}
@@ -193,7 +194,7 @@ function BlogPostPage() {
           <section className="container mx-auto px-4 py-12 max-w-5xl">
             <h2 className="font-display text-2xl font-black uppercase">Related Articles</h2>
             <div className="grid md:grid-cols-3 gap-5 mt-6">
-              {related.map((p) => (
+              {related.map((p: BlogPost) => (
                 <Link
                   key={p.slug}
                   to="/blog/$slug"
