@@ -208,26 +208,6 @@ function Index() {
         {/* BEST SELLERS CAROUSEL */}
         {!loading && bestSellers.length > 0 && (
           <>
-            <section className="bg-gradient-to-r from-brand to-brand-dark text-background">
-              <div className="container mx-auto px-4 py-6 md:py-7 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-center">
-                <div className="flex items-center gap-3">
-                  <Percent className="h-7 w-7" />
-                  <p className="font-display text-lg md:text-xl font-black uppercase tracking-wide">
-                    Bundle &amp; Save
-                  </p>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 text-sm md:text-base">
-                  <span>
-                    Buy 2 — <span className="font-bold">15% OFF</span> with code{" "}
-                    <span className="font-mono font-bold bg-background/15 px-2 py-0.5 rounded">BUY2SAVE15</span>
-                  </span>
-                  <span>
-                    Buy 3 — <span className="font-bold">20% OFF</span> with code{" "}
-                    <span className="font-mono font-bold bg-background/15 px-2 py-0.5 rounded">BUY3SAVE20</span>
-                  </span>
-                </div>
-              </div>
-            </section>
             <ProductCarousel
               products={bestSellers}
               eyebrow="Last 60 days · Customer favourites"
