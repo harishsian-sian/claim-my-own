@@ -72,11 +72,10 @@ export function ProductCard({ product }: { product: ShopifyProduct }) {
         <div className="flex items-center justify-between mt-3 pt-3 border-t">
           <div className="flex flex-col">
             <span className="font-display font-bold text-lg text-foreground">
-              {formatMoney((parseFloat(price.amount) * 0.9).toFixed(2), price.currencyCode)}
+              {formatMoney(price.amount, price.currencyCode)}
             </span>
-            <span className="text-[10px] text-muted-foreground leading-tight">
-              <span className="line-through">{formatMoney(price.amount, price.currencyCode)}</span>
-              <span className="ml-1 text-brand font-semibold">with MAY10</span>
+            <span className="text-[10px] text-brand font-semibold leading-tight">
+              {formatMoney((parseFloat(price.amount) * 0.9).toFixed(2), price.currencyCode)} with MAY10
             </span>
           </div>
           <Button
