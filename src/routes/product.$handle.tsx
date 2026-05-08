@@ -542,6 +542,10 @@ function ProductDetail() {
                     {formatMoney(price.amount, price.currencyCode)}
                   </p>
                 </div>
+                <p className="text-xs text-brand font-semibold mt-2">
+                  Use code MAY10 for 10% OFF — pay{" "}
+                  {formatMoney((parseFloat(price.amount) * 0.9).toFixed(2), price.currencyCode)}
+                </p>
                 <p className="text-xs text-muted-foreground mt-2">
                   or 4 interest-free payments of{" "}
                   <span className="font-semibold text-foreground">
