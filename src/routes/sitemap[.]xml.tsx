@@ -4,6 +4,7 @@ import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
 import { LOCAL_PAGES } from "@/lib/localSeo";
 import { BLOG_POSTS } from "@/lib/blogData";
 import { STORES } from "@/lib/stores";
+import { INGREDIENTS } from "@/lib/ingredients";
 
 const SHOP = "ded508-e8.myshopify.com";
 const API = "2025-07";
