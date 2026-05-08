@@ -38,7 +38,7 @@ export const Route = createFileRoute("/products")({
 
 const PAGE_SIZE = 24;
 
-function Products() {
+export function ProductsPageContent() {
   const { q, collection } = Route.useSearch();
   const navigate = useNavigate({ from: "/products" });
   const [products, setProducts] = useState<ShopifyProduct[]>([]);

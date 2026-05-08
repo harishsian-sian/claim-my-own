@@ -1,9 +1,10 @@
-import { createFileRoute, Navigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { ProductsPageContent } from "./products";
 
 export const Route = createFileRoute("/collections/all")({
-  component: CollectionsAllRedirect,
+  component: CollectionsAllPage,
 });
 
-function CollectionsAllRedirect() {
-  return <Navigate to="/products" replace />;
+function CollectionsAllPage() {
+  return <ProductsPageContent />;
 }
