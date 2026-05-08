@@ -114,12 +114,12 @@ export function SiteHeader() {
                 Specials
               </Link>
               <Link
-                to="/products"
+                to="/stores"
                 onMouseEnter={() => setOpenMenu(null)}
                 className="flex items-center gap-2 whitespace-nowrap text-background/85 hover:text-brand transition-colors"
               >
-                <Truck className="h-4 w-4" />
-                Pickup & Delivery
+                <MapPin className="h-4 w-4" />
+                Find a Store
               </Link>
             </nav>
           </div>

@@ -65,6 +65,7 @@ export function SiteFooter() {
           <h4 className="font-display text-sm uppercase tracking-wider mb-4">Help</h4>
           <ul className="space-y-2 text-sm text-background/70">
             <li><Link to="/contact" className="hover:text-brand">Contact Us</Link></li>
+            <li><Link to="/stores" className="hover:text-brand">Find a Store</Link></li>
             <li><Link to="/faq" className="hover:text-brand">FAQ</Link></li>
             <li><Link to="/shipping" className="hover:text-brand">Shipping &amp; Delivery</Link></li>
             <li><Link to="/returns" className="hover:text-brand">Returns &amp; Refunds</Link></li>
