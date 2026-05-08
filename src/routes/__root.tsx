@@ -1,6 +1,7 @@
 import { Outlet, createRootRoute, HeadContent, Scripts, Link } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { useCartSync } from "@/hooks/useCartSync";
+import { AuthProvider } from "@/hooks/useAuth";
 
 import appCss from "../styles.css?url";
 
@@ -115,7 +116,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   useCartSync();
   return (
-    <>
+    <AuthProvider>
       <noscript>
         <iframe
           src="https://www.googletagmanager.com/ns.html?id=GTM-KQQ42DK2"
@@ -126,6 +127,6 @@ function RootComponent() {
       </noscript>
       <Outlet />
       <Toaster position="top-right" />
-    </>
+    </AuthProvider>
   );
 }
