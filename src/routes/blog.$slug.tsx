@@ -117,6 +117,19 @@ function BlogPostPage() {
             <section key={s.h} id={slugify(s.h)} className="mt-10">
               <h2 className="font-display text-2xl font-bold uppercase">{s.h}</h2>
               <p className="mt-3 text-foreground/90 leading-relaxed">{s.p}</p>
+              {s.paragraphs?.map((para, idx) => (
+                <p key={idx} className="mt-3 text-foreground/90 leading-relaxed">{para}</p>
+              ))}
+              {s.bullets && s.bullets.length > 0 && (
+                <ul className="mt-4 space-y-2 list-disc pl-6 text-foreground/90 leading-relaxed">
+                  {s.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                </ul>
+              )}
+              {s.callout && (
+                <div className="mt-4 border-l-4 border-brand bg-brand/10 px-4 py-3 rounded-r-md text-sm text-foreground/90 italic">
+                  {s.callout}
+                </div>
+              )}
             </section>
           ))}
 
