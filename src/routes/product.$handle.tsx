@@ -244,7 +244,7 @@ function ProductDetail() {
     return (
       product.variants.edges.find((v) =>
         v.node.selectedOptions.every((o) => selectedOptions[o.name] === o.value),
-      )?.node ?? product.variants.edges[0]?.node
+      )?.node ?? null
     );
   }, [product, selectedOptions]);
 
@@ -480,15 +480,7 @@ function ProductDetail() {
                         const matching = product.variants.edges.find((ve) =>
                           ve.node.selectedOptions.every((o) => trial[o.name] === o.value),
                         );
-                        const valueAvailable = matching
-                          ? matching.node.availableForSale
-                          : product.variants.edges.some(
-                              (ve) =>
-                                ve.node.availableForSale &&
-                                ve.node.selectedOptions.some(
-                                  (o) => o.name === opt.name && o.value === v,
-                                ),
-                            );
+                        const valueAvailable = matching?.node.availableForSale ?? false;
                         return (
                           <button
                             key={v}
