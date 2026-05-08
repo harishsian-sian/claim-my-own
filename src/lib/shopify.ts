@@ -62,6 +62,36 @@ export const PRODUCTS_QUERY = `
   }
 `;
 
+export const BEST_SELLERS_QUERY = `
+  query GetBestSellers($first: Int!, $query: String) {
+    products(first: $first, sortKey: BEST_SELLING, query: $query) {
+      edges {
+        node {
+          id
+          title
+          description
+          handle
+          vendor
+          priceRange { minVariantPrice { amount currencyCode } }
+          images(first: 5) { edges { node { url altText } } }
+          variants(first: 10) {
+            edges {
+              node {
+                id
+                title
+                price { amount currencyCode }
+                availableForSale
+                selectedOptions { name value }
+              }
+            }
+          }
+          options { name values }
+        }
+      }
+    }
+  }
+`;
+
 export const PRODUCT_BY_HANDLE_QUERY = `
   query GetProductByHandle($handle: String!) {
     product(handle: $handle) {

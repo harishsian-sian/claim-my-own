@@ -9,7 +9,7 @@ import { BrandStrip } from "@/components/BrandStrip";
 import { VitaminBrandStrip } from "@/components/VitaminBrandStrip";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import { Button } from "@/components/ui/button";
-import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
+import { storefrontApiRequest, PRODUCTS_QUERY, BEST_SELLERS_QUERY, type ShopifyProduct } from "@/lib/shopify";
 import { useCollections } from "@/hooks/useCollections";
 import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
 import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
@@ -35,11 +35,20 @@ function Index() {
   const { collections } = useCollections();
 
   useEffect(() => {
-    storefrontApiRequest(PRODUCTS_QUERY, { first: 20 })
-      .then((res) => {
-        const edges: ShopifyProduct[] = res?.data?.products?.edges ?? [];
-        setFeatured(edges.slice(0, 12));
-        setBestSellers(edges.slice(8, 20));
+    const twoMonthsAgo = new Date();
+    twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+    const dateStr = twoMonthsAgo.toISOString().split("T")[0];
+
+    Promise.all([
+      storefrontApiRequest(PRODUCTS_QUERY, { first: 12 }),
+      storefrontApiRequest(BEST_SELLERS_QUERY, {
+        first: 12,
+        query: `created_at:>${dateStr}`,
+      }),
+    ])
+      .then(([featuredRes, bestRes]) => {
+        setFeatured(featuredRes?.data?.products?.edges ?? []);
+        setBestSellers(bestRes?.data?.products?.edges ?? []);
       })
       .finally(() => setLoading(false));
   }, []);
@@ -197,13 +206,35 @@ function Index() {
         </section>
 
         {/* BEST SELLERS CAROUSEL */}
-        {!loading && (
-          <ProductCarousel
-            products={bestSellers}
-            eyebrow="Customer favourites"
-            title="Best Sellers"
-            viewAllTo="/products"
-          />
+        {!loading && bestSellers.length > 0 && (
+          <>
+            <section className="bg-gradient-to-r from-brand to-brand-dark text-background">
+              <div className="container mx-auto px-4 py-6 md:py-7 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-center">
+                <div className="flex items-center gap-3">
+                  <Percent className="h-7 w-7" />
+                  <p className="font-display text-lg md:text-xl font-black uppercase tracking-wide">
+                    Bundle &amp; Save
+                  </p>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 text-sm md:text-base">
+                  <span>
+                    Buy 2 — <span className="font-bold">15% OFF</span> with code{" "}
+                    <span className="font-mono font-bold bg-background/15 px-2 py-0.5 rounded">BUY2SAVE15</span>
+                  </span>
+                  <span>
+                    Buy 3 — <span className="font-bold">20% OFF</span> with code{" "}
+                    <span className="font-mono font-bold bg-background/15 px-2 py-0.5 rounded">BUY3SAVE20</span>
+                  </span>
+                </div>
+              </div>
+            </section>
+            <ProductCarousel
+              products={bestSellers}
+              eyebrow="Last 60 days · Customer favourites"
+              title="Best Sellers"
+              viewAllTo="/products"
+            />
+          </>
         )}
 
         {/* WHY MELTONSUPPS */}
