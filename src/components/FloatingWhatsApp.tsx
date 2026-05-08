@@ -1,8 +1,12 @@
 import { MessageCircle } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const PHONE = "61387464680"; // +61 3 8746 4680
 
 export function FloatingWhatsApp() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
   return (
     <a
       href={`https://wa.me/${PHONE}?text=${encodeURIComponent("Hi MeltonSupps, I have a question…")}`}
