@@ -35,11 +35,20 @@ function Index() {
   const { collections } = useCollections();
 
   useEffect(() => {
-    storefrontApiRequest(PRODUCTS_QUERY, { first: 20 })
-      .then((res) => {
-        const edges: ShopifyProduct[] = res?.data?.products?.edges ?? [];
-        setFeatured(edges.slice(0, 12));
-        setBestSellers(edges.slice(8, 20));
+    const twoMonthsAgo = new Date();
+    twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+    const dateStr = twoMonthsAgo.toISOString().split("T")[0];
+
+    Promise.all([
+      storefrontApiRequest(PRODUCTS_QUERY, { first: 12 }),
+      storefrontApiRequest(BEST_SELLERS_QUERY, {
+        first: 12,
+        query: `created_at:>${dateStr}`,
+      }),
+    ])
+      .then(([featuredRes, bestRes]) => {
+        setFeatured(featuredRes?.data?.products?.edges ?? []);
+        setBestSellers(bestRes?.data?.products?.edges ?? []);
       })
       .finally(() => setLoading(false));
   }, []);
