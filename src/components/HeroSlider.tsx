@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronLeft, ChevronRight, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
 import {
   storefrontApiRequest,
   COLLECTION_PRODUCTS_QUERY,
@@ -125,7 +126,10 @@ export function HeroSlider() {
                   size="lg"
                   className="bg-background hover:bg-background/90 text-ink h-12 px-7 text-sm uppercase tracking-wider font-bold rounded-full"
                 >
-                  <Link to="/products" search={{ collection: slide.collection }}>
+                  <Link
+                    to="/product-category/$handle"
+                    params={{ handle: getLegacyCategoryHandle(slide.collection) }}
+                  >
                     {slide.ctaLabel} <ArrowRight className="ml-1 h-4 w-4" />
                   </Link>
                 </Button>
