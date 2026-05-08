@@ -12,7 +12,7 @@ export function ProductCard({ product }: { product: ShopifyProduct }) {
   const variant = node.variants.edges[0]?.node;
   const image = node.images.edges[0]?.node;
   const price = node.priceRange.minVariantPrice;
-  const discountedPrice = (parseFloat(price.amount) * 0.9).toFixed(2);
+  const discountedPrice = (parseFloat(price.amount) * 0.95).toFixed(2);
   const hasMultipleVariants = node.variants.edges.length > 1;
   const available = variant?.availableForSale ?? false;
 
@@ -76,14 +76,14 @@ export function ProductCard({ product }: { product: ShopifyProduct }) {
               {formatMoney(price.amount, price.currencyCode)}
             </span>
             <span className="text-xs font-semibold text-brand leading-snug">
-              Use code MAY10 — pay {formatMoney(discountedPrice, price.currencyCode)}
+              Use code MAY5 — pay {formatMoney(discountedPrice, price.currencyCode)}
             </span>
             <div className="flex flex-wrap gap-1 mt-1.5">
               <span className="text-[10px] font-bold uppercase tracking-wide bg-brand/10 text-brand px-1.5 py-0.5 rounded">
-                Buy 2 · 15% OFF
+                Buy 2 · 10% OFF
               </span>
               <span className="text-[10px] font-bold uppercase tracking-wide bg-brand text-brand-foreground px-1.5 py-0.5 rounded">
-                Buy 3 · 20% OFF
+                Buy 3 · 15% OFF
               </span>
             </div>
           </div>

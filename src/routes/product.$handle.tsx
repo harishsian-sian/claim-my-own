@@ -543,8 +543,8 @@ function ProductDetail() {
                   </p>
                 </div>
                 <p className="text-xs text-brand font-semibold mt-2">
-                  Use code MAY10 for 10% OFF — pay{" "}
-                  {formatMoney((parseFloat(price.amount) * 0.9).toFixed(2), price.currencyCode)}
+                  Use code MAY5 for 5% OFF — pay{" "}
+                  {formatMoney((parseFloat(price.amount) * 0.95).toFixed(2), price.currencyCode)}
                 </p>
                 <p className="text-xs text-muted-foreground mt-2">
                   or 4 interest-free payments of{" "}
@@ -623,7 +623,7 @@ function ProductDetail() {
                   </div>
                   <div className="flex gap-1.5">
                     {[2, 3].map((n) => {
-                      const pct = n === 2 ? 15 : 20;
+                      const pct = n === 2 ? 10 : 15;
                       const active = quantity === n;
                       return (
                         <button
@@ -644,7 +644,7 @@ function ProductDetail() {
                 {(() => {
                   const unit = parseFloat(price.amount);
                   const subtotal = unit * quantity;
-                  const pct = quantity >= 3 ? 0.2 : quantity === 2 ? 0.15 : 0;
+                  const pct = quantity >= 3 ? 0.15 : quantity === 2 ? 0.1 : 0;
                   const savings = subtotal * pct;
                   const total = subtotal - savings;
                   if (pct === 0) return null;
@@ -669,7 +669,7 @@ function ProductDetail() {
                       <p className="text-[11px] text-muted-foreground mt-1">
                         Use code{" "}
                         <span className="font-mono font-bold text-foreground">
-                          {quantity >= 3 ? "BUY3SAVE20" : "BUY2SAVE15"}
+                          {quantity >= 3 ? "BUY3SAVE15" : "BUY2SAVE10"}
                         </span>{" "}
                         at checkout.
                       </p>
