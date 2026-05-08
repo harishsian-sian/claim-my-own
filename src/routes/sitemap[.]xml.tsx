@@ -35,6 +35,7 @@ const STATIC_PATHS = [
   ...LOCAL_PAGES.map((p) => `/local/${p.slug}`),
   ...BLOG_POSTS.map((p) => `/blog/${p.slug}`),
   ...STORES.map((s) => `/stores/${s.handle}`),
+  ...INGREDIENTS.map((i) => `/ingredients/${i.slug}`),
 ];
 
 const QUERY = `
