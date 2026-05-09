@@ -1,6 +1,10 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { storefrontApiRequest, type ShopifyProduct } from "@/lib/shopify";
+import {
+  storefrontApiRequest,
+  SHOPIFY_STORE_PERMANENT_DOMAIN,
+  type ShopifyProduct,
+} from "@/lib/shopify";
 
 export interface CartItem {
   lineId: string | null;
@@ -74,6 +78,9 @@ const CART_LINES_REMOVE_MUTATION = `
 function formatCheckoutUrl(checkoutUrl: string): string {
   try {
     const url = new URL(checkoutUrl);
+    // Force the permanent myshopify.com domain to avoid 421 Misdirected Request
+    // errors caused by custom checkout domains whose SSL/SNI isn't fully provisioned.
+    url.hostname = SHOPIFY_STORE_PERMANENT_DOMAIN;
     url.searchParams.set("channel", "online_store");
     return url.toString();
   } catch {
@@ -234,7 +241,10 @@ export const useCartStore = create<CartStore>()(
       },
 
       clearCart: () => set({ items: [], cartId: null, checkoutUrl: null }),
-      getCheckoutUrl: () => get().checkoutUrl,
+      getCheckoutUrl: () => {
+        const url = get().checkoutUrl;
+        return url ? formatCheckoutUrl(url) : null;
+      },
 
       syncCart: async () => {
         const { cartId, isSyncing, clearCart } = get();
