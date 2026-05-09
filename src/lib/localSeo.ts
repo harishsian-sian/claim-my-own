@@ -188,7 +188,7 @@ export const LOCAL_PAGES: LocalSeoPage[] = [
       { title: "Open 7 days", desc: "Including weekends, late nights weekdays." },
     ],
     faqs: [
-      { q: "Where is the Braybrook store?", a: "Shop 12, 220 Ballarat Road, Braybrook VIC 3019 — easy parking, walking distance from Central West Plaza and the Braybrook gym strip." },
+      { q: "Where is the Braybrook store?", a: "227 Ballarat Road, Braybrook VIC 3019 — easy parking, walking distance from Central West Plaza and the Braybrook gym strip." },
       { q: "Do you deliver to Sunshine, Footscray and Maidstone?", a: "Yes — same-day local delivery on weekday orders before noon to Sunshine, Footscray, Maidstone, St Albans and surrounding western suburbs." },
       { q: "What brands do you stock in Braybrook?", a: "Optimum Nutrition, EHP Labs, Rule 1, Ghost, Max's, ATP Science, International Protein, Bare Performance Nutrition and many more." },
       { q: "Do you price match?", a: "Yes — we'll match any genuine Australian retailer's advertised price." },
