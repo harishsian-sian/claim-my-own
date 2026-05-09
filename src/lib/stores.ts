@@ -69,8 +69,8 @@ export const STORES: StoreLocation[] = [
       { day: "Saturday", time: "09:00 – 17:00" },
       { day: "Sunday", time: "10:00 – 16:00" },
     ],
-    mapsUrl: "https://www.google.com/maps/search/?api=1&query=MeltonSupps+Braybrook+Ballarat+Road+VIC+3019",
-    embedUrl: "https://www.google.com/maps?q=220+Ballarat+Road+Braybrook+VIC+3019&output=embed",
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=MeltonSupps+227+Ballarat+Road+Braybrook+VIC+3019",
+    embedUrl: "https://www.google.com/maps?q=227+Ballarat+Road+Braybrook+VIC+3019&output=embed",
     tagline: "Now serving Melbourne's inner west.",
     intro:
       "Our Braybrook store brings the same trusted MeltonSupps range to Melbourne's inner west. Drop in for protein, pre-workout, creatine, vitamins and personalised advice from our team.",
