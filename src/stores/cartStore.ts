@@ -2,9 +2,10 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import {
   storefrontApiRequest,
-  SHOPIFY_STORE_PERMANENT_DOMAIN,
   type ShopifyProduct,
 } from "@/lib/shopify";
+
+const CHECKOUT_DOMAIN = "checkout.meltonsupps.com.au";
 
 export interface CartItem {
   lineId: string | null;
@@ -80,7 +81,7 @@ function formatCheckoutUrl(checkoutUrl: string): string {
     const url = new URL(checkoutUrl);
     // Force the permanent myshopify.com domain to avoid 421 Misdirected Request
     // errors caused by custom checkout domains whose SSL/SNI isn't fully provisioned.
-    url.hostname = SHOPIFY_STORE_PERMANENT_DOMAIN;
+    url.hostname = CHECKOUT_DOMAIN;
     url.searchParams.set("channel", "online_store");
     return url.toString();
   } catch {
