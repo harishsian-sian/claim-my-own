@@ -84,7 +84,6 @@ export const Route = createRootRoute({
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@700;900&display=swap",
         media: "print",
-        // @ts-expect-error - non-standard attribute used to swap media after load (non-blocking)
         onload: "this.media='all'",
       },
     ],
