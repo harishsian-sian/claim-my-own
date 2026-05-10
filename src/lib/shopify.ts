@@ -210,6 +210,24 @@ export async function storefrontApiRequest(query: string, variables: any = {}) {
   return data;
 }
 
+/**
+ * Resize a Shopify CDN image URL on the fly.
+ * Adds width/height query params so we don't ship multi-MB originals.
+ * Safe no-op for non-Shopify URLs.
+ */
+export function shopifyImage(url: string | undefined | null, width: number, height?: number): string {
+  if (!url) return "";
+  try {
+    const u = new URL(url);
+    if (!u.hostname.includes("shopify") && !u.hostname.includes("cdn.shopify.com")) return url;
+    u.searchParams.set("width", String(width));
+    if (height) u.searchParams.set("height", String(height));
+    return u.toString();
+  } catch {
+    return url;
+  }
+}
+
 export function formatMoney(amount: string | number, currency = "AUD") {
   const n = typeof amount === "string" ? parseFloat(amount) : amount;
   try {
