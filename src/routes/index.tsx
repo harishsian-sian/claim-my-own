@@ -42,22 +42,24 @@ function Index() {
   const { collections } = useCollections();
 
   useEffect(() => {
-    const twoMonthsAgo = new Date();
-    twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
-    const dateStr = twoMonthsAgo.toISOString().split("T")[0];
+    storefrontApiRequest(PRODUCTS_QUERY, { first: 12 })
+      .then((res) => setFeatured(res?.data?.products?.edges ?? []))
+      .finally(() => setLoading(false));
 
-    Promise.all([
-      storefrontApiRequest(PRODUCTS_QUERY, { first: 12 }),
+    const idle = (cb: () => void) =>
+      "requestIdleCallback" in window
+        ? (window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(cb)
+        : setTimeout(cb, 1500);
+
+    idle(() => {
+      const twoMonthsAgo = new Date();
+      twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+      const dateStr = twoMonthsAgo.toISOString().split("T")[0];
       storefrontApiRequest(BEST_SELLERS_QUERY, {
         first: 12,
         query: `created_at:>${dateStr}`,
-      }),
-    ])
-      .then(([featuredRes, bestRes]) => {
-        setFeatured(featuredRes?.data?.products?.edges ?? []);
-        setBestSellers(bestRes?.data?.products?.edges ?? []);
-      })
-      .finally(() => setLoading(false));
+      }).then((res) => setBestSellers(res?.data?.products?.edges ?? []));
+    });
   }, []);
 
   const homeCategories = collections
