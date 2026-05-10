@@ -225,14 +225,14 @@ function Index() {
 
         {/* BEST SELLERS CAROUSEL */}
         {!loading && bestSellers.length > 0 && (
-          <>
+          <Suspense fallback={null}>
             <ProductCarousel
               products={bestSellers}
               eyebrow="Last 60 days · Customer favourites"
               title="Best Sellers"
               viewAllTo="/products"
             />
-          </>
+          </Suspense>
         )}
 
         {/* WHY MELTONSUPPS */}
