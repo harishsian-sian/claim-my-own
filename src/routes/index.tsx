@@ -1,18 +1,25 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { ArrowRight, Truck, ShieldCheck, Headset, Tag, Loader2, Flame, Percent, Mail, Star } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { HeroSlider } from "@/components/HeroSlider";
 import { ShopByGoal } from "@/components/ShopByGoal";
-import { BrandStrip } from "@/components/BrandStrip";
-import { VitaminBrandStrip } from "@/components/VitaminBrandStrip";
-import { ProductCarousel } from "@/components/ProductCarousel";
 import { Button } from "@/components/ui/button";
 import { storefrontApiRequest, PRODUCTS_QUERY, BEST_SELLERS_QUERY, shopifyImage, type ShopifyProduct } from "@/lib/shopify";
 import { useCollections } from "@/hooks/useCollections";
 import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
 import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
+
+const ProductCarousel = lazy(() =>
+  import("@/components/ProductCarousel").then((m) => ({ default: m.ProductCarousel })),
+);
+const BrandStrip = lazy(() =>
+  import("@/components/BrandStrip").then((m) => ({ default: m.BrandStrip })),
+);
+const VitaminBrandStrip = lazy(() =>
+  import("@/components/VitaminBrandStrip").then((m) => ({ default: m.VitaminBrandStrip })),
+);
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -35,22 +42,24 @@ function Index() {
   const { collections } = useCollections();
 
   useEffect(() => {
-    const twoMonthsAgo = new Date();
-    twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
-    const dateStr = twoMonthsAgo.toISOString().split("T")[0];
+    storefrontApiRequest(PRODUCTS_QUERY, { first: 12 })
+      .then((res) => setFeatured(res?.data?.products?.edges ?? []))
+      .finally(() => setLoading(false));
 
-    Promise.all([
-      storefrontApiRequest(PRODUCTS_QUERY, { first: 12 }),
+    const idle = (cb: () => void) =>
+      "requestIdleCallback" in window
+        ? (window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(cb)
+        : setTimeout(cb, 1500);
+
+    idle(() => {
+      const twoMonthsAgo = new Date();
+      twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+      const dateStr = twoMonthsAgo.toISOString().split("T")[0];
       storefrontApiRequest(BEST_SELLERS_QUERY, {
         first: 12,
         query: `created_at:>${dateStr}`,
-      }),
-    ])
-      .then(([featuredRes, bestRes]) => {
-        setFeatured(featuredRes?.data?.products?.edges ?? []);
-        setBestSellers(bestRes?.data?.products?.edges ?? []);
-      })
-      .finally(() => setLoading(false));
+      }).then((res) => setBestSellers(res?.data?.products?.edges ?? []));
+    });
   }, []);
 
   const homeCategories = collections
@@ -142,17 +151,23 @@ function Index() {
             <Loader2 className="h-8 w-8 animate-spin text-brand" />
           </div>
         ) : (
-          <ProductCarousel
-            products={featured}
-            eyebrow="Hand-picked"
-            title="Featured Products"
-            viewAllTo="/products"
-          />
+          <Suspense fallback={<div className="py-20" />}>
+            <ProductCarousel
+              products={featured}
+              eyebrow="Hand-picked"
+              title="Featured Products"
+              viewAllTo="/products"
+            />
+          </Suspense>
         )}
 
-        <BrandStrip />
+        <Suspense fallback={null}>
+          <BrandStrip />
+        </Suspense>
 
-        <VitaminBrandStrip />
+        <Suspense fallback={null}>
+          <VitaminBrandStrip />
+        </Suspense>
 
         {/* PROMO STRIP */}
         <section className="bg-ink text-background">
@@ -210,14 +225,14 @@ function Index() {
 
         {/* BEST SELLERS CAROUSEL */}
         {!loading && bestSellers.length > 0 && (
-          <>
+          <Suspense fallback={null}>
             <ProductCarousel
               products={bestSellers}
               eyebrow="Last 60 days · Customer favourites"
               title="Best Sellers"
               viewAllTo="/products"
             />
-          </>
+          </Suspense>
         )}
 
         {/* WHY MELTONSUPPS */}
