@@ -6,6 +6,7 @@ import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
 import {
   storefrontApiRequest,
   COLLECTION_PRODUCTS_QUERY,
+  shopifyImage,
   type ShopifyProduct,
 } from "@/lib/shopify";
 
@@ -151,7 +152,16 @@ export function HeroSlider() {
                         }`}
                       >
                         {img ? (
-                          <img src={img.url} alt={img.altText ?? p.node.title} className="max-h-full object-contain" />
+                          <img
+                            src={shopifyImage(img.url, 320, 420)}
+                            alt={img.altText ?? p.node.title}
+                            width={320}
+                            height={420}
+                            decoding="async"
+                            loading={idx === 0 ? "eager" : "lazy"}
+                            fetchPriority={idx === 1 ? "high" : "auto"}
+                            className="max-h-full object-contain"
+                          />
                         ) : (
                           <Zap className="h-10 w-10 text-brand" />
                         )}
