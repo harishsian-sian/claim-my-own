@@ -131,8 +131,10 @@ function RootComponent() {
         />
       </noscript>
       <Outlet />
-      <FloatingWhatsApp />
-      <Toaster position="top-right" />
+      <Suspense fallback={null}>
+        <FloatingWhatsApp />
+        <Toaster position="top-right" />
+      </Suspense>
     </AuthProvider>
   );
 }
