@@ -151,17 +151,23 @@ function Index() {
             <Loader2 className="h-8 w-8 animate-spin text-brand" />
           </div>
         ) : (
-          <ProductCarousel
-            products={featured}
-            eyebrow="Hand-picked"
-            title="Featured Products"
-            viewAllTo="/products"
-          />
+          <Suspense fallback={<div className="py-20" />}>
+            <ProductCarousel
+              products={featured}
+              eyebrow="Hand-picked"
+              title="Featured Products"
+              viewAllTo="/products"
+            />
+          </Suspense>
         )}
 
-        <BrandStrip />
+        <Suspense fallback={null}>
+          <BrandStrip />
+        </Suspense>
 
-        <VitaminBrandStrip />
+        <Suspense fallback={null}>
+          <VitaminBrandStrip />
+        </Suspense>
 
         {/* PROMO STRIP */}
         <section className="bg-ink text-background">
