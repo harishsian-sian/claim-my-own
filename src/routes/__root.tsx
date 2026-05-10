@@ -1,8 +1,12 @@
 import { Outlet, createRootRoute, HeadContent, Scripts, Link } from "@tanstack/react-router";
-import { Toaster } from "@/components/ui/sonner";
+import { lazy, Suspense } from "react";
 import { useCartSync } from "@/hooks/useCartSync";
 import { AuthProvider } from "@/hooks/useAuth";
-import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
+
+const Toaster = lazy(() => import("@/components/ui/sonner").then((m) => ({ default: m.Toaster })));
+const FloatingWhatsApp = lazy(() =>
+  import("@/components/FloatingWhatsApp").then((m) => ({ default: m.FloatingWhatsApp })),
+);
 
 import appCss from "../styles.css?url";
 
