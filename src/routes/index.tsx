@@ -1,18 +1,25 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { ArrowRight, Truck, ShieldCheck, Headset, Tag, Loader2, Flame, Percent, Mail, Star } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { HeroSlider } from "@/components/HeroSlider";
 import { ShopByGoal } from "@/components/ShopByGoal";
-import { BrandStrip } from "@/components/BrandStrip";
-import { VitaminBrandStrip } from "@/components/VitaminBrandStrip";
-import { ProductCarousel } from "@/components/ProductCarousel";
 import { Button } from "@/components/ui/button";
 import { storefrontApiRequest, PRODUCTS_QUERY, BEST_SELLERS_QUERY, shopifyImage, type ShopifyProduct } from "@/lib/shopify";
 import { useCollections } from "@/hooks/useCollections";
 import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
 import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
+
+const ProductCarousel = lazy(() =>
+  import("@/components/ProductCarousel").then((m) => ({ default: m.ProductCarousel })),
+);
+const BrandStrip = lazy(() =>
+  import("@/components/BrandStrip").then((m) => ({ default: m.BrandStrip })),
+);
+const VitaminBrandStrip = lazy(() =>
+  import("@/components/VitaminBrandStrip").then((m) => ({ default: m.VitaminBrandStrip })),
+);
 
 export const Route = createFileRoute("/")({
   component: Index,
