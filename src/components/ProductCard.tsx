@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Loader2, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/stores/cartStore";
-import { formatMoney, type ShopifyProduct } from "@/lib/shopify";
+import { formatMoney, shopifyImage, type ShopifyProduct } from "@/lib/shopify";
 import { toast } from "sonner";
 
 export function ProductCard({ product }: { product: ShopifyProduct }) {
@@ -45,9 +45,12 @@ export function ProductCard({ product }: { product: ShopifyProduct }) {
       <div className="relative aspect-square bg-muted overflow-hidden">
         {image ? (
           <img
-            src={image.url}
+            src={shopifyImage(image.url, 500, 500)}
             alt={image.altText ?? node.title}
             loading="lazy"
+            decoding="async"
+            width={500}
+            height={500}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
         ) : (

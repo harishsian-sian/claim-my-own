@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useCollections } from "@/hooks/useCollections";
 import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
+import { shopifyImage } from "@/lib/shopify";
 
 export function BrandStrip() {
   const { collections } = useCollections();
@@ -41,9 +42,12 @@ export function BrandStrip() {
               className="flex-shrink-0 w-32 h-20 md:w-40 md:h-24 rounded-xl border bg-background flex items-center justify-center p-3 hover:border-brand hover:shadow-md transition-all"
             >
               <img
-                src={b.image!.url}
+                src={shopifyImage(b.image!.url, 200, 120)}
                 alt={b.title}
                 loading="lazy"
+                decoding="async"
+                width={160}
+                height={96}
                 className="max-h-full max-w-full object-contain"
               />
             </Link>

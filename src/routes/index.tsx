@@ -9,7 +9,7 @@ import { BrandStrip } from "@/components/BrandStrip";
 import { VitaminBrandStrip } from "@/components/VitaminBrandStrip";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import { Button } from "@/components/ui/button";
-import { storefrontApiRequest, PRODUCTS_QUERY, BEST_SELLERS_QUERY, type ShopifyProduct } from "@/lib/shopify";
+import { storefrontApiRequest, PRODUCTS_QUERY, BEST_SELLERS_QUERY, shopifyImage, type ShopifyProduct } from "@/lib/shopify";
 import { useCollections } from "@/hooks/useCollections";
 import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
 import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
@@ -113,9 +113,12 @@ function Index() {
               >
                 {c.image?.url && (
                   <img
-                    src={c.image.url}
+                    src={shopifyImage(c.image.url, 500, 500)}
                     alt={c.image.altText ?? c.title}
                     loading="lazy"
+                    decoding="async"
+                    width={400}
+                    height={400}
                     className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-110 transition-all duration-500"
                   />
                 )}
