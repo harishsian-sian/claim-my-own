@@ -10,7 +10,7 @@ Allow: /
 Disallow: /api/
 Disallow: /track-order
 
-Sitemap: https://meltonsupps.com.au/sitemap.xml
+Sitemap: https://www.meltonsupps.com.au/sitemap.xml
 `;
         return new Response(body, {
           headers: { "Content-Type": "text/plain; charset=utf-8" },

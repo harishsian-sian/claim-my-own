@@ -60,7 +60,7 @@ export const Route = createFileRoute("/product/$handle")({
   },
   head: ({ loaderData, params }) => {
     const seo = loaderData?.seo;
-    const url = `https://meltonsupps.com.au/product/${params.handle}`;
+    const url = `https://www.meltonsupps.com.au/product/${params.handle}`;
     if (!seo) {
       return {
         meta: [
