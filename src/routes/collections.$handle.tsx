@@ -32,7 +32,7 @@ export const Route = createFileRoute("/collections/$handle")({
           content: `Shop ${title} at MeltonSupps.`,
         },
       ],
-      links: [{ rel: "canonical", href: `https://meltonsupps.com.au${canonicalPath}` }],
+      links: [{ rel: "canonical", href: `https://www.meltonsupps.com.au${canonicalPath}` }],
     };
   },
 });

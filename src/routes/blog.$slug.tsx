@@ -59,7 +59,7 @@ function BlogPostPage() {
   const data = Route.useLoaderData() as { post: BlogPost; related: BlogPost[] };
   const { post, related } = data;
   const author = post.author ?? DEFAULT_AUTHOR;
-  const url = typeof window !== "undefined" ? window.location.href : `https://meltonsupps.com.au/blog/${post.slug}`;
+  const url = typeof window !== "undefined" ? window.location.href : `https://www.meltonsupps.com.au/blog/${post.slug}`;
 
   return (
     <div className="min-h-screen flex flex-col bg-background">

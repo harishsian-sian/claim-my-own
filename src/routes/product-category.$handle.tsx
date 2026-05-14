@@ -21,7 +21,7 @@ export const Route = createFileRoute("/product-category/$handle")({
       links: [
         {
           rel: "canonical",
-          href: `https://meltonsupps.com.au/product-category/${params.handle}`,
+          href: `https://www.meltonsupps.com.au/product-category/${params.handle}`,
         },
       ],
     };

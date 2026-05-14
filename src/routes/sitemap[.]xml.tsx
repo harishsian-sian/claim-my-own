@@ -9,7 +9,7 @@ import { INGREDIENTS } from "@/lib/ingredients";
 const SHOP = "ded508-e8.myshopify.com";
 const API = "2025-07";
 const TOKEN = "33b408a7018fba50742f111f637c4485";
-const SITE = "https://meltonsupps.com.au";
+const SITE = "https://www.meltonsupps.com.au";
 
 const STATIC_PATHS = [
   "/",

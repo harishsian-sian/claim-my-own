@@ -21,14 +21,14 @@ export const Route = createFileRoute("/local/$slug")({
     const p = loaderData?.page;
     const s = loaderData?.store;
     if (!p) return {};
-    const url = `https://meltonsupps.com.au/local/${p.slug}`;
+    const url = `https://www.meltonsupps.com.au/local/${p.slug}`;
     const ld: object[] = [
       {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://meltonsupps.com.au/" },
-          { "@type": "ListItem", position: 2, name: "Local", item: "https://meltonsupps.com.au/stores" },
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.meltonsupps.com.au/" },
+          { "@type": "ListItem", position: 2, name: "Local", item: "https://www.meltonsupps.com.au/stores" },
           { "@type": "ListItem", position: 3, name: p.h1, item: url },
         ],
       },
