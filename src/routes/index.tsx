@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState, lazy, Suspense } from "react";
-import { ArrowRight, Truck, ShieldCheck, Headset, Tag, Loader2, Flame, Percent, Mail, Star } from "lucide-react";
+import { ArrowRight, Truck, ShieldCheck, Headset, Tag, Loader2, Flame, Percent, Mail, Star, Boxes } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { HeroSlider } from "@/components/HeroSlider";
@@ -206,7 +206,22 @@ function Index() {
 
         {/* DEALS DUO BANNER */}
         <section className="container mx-auto px-4 py-12 md:py-16">
-          <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+          <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+            <Link
+              to="/product-category/$handle"
+              params={{ handle: "bundles" }}
+              className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-ink to-brand-dark p-8 md:p-10 min-h-[220px] flex flex-col justify-between text-background hover:shadow-xl transition-shadow"
+            >
+              <div>
+                <Boxes className="h-8 w-8 mb-3" />
+                <span className="text-xs uppercase tracking-[0.3em] font-bold opacity-90">Stack &amp; save</span>
+                <h3 className="font-display text-2xl md:text-3xl font-black uppercase mt-2">Bundles</h3>
+                <p className="text-sm opacity-90 mt-2 max-w-xs">Hand-picked stacks — protein + creatine, pre + pump, recovery combos.</p>
+              </div>
+              <span className="inline-flex items-center text-sm font-bold uppercase tracking-wider mt-4 group-hover:translate-x-1 transition-transform">
+                Shop bundles <ArrowRight className="ml-1 h-4 w-4" />
+              </span>
+            </Link>
             <Link
               to="/product-category/$handle"
               params={{ handle: "clearance" }}
