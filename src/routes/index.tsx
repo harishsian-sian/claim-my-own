@@ -60,6 +60,11 @@ function Index() {
         first: 12,
         query: `created_at:>${dateStr}`,
       }).then((res) => setBestSellers(res?.data?.products?.edges ?? []));
+
+      storefrontApiRequest(COLLECTION_PRODUCTS_QUERY, {
+        handle: "bundles",
+        first: 12,
+      }).then((res) => setBundles(res?.data?.collection?.products?.edges ?? []));
     });
   }, []);
 
