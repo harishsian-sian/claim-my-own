@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Search, User, Heart, MapPin, Package, Tag, Sparkles, Dumbbell, ChevronDown } from "lucide-react";
+import { Search, User, Heart, MapPin, Package, Tag, Sparkles, Dumbbell, ChevronDown, Boxes } from "lucide-react";
 import { useState } from "react";
 import { CartDrawer } from "./CartDrawer";
 import { PromoBar } from "./PromoBar";
@@ -7,6 +7,7 @@ import { MegaMenu } from "./MegaMenu";
 import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
 
 const CATEGORY_PILLS = [
+  { label: "Bundles", to: "bundles" },
   { label: "Whey Protein", to: "whey-protein" },
   { label: "Pre-Workouts", to: "pre-workouts" },
   { label: "Creatine", to: "creatine" },
@@ -95,6 +96,15 @@ export function SiteHeader() {
                 BRANDS
                 <ChevronDown className="h-3 w-3" />
               </button>
+              <Link
+                to="/product-category/$handle"
+                params={{ handle: "bundles" }}
+                onMouseEnter={() => setOpenMenu(null)}
+                className="flex items-center gap-2 whitespace-nowrap text-background/85 hover:text-brand transition-colors"
+              >
+                <Boxes className="h-4 w-4" />
+                Bundles
+              </Link>
               <Link
                 to="/product-category/$handle"
                 params={{ handle: "clearance" }}

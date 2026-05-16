@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { HeroSlider } from "@/components/HeroSlider";
 import { ShopByGoal } from "@/components/ShopByGoal";
 import { Button } from "@/components/ui/button";
-import { storefrontApiRequest, PRODUCTS_QUERY, BEST_SELLERS_QUERY, shopifyImage, type ShopifyProduct } from "@/lib/shopify";
+import { storefrontApiRequest, PRODUCTS_QUERY, BEST_SELLERS_QUERY, COLLECTION_PRODUCTS_QUERY, shopifyImage, type ShopifyProduct } from "@/lib/shopify";
 import { useCollections } from "@/hooks/useCollections";
 import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
 import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
@@ -38,6 +38,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   const [featured, setFeatured] = useState<ShopifyProduct[]>([]);
   const [bestSellers, setBestSellers] = useState<ShopifyProduct[]>([]);
+  const [bundles, setBundles] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const { collections } = useCollections();
 
@@ -59,6 +60,11 @@ function Index() {
         first: 12,
         query: `created_at:>${dateStr}`,
       }).then((res) => setBestSellers(res?.data?.products?.edges ?? []));
+
+      storefrontApiRequest(COLLECTION_PRODUCTS_QUERY, {
+        handle: "bundles",
+        first: 12,
+      }).then((res) => setBundles(res?.data?.collection?.products?.edges ?? []));
     });
   }, []);
 
@@ -157,6 +163,17 @@ function Index() {
               eyebrow="Hand-picked"
               title="Featured Products"
               viewAllTo="/products"
+            />
+          </Suspense>
+        )}
+
+        {bundles.length > 0 && (
+          <Suspense fallback={null}>
+            <ProductCarousel
+              products={bundles}
+              eyebrow="Stack & save"
+              title="Bundles"
+              viewAllTo="/product-category/bundles"
             />
           </Suspense>
         )}
