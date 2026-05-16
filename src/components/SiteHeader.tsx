@@ -98,6 +98,15 @@ export function SiteHeader() {
               </button>
               <Link
                 to="/product-category/$handle"
+                params={{ handle: "bundles" }}
+                onMouseEnter={() => setOpenMenu(null)}
+                className="flex items-center gap-2 whitespace-nowrap text-background/85 hover:text-brand transition-colors"
+              >
+                <Boxes className="h-4 w-4" />
+                Bundles
+              </Link>
+              <Link
+                to="/product-category/$handle"
                 params={{ handle: "clearance" }}
                 onMouseEnter={() => setOpenMenu(null)}
                 className="flex items-center gap-2 whitespace-nowrap text-background/85 hover:text-brand transition-colors"
