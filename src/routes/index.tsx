@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { HeroSlider } from "@/components/HeroSlider";
 import { ShopByGoal } from "@/components/ShopByGoal";
 import { Button } from "@/components/ui/button";
-import { storefrontApiRequest, PRODUCTS_QUERY, BEST_SELLERS_QUERY, shopifyImage, type ShopifyProduct } from "@/lib/shopify";
+import { storefrontApiRequest, PRODUCTS_QUERY, BEST_SELLERS_QUERY, COLLECTION_PRODUCTS_QUERY, shopifyImage, type ShopifyProduct } from "@/lib/shopify";
 import { useCollections } from "@/hooks/useCollections";
 import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
 import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
