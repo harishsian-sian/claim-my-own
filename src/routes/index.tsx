@@ -38,6 +38,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   const [featured, setFeatured] = useState<ShopifyProduct[]>([]);
   const [bestSellers, setBestSellers] = useState<ShopifyProduct[]>([]);
+  const [bundles, setBundles] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const { collections } = useCollections();
 
