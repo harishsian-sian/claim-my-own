@@ -7,6 +7,7 @@ import { MegaMenu } from "./MegaMenu";
 import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
 
 const CATEGORY_PILLS = [
+  { label: "Bundles", to: "bundles" },
   { label: "Whey Protein", to: "whey-protein" },
   { label: "Pre-Workouts", to: "pre-workouts" },
   { label: "Creatine", to: "creatine" },
