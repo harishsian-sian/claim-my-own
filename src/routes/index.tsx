@@ -167,6 +167,17 @@ function Index() {
           </Suspense>
         )}
 
+        {bundles.length > 0 && (
+          <Suspense fallback={null}>
+            <ProductCarousel
+              products={bundles}
+              eyebrow="Stack & save"
+              title="Bundles"
+              viewAllTo="/product-category/bundles"
+            />
+          </Suspense>
+        )}
+
         <Suspense fallback={null}>
           <BrandStrip />
         </Suspense>
