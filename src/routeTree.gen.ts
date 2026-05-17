@@ -52,6 +52,7 @@ import { Route as CollectionsAllRouteImport } from './routes/collections.all'
 import { Route as CollectionsHandleRouteImport } from './routes/collections.$handle'
 import { Route as BlogsSplatRouteImport } from './routes/blogs.$'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as AdminHeadlessChecklistRouteImport } from './routes/admin.headless-checklist'
 import { Route as ApiPublicInventoryRouteImport } from './routes/api/public/inventory'
 
 const WishlistRoute = WishlistRouteImport.update({
@@ -269,6 +270,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
+const AdminHeadlessChecklistRoute = AdminHeadlessChecklistRouteImport.update({
+  id: '/admin/headless-checklist',
+  path: '/admin/headless-checklist',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicInventoryRoute = ApiPublicInventoryRouteImport.update({
   id: '/api/public/inventory',
   path: '/api/public/inventory',
@@ -304,6 +310,7 @@ export interface FileRoutesByFullPath {
   '/track-order': typeof TrackOrderRoute
   '/why-choose-us': typeof WhyChooseUsRoute
   '/wishlist': typeof WishlistRoute
+  '/admin/headless-checklist': typeof AdminHeadlessChecklistRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blogs/$': typeof BlogsSplatRoute
   '/collections/$handle': typeof CollectionsHandleRoute
@@ -348,6 +355,7 @@ export interface FileRoutesByTo {
   '/track-order': typeof TrackOrderRoute
   '/why-choose-us': typeof WhyChooseUsRoute
   '/wishlist': typeof WishlistRoute
+  '/admin/headless-checklist': typeof AdminHeadlessChecklistRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blogs/$': typeof BlogsSplatRoute
   '/collections/$handle': typeof CollectionsHandleRoute
@@ -395,6 +403,7 @@ export interface FileRoutesById {
   '/track-order': typeof TrackOrderRoute
   '/why-choose-us': typeof WhyChooseUsRoute
   '/wishlist': typeof WishlistRoute
+  '/admin/headless-checklist': typeof AdminHeadlessChecklistRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blogs/$': typeof BlogsSplatRoute
   '/collections/$handle': typeof CollectionsHandleRoute
@@ -443,6 +452,7 @@ export interface FileRouteTypes {
     | '/track-order'
     | '/why-choose-us'
     | '/wishlist'
+    | '/admin/headless-checklist'
     | '/blog/$slug'
     | '/blogs/$'
     | '/collections/$handle'
@@ -487,6 +497,7 @@ export interface FileRouteTypes {
     | '/track-order'
     | '/why-choose-us'
     | '/wishlist'
+    | '/admin/headless-checklist'
     | '/blog/$slug'
     | '/blogs/$'
     | '/collections/$handle'
@@ -533,6 +544,7 @@ export interface FileRouteTypes {
     | '/track-order'
     | '/why-choose-us'
     | '/wishlist'
+    | '/admin/headless-checklist'
     | '/blog/$slug'
     | '/blogs/$'
     | '/collections/$handle'
@@ -580,6 +592,7 @@ export interface RootRouteChildren {
   TrackOrderRoute: typeof TrackOrderRoute
   WhyChooseUsRoute: typeof WhyChooseUsRoute
   WishlistRoute: typeof WishlistRoute
+  AdminHeadlessChecklistRoute: typeof AdminHeadlessChecklistRoute
   IngredientsSlugRoute: typeof IngredientsSlugRoute
   LocalSlugRoute: typeof LocalSlugRoute
   PagesHandleRoute: typeof PagesHandleRoute
@@ -893,6 +906,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/admin/headless-checklist': {
+      id: '/admin/headless-checklist'
+      path: '/admin/headless-checklist'
+      fullPath: '/admin/headless-checklist'
+      preLoaderRoute: typeof AdminHeadlessChecklistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/inventory': {
       id: '/api/public/inventory'
       path: '/api/public/inventory'
@@ -993,6 +1013,7 @@ const rootRouteChildren: RootRouteChildren = {
   TrackOrderRoute: TrackOrderRoute,
   WhyChooseUsRoute: WhyChooseUsRoute,
   WishlistRoute: WishlistRoute,
+  AdminHeadlessChecklistRoute: AdminHeadlessChecklistRoute,
   IngredientsSlugRoute: IngredientsSlugRoute,
   LocalSlugRoute: LocalSlugRoute,
   PagesHandleRoute: PagesHandleRoute,
@@ -1005,12 +1026,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}

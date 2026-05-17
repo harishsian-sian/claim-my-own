@@ -55,7 +55,7 @@ export const getHeadlessChecklist = createServerFn({ method: "GET" }).handler(
 
     try {
       while (true) {
-        const res = await fetch(url, {
+        const res: Response = await fetch(url, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -72,7 +72,7 @@ export const getHeadlessChecklist = createServerFn({ method: "GET" }).handler(
           return { products: all, error: `Admin API ${res.status}: ${text.slice(0, 200)}` };
         }
 
-        const json = await res.json();
+        const json: any = await res.json();
         if (json.errors) {
           return {
             products: all,
@@ -80,7 +80,7 @@ export const getHeadlessChecklist = createServerFn({ method: "GET" }).handler(
           };
         }
 
-        const data = json.data?.products;
+        const data: any = json.data?.products;
         if (!data) break;
 
         for (const edge of data.edges) {
