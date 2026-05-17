@@ -64,7 +64,21 @@ function Index() {
       storefrontApiRequest(COLLECTION_PRODUCTS_QUERY, {
         handle: "bundles",
         first: 12,
-      }).then((res) => setBundles(res?.data?.collection?.products?.edges ?? []));
+      }).then(async (res) => {
+        const edges = res?.data?.collection?.products?.edges ?? [];
+        if (edges.length > 0) {
+          setBundles(edges);
+          return;
+        }
+        // Fallback: collection may be empty or product not yet on the
+        // storefront sales channel. Search products by title instead so
+        // bundles like "Legit Muscle Stack" still appear.
+        const fb = await storefrontApiRequest(PRODUCTS_QUERY, {
+          first: 12,
+          query: "title:bundle OR title:stack",
+        });
+        setBundles(fb?.data?.products?.edges ?? []);
+      });
     });
   }, []);
 
