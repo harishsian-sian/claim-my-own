@@ -38,20 +38,40 @@ async function fetchAdminJson(path: string, token: string) {
   return { ok: true as const, status: response.status, data: await response.json() };
 }
 
+const MAX_VARIANT_IDS = 100;
+const VARIANT_GID_RE = /^gid:\/\/shopify\/ProductVariant\/\d+$/;
+const GENERIC_ERROR = "Inventory unavailable";
+
 export const Route = createFileRoute("/api/public/inventory")({
   // @ts-ignore - server handlers supported at runtime by TanStack Start
   server: {
     handlers: {
       GET: async ({ request }: { request: Request }) => {
         const url = new URL(request.url);
-        const variantIds = url.searchParams.get("variantIds")?.split(",").filter(Boolean) ?? [];
+        const rawIds = url.searchParams.get("variantIds")?.split(",").filter(Boolean) ?? [];
+
+        if (rawIds.length > MAX_VARIANT_IDS) {
+          return Response.json(
+            { error: "Too many variant IDs", locations: [], inventory: {} },
+            { status: 400 },
+          );
+        }
+
+        const variantIds = rawIds.filter((id) => VARIANT_GID_RE.test(id));
+        if (rawIds.length > 0 && variantIds.length !== rawIds.length) {
+          return Response.json(
+            { error: "Invalid variant ID format", locations: [], inventory: {} },
+            { status: 400 },
+          );
+        }
+
         const tokens = getAdminTokens();
         if (tokens.length === 0) {
-          return Response.json({
-            error: "Missing Shopify Admin token",
-            locations: [],
-            inventory: {},
-          });
+          console.error("[inventory] Shopify admin token not configured");
+          return Response.json(
+            { error: GENERIC_ERROR, locations: [], inventory: {} },
+            { status: 503 },
+          );
         }
 
         try {
@@ -59,8 +79,6 @@ export const Route = createFileRoute("/api/public/inventory")({
           let locJson: { locations?: ShopifyLocation[] } | null = null;
           let lastLocationStatus = 0;
 
-          // Connector projects can expose more than one Shopify token. Try each one
-          // and keep the token that actually has location/inventory permissions.
           for (const candidate of tokens) {
             const result = await fetchAdminJson("/locations.json", candidate);
             lastLocationStatus = result.status;
@@ -72,9 +90,10 @@ export const Route = createFileRoute("/api/public/inventory")({
           }
 
           if (!locJson) {
+            console.error("[inventory] locations request failed", lastLocationStatus);
             return Response.json(
-              { error: `locations ${lastLocationStatus || 403}`, locations: [], inventory: {} },
-              { status: 200 },
+              { error: GENERIC_ERROR, locations: [], inventory: {} },
+              { status: 503 },
             );
           }
 
@@ -86,7 +105,6 @@ export const Route = createFileRoute("/api/public/inventory")({
             return Response.json({ locations, inventory: {} });
           }
 
-          // Convert Storefront variant GIDs (gid://shopify/ProductVariant/123) to numeric IDs
           const numericIds = variantIds
             .map((v) => v.split("/").pop())
             .filter((id): id is string => Boolean(id));
@@ -101,8 +119,6 @@ export const Route = createFileRoute("/api/public/inventory")({
               .filter(([id]) => Boolean(id)),
           );
 
-          // Get variants -> inventory_item_id. Shopify's global variants list can ignore
-          // an ids filter, so fetch each requested variant explicitly to avoid mismatches.
           const variantResults = await Promise.all(
             numericIds.map((id) => fetchAdminJson(`/variants/${id}.json?fields=id,inventory_item_id`, token)),
           );
@@ -123,7 +139,6 @@ export const Route = createFileRoute("/api/public/inventory")({
             return Response.json({ locations, inventory: {} });
           }
 
-          // Fetch inventory levels at all locations
           const invResult = await fetchAdminJson(
             `/inventory_levels.json?inventory_item_ids=${inventoryItemIds}`,
             token,
@@ -135,7 +150,6 @@ export const Route = createFileRoute("/api/public/inventory")({
             (invResult.data as { inventory_levels?: ShopifyInventoryLevel[] })?.inventory_levels ??
             [];
 
-          // Build map: variantGid -> { locationId -> available }
           const inventory: Record<string, Record<string, number>> = {};
           for (const lvl of levels) {
             const vid = itemToVariant.get(lvl.inventory_item_id);
@@ -144,13 +158,13 @@ export const Route = createFileRoute("/api/public/inventory")({
             inventory[vid][String(lvl.location_id)] = lvl.available ?? 0;
           }
 
-          return Response.json({
-            locations,
-            inventory,
-          });
+          return Response.json({ locations, inventory });
         } catch (err: unknown) {
-          const message = err instanceof Error ? err.message : "unknown";
-          return Response.json({ error: message, locations: [], inventory: {} }, { status: 200 });
+          console.error("[inventory] unexpected error", err);
+          return Response.json(
+            { error: GENERIC_ERROR, locations: [], inventory: {} },
+            { status: 503 },
+          );
         }
       },
     },
