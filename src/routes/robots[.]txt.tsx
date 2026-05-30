@@ -8,6 +8,7 @@ export const Route = createFileRoute("/robots.txt")({
         const body = `User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /admin/
 Disallow: /track-order
 
 Sitemap: https://www.meltonsupps.com.au/sitemap.xml
