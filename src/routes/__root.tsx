@@ -9,6 +9,7 @@ const FloatingWhatsApp = lazy(() =>
 );
 
 import appCss from "../styles.css?url";
+import faviconUrl from "@/assets/favicon.png?url";
 
 function NotFoundComponent() {
   return (
