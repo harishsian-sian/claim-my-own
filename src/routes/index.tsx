@@ -31,7 +31,9 @@ export const Route = createFileRoute("/")({
         content:
           "Premium supplements at honest prices. Protein, pre-workout, vitamins and more from EHP Labs, ATP Science, Now Foods and other trusted brands.",
       },
+      { property: "og:url", content: "https://www.meltonsupps.com.au/" },
     ],
+    links: [{ rel: "canonical", href: "https://www.meltonsupps.com.au/" }],
   }),
 });
 
