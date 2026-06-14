@@ -146,7 +146,7 @@ export function SiteHeader() {
               <Link
                 key={label}
                 to="/collections/$handle"
-                params={{ handle: getLegacyCategoryHandle(to) }}
+                params={{ handle: to }}
                 className="flex-shrink-0 inline-flex items-center justify-center h-10 px-5 rounded-full border-2 border-ink bg-background text-ink text-xs md:text-sm font-bold uppercase tracking-wide hover:bg-ink hover:text-background transition-colors"
               >
                 {label}

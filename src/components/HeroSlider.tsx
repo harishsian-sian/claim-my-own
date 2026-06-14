@@ -129,7 +129,7 @@ export function HeroSlider() {
                 >
                   <Link
                     to="/collections/$handle"
-                    params={{ handle: getLegacyCategoryHandle(slide.collection) }}
+                    params={{ handle: slide.collection }}
                   >
                     {slide.ctaLabel} <ArrowRight className="ml-1 h-4 w-4" />
                   </Link>

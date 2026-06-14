@@ -139,7 +139,7 @@ function Index() {
               <Link
                 key={c.handle}
                 to="/collections/$handle"
-                params={{ handle: getLegacyCategoryHandle(c.handle) }}
+                params={{ handle: c.handle }}
                 className="group relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-brand-dark to-ink flex items-end p-4 md:p-5 hover:scale-[1.03] transition-transform"
               >
                 {c.image?.url && (
