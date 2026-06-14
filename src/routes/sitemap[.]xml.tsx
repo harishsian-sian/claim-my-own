@@ -138,9 +138,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           const collections = await fetchAllCollections();
           collectionUrls = collections
             .map((c) => {
-              const path = BRAND_COLLECTION_HANDLES.has(c.handle)
-                ? `/collections/${escapeXml(c.handle)}`
-                : `/product-category/${escapeXml(getLegacyCategoryHandle(c.handle))}`;
+              const path = `/collections/${escapeXml(c.handle)}`;
               return `<url><loc>${SITE}${path}</loc><lastmod>${(c.updatedAt || today).split("T")[0]}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>`;
             })
             .join("\n");
