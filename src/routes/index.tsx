@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { storefrontApiRequest, PRODUCTS_QUERY, BEST_SELLERS_QUERY, COLLECTION_PRODUCTS_QUERY, shopifyImage, type ShopifyProduct } from "@/lib/shopify";
 import { useCollections } from "@/hooks/useCollections";
 import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
-import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
 
 const ProductCarousel = lazy(() =>
   import("@/components/ProductCarousel").then((m) => ({ default: m.ProductCarousel })),
@@ -138,8 +137,8 @@ function Index() {
             {homeCategories.map((c) => (
               <Link
                 key={c.handle}
-                to="/product-category/$handle"
-                params={{ handle: getLegacyCategoryHandle(c.handle) }}
+                to="/collections/$handle"
+                params={{ handle: c.handle }}
                 className="group relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-brand-dark to-ink flex items-end p-4 md:p-5 hover:scale-[1.03] transition-transform"
               >
                 {c.image?.url && (
@@ -224,7 +223,7 @@ function Index() {
         <section className="container mx-auto px-4 py-12 md:py-16">
           <div className="grid md:grid-cols-3 gap-4 md:gap-6">
             <Link
-              to="/product-category/$handle"
+              to="/collections/$handle"
               params={{ handle: "bundles" }}
               className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-ink to-brand-dark p-8 md:p-10 min-h-[220px] flex flex-col justify-between text-background hover:shadow-xl transition-shadow"
             >
@@ -239,7 +238,7 @@ function Index() {
               </span>
             </Link>
             <Link
-              to="/product-category/$handle"
+              to="/collections/$handle"
               params={{ handle: "clearance" }}
               className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand to-brand-dark p-8 md:p-10 min-h-[220px] flex flex-col justify-between text-background hover:shadow-xl transition-shadow"
             >
@@ -254,7 +253,7 @@ function Index() {
               </span>
             </Link>
             <Link
-              to="/product-category/$handle"
+              to="/collections/$handle"
               params={{ handle: "specials" }}
               className="group relative overflow-hidden rounded-2xl bg-ink p-8 md:p-10 min-h-[220px] flex flex-col justify-between text-background hover:shadow-xl transition-shadow border border-background/10"
             >

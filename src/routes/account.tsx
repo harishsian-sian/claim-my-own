@@ -59,7 +59,7 @@ function AccountPage() {
               {items.map((item) => (
                 <Link
                   key={item.id}
-                  to="/product/$handle"
+                  to="/products/$handle"
                   params={{ handle: item.product_handle }}
                   className="group border rounded-lg p-3 hover:shadow-md transition"
                 >

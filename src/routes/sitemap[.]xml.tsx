@@ -1,6 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
-import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
 import { LOCAL_PAGES } from "@/lib/localSeo";
 import { BLOG_POSTS } from "@/lib/blogData";
 import { STORES } from "@/lib/stores";
@@ -128,7 +126,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           productUrls = products
             .map(
               (p) =>
-                `<url><loc>${SITE}/product/${escapeXml(p.handle)}</loc><lastmod>${(p.updatedAt || today).split("T")[0]}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>`,
+                `<url><loc>${SITE}/products/${escapeXml(p.handle)}</loc><lastmod>${(p.updatedAt || today).split("T")[0]}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>`,
             )
             .join("\n");
         } catch {
@@ -139,9 +137,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           const collections = await fetchAllCollections();
           collectionUrls = collections
             .map((c) => {
-              const path = BRAND_COLLECTION_HANDLES.has(c.handle)
-                ? `/collections/${escapeXml(c.handle)}`
-                : `/product-category/${escapeXml(getLegacyCategoryHandle(c.handle))}`;
+              const path = `/collections/${escapeXml(c.handle)}`;
               return `<url><loc>${SITE}${path}</loc><lastmod>${(c.updatedAt || today).split("T")[0]}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>`;
             })
             .join("\n");

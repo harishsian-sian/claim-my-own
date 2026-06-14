@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { useCollections } from "@/hooks/useCollections";
 import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
-import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
 
 interface MegaMenuProps {
   type: "categories" | "brands";
@@ -39,7 +38,7 @@ export function MegaMenu({ type, onNavigate }: MegaMenuProps) {
                   <Link
                     key={c.handle}
                     to={type === "brands" ? "/collections/$handle" : "/product-category/$handle"}
-                    params={{ handle: type === "brands" ? c.handle : getLegacyCategoryHandle(c.handle) }}
+                    params={{ handle: c.handle }}
                     onClick={onNavigate}
                     className="text-sm py-1.5 hover:text-brand transition-colors truncate"
                   >
@@ -67,7 +66,7 @@ export function MegaMenu({ type, onNavigate }: MegaMenuProps) {
                   <Link
                     key={c.handle}
                     to={type === "brands" ? "/collections/$handle" : "/product-category/$handle"}
-                    params={{ handle: type === "brands" ? c.handle : getLegacyCategoryHandle(c.handle) }}
+                    params={{ handle: c.handle }}
                     onClick={onNavigate}
                     className="group aspect-square rounded-lg overflow-hidden bg-muted flex items-center justify-center p-2 border hover:border-brand transition-colors"
                   >

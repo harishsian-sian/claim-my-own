@@ -38,7 +38,7 @@ export function ProductCard({ product }: { product: ShopifyProduct }) {
 
   return (
     <Link
-      to="/product/$handle"
+      to="/products/$handle"
       params={{ handle: node.handle }}
       className="group flex flex-col bg-card border rounded-md overflow-hidden hover:shadow-lg hover:border-brand/40 transition-all"
     >

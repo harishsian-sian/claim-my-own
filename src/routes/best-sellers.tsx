@@ -48,7 +48,7 @@ function BestSellersPage() {
             {CATS.map((c) => (
               <Link
                 key={c.handle}
-                to="/product-category/$handle"
+                to="/collections/$handle"
                 params={{ handle: c.handle }}
                 className="border rounded-2xl p-6 bg-muted/20 hover:border-brand transition-colors"
               >

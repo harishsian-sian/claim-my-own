@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useCollections } from "@/hooks/useCollections";
 import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
-import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
 import {
   Pill,
   Heart,
@@ -105,8 +104,8 @@ export function VitaminBrandStrip() {
             return (
               <Link
                 key={`${c.handle}-${idx}`}
-                to="/product-category/$handle"
-                params={{ handle: getLegacyCategoryHandle(c.handle) }}
+                to="/collections/$handle"
+                params={{ handle: c.handle }}
                 aria-label={c.label}
                 className="flex-shrink-0 w-40 h-24 md:w-48 md:h-28 rounded-xl border bg-background flex flex-col items-center justify-center gap-2 px-3 hover:border-brand hover:shadow-md hover:-translate-y-0.5 transition-all"
               >
