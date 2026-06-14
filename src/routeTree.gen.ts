@@ -42,6 +42,7 @@ import { Route as CollectionsIndexRouteImport } from './routes/collections.index
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as StoresHandleRouteImport } from './routes/stores.$handle'
 import { Route as ProductsHandleRouteImport } from './routes/products.$handle'
+import { Route as ProductHandleRouteImport } from './routes/product.$handle'
 import { Route as ProductCategoryHandleRouteImport } from './routes/product-category.$handle'
 import { Route as PoliciesHandleRouteImport } from './routes/policies.$handle'
 import { Route as PagesHandleRouteImport } from './routes/pages.$handle'
@@ -219,6 +220,11 @@ const ProductsHandleRoute = ProductsHandleRouteImport.update({
   path: '/$handle',
   getParentRoute: () => ProductsRoute,
 } as any)
+const ProductHandleRoute = ProductHandleRouteImport.update({
+  id: '/product/$handle',
+  path: '/product/$handle',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductCategoryHandleRoute = ProductCategoryHandleRouteImport.update({
   id: '/product-category/$handle',
   path: '/product-category/$handle',
@@ -314,6 +320,7 @@ export interface FileRoutesByFullPath {
   '/pages/$handle': typeof PagesHandleRoute
   '/policies/$handle': typeof PoliciesHandleRoute
   '/product-category/$handle': typeof ProductCategoryHandleRoute
+  '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/stores/$handle': typeof StoresHandleRoute
   '/blog/': typeof BlogIndexRoute
@@ -358,6 +365,7 @@ export interface FileRoutesByTo {
   '/pages/$handle': typeof PagesHandleRoute
   '/policies/$handle': typeof PoliciesHandleRoute
   '/product-category/$handle': typeof ProductCategoryHandleRoute
+  '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/stores/$handle': typeof StoresHandleRoute
   '/blog': typeof BlogIndexRoute
@@ -405,6 +413,7 @@ export interface FileRoutesById {
   '/pages/$handle': typeof PagesHandleRoute
   '/policies/$handle': typeof PoliciesHandleRoute
   '/product-category/$handle': typeof ProductCategoryHandleRoute
+  '/product/$handle': typeof ProductHandleRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/stores/$handle': typeof StoresHandleRoute
   '/blog/': typeof BlogIndexRoute
@@ -453,6 +462,7 @@ export interface FileRouteTypes {
     | '/pages/$handle'
     | '/policies/$handle'
     | '/product-category/$handle'
+    | '/product/$handle'
     | '/products/$handle'
     | '/stores/$handle'
     | '/blog/'
@@ -497,6 +507,7 @@ export interface FileRouteTypes {
     | '/pages/$handle'
     | '/policies/$handle'
     | '/product-category/$handle'
+    | '/product/$handle'
     | '/products/$handle'
     | '/stores/$handle'
     | '/blog'
@@ -543,6 +554,7 @@ export interface FileRouteTypes {
     | '/pages/$handle'
     | '/policies/$handle'
     | '/product-category/$handle'
+    | '/product/$handle'
     | '/products/$handle'
     | '/stores/$handle'
     | '/blog/'
@@ -586,6 +598,7 @@ export interface RootRouteChildren {
   PagesHandleRoute: typeof PagesHandleRoute
   PoliciesHandleRoute: typeof PoliciesHandleRoute
   ProductCategoryHandleRoute: typeof ProductCategoryHandleRoute
+  ProductHandleRoute: typeof ProductHandleRoute
   LocalIndexRoute: typeof LocalIndexRoute
   ApiPublicInventoryRoute: typeof ApiPublicInventoryRoute
 }
@@ -823,6 +836,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsHandleRouteImport
       parentRoute: typeof ProductsRoute
     }
+    '/product/$handle': {
+      id: '/product/$handle'
+      path: '/product/$handle'
+      fullPath: '/product/$handle'
+      preLoaderRoute: typeof ProductHandleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/product-category/$handle': {
       id: '/product-category/$handle'
       path: '/product-category/$handle'
@@ -999,6 +1019,7 @@ const rootRouteChildren: RootRouteChildren = {
   PagesHandleRoute: PagesHandleRoute,
   PoliciesHandleRoute: PoliciesHandleRoute,
   ProductCategoryHandleRoute: ProductCategoryHandleRoute,
+  ProductHandleRoute: ProductHandleRoute,
   LocalIndexRoute: LocalIndexRoute,
   ApiPublicInventoryRoute: ApiPublicInventoryRoute,
 }
