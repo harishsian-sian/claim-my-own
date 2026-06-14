@@ -1,42 +1,15 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { ProductsPageContent } from "./products";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { resolveLegacyCategoryHandle } from "@/lib/legacyLinks";
 
+// Legacy category URL — 301 redirect to canonical /collections/{shopify-handle}.
 export const Route = createFileRoute("/product-category/$handle")({
-  component: ProductCategoryPage,
-  head: ({ params }) => {
-    const title = params.handle
-      .split("-")
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(" ");
-
-    return {
-      meta: [
-        { title: `${title} — MeltonSupps` },
-        {
-          name: "description",
-          content: `Shop ${title} at MeltonSupps.`,
-        },
-      ],
-      links: [
-        {
-          rel: "canonical",
-          href: `https://www.meltonsupps.com.au/product-category/${params.handle}`,
-        },
-      ],
-    };
+  beforeLoad: ({ params }) => {
+    throw redirect({
+      to: "/collections/$handle",
+      params: { handle: resolveLegacyCategoryHandle(params.handle) },
+      replace: true,
+      statusCode: 301,
+    });
   },
+  component: () => null,
 });
-
-function ProductCategoryPage() {
-  const { handle } = Route.useParams();
-  const navigate = useNavigate({ from: "/product-category/$handle" });
-  const collection = resolveLegacyCategoryHandle(handle);
-
-  return (
-    <ProductsPageContent
-      collection={collection}
-      onSearchChange={(search) => navigate({ to: "/products", search })}
-    />
-  );
-}
