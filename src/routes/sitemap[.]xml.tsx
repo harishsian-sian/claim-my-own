@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
 import { LOCAL_PAGES } from "@/lib/localSeo";
 import { BLOG_POSTS } from "@/lib/blogData";
 import { STORES } from "@/lib/stores";
