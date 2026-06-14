@@ -83,7 +83,7 @@ export function CategoriesPageContent() {
               {cats.map((c) => (
                 <Link
                   key={c.handle}
-                  to="/product-category/$handle"
+                  to="/collections/$handle"
                   params={{ handle: getLegacyCategoryHandle(c.handle) }}
                   className="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-gradient-to-br from-brand-dark to-ink flex items-end p-4 md:p-5 hover:scale-[1.02] transition-transform"
                 >

@@ -128,7 +128,7 @@ export function HeroSlider() {
                   className="bg-background hover:bg-background/90 text-ink h-12 px-7 text-sm uppercase tracking-wider font-bold rounded-full"
                 >
                   <Link
-                    to="/product-category/$handle"
+                    to="/collections/$handle"
                     params={{ handle: getLegacyCategoryHandle(slide.collection) }}
                   >
                     {slide.ctaLabel} <ArrowRight className="ml-1 h-4 w-4" />
@@ -145,7 +145,7 @@ export function HeroSlider() {
                     return (
                       <Link
                         key={p.node.id}
-                        to="/product/$handle"
+                        to="/products/$handle"
                         params={{ handle: p.node.handle }}
                         className={`aspect-[3/4] bg-background/95 rounded-xl overflow-hidden p-4 flex items-center justify-center shadow-2xl hover:scale-105 transition-transform ${
                           idx === 1 ? "scale-110 z-10" : ""

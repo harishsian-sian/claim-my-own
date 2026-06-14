@@ -56,7 +56,7 @@ export function ShopByGoal() {
         {GOALS.map(({ label, desc, icon: Icon, collection, bg, image }) => (
           <Link
             key={label}
-            to="/product-category/$handle"
+            to="/collections/$handle"
             params={{ handle: getLegacyCategoryHandle(collection) }}
             className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${bg} p-6 md:p-7 aspect-[4/5] flex flex-col justify-between text-background hover:scale-[1.03] transition-transform`}
           >

@@ -105,7 +105,7 @@ export function VitaminBrandStrip() {
             return (
               <Link
                 key={`${c.handle}-${idx}`}
-                to="/product-category/$handle"
+                to="/collections/$handle"
                 params={{ handle: getLegacyCategoryHandle(c.handle) }}
                 aria-label={c.label}
                 className="flex-shrink-0 w-40 h-24 md:w-48 md:h-28 rounded-xl border bg-background flex flex-col items-center justify-center gap-2 px-3 hover:border-brand hover:shadow-md hover:-translate-y-0.5 transition-all"

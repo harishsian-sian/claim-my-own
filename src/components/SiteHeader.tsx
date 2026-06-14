@@ -97,7 +97,7 @@ export function SiteHeader() {
                 <ChevronDown className="h-3 w-3" />
               </button>
               <Link
-                to="/product-category/$handle"
+                to="/collections/$handle"
                 params={{ handle: "bundles" }}
                 onMouseEnter={() => setOpenMenu(null)}
                 className="flex items-center gap-2 whitespace-nowrap text-background/85 hover:text-brand transition-colors"
@@ -106,7 +106,7 @@ export function SiteHeader() {
                 Bundles
               </Link>
               <Link
-                to="/product-category/$handle"
+                to="/collections/$handle"
                 params={{ handle: "clearance" }}
                 onMouseEnter={() => setOpenMenu(null)}
                 className="flex items-center gap-2 whitespace-nowrap text-background/85 hover:text-brand transition-colors"
@@ -115,7 +115,7 @@ export function SiteHeader() {
                 Clearance
               </Link>
               <Link
-                to="/product-category/$handle"
+                to="/collections/$handle"
                 params={{ handle: "specials" }}
                 onMouseEnter={() => setOpenMenu(null)}
                 className="flex items-center gap-2 whitespace-nowrap text-background/85 hover:text-brand transition-colors"
@@ -145,7 +145,7 @@ export function SiteHeader() {
             {CATEGORY_PILLS.map(({ label, to }) => (
               <Link
                 key={label}
-                to="/product-category/$handle"
+                to="/collections/$handle"
                 params={{ handle: getLegacyCategoryHandle(to) }}
                 className="flex-shrink-0 inline-flex items-center justify-center h-10 px-5 rounded-full border-2 border-ink bg-background text-ink text-xs md:text-sm font-bold uppercase tracking-wide hover:bg-ink hover:text-background transition-colors"
               >
