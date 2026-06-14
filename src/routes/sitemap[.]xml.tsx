@@ -127,7 +127,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           productUrls = products
             .map(
               (p) =>
-                `<url><loc>${SITE}/product/${escapeXml(p.handle)}</loc><lastmod>${(p.updatedAt || today).split("T")[0]}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>`,
+                `<url><loc>${SITE}/products/${escapeXml(p.handle)}</loc><lastmod>${(p.updatedAt || today).split("T")[0]}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>`,
             )
             .join("\n");
         } catch {
