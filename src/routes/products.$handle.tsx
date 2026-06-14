@@ -33,7 +33,7 @@ import {
   type ShopifyProduct,
 } from "@/lib/shopify";
 
-export const Route = createFileRoute("/product/$handle")({
+export const Route = createFileRoute("/products/$handle")({
   loader: async ({ params }) => {
     try {
       const data = await storefrontApiRequest(PRODUCT_BY_HANDLE_QUERY, { handle: params.handle });
@@ -60,7 +60,7 @@ export const Route = createFileRoute("/product/$handle")({
   },
   head: ({ loaderData, params }) => {
     const seo = loaderData?.seo;
-    const url = `https://www.meltonsupps.com.au/product/${params.handle}`;
+    const url = `https://www.meltonsupps.com.au/products/${params.handle}`;
     if (!seo) {
       return {
         meta: [
