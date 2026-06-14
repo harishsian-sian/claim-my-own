@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronLeft, ChevronRight, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
 import {
   storefrontApiRequest,
   COLLECTION_PRODUCTS_QUERY,

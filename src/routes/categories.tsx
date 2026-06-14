@@ -9,7 +9,6 @@ import {
   type ShopifyCollection,
 } from "@/lib/shopify";
 import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
-import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
 
 export const Route = createFileRoute("/categories")({
   component: CategoriesPageContent,

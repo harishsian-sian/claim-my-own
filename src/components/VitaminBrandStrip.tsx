@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useCollections } from "@/hooks/useCollections";
 import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
-import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
 import {
   Pill,
   Heart,

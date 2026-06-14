@@ -4,7 +4,6 @@ import { useState } from "react";
 import { CartDrawer } from "./CartDrawer";
 import { PromoBar } from "./PromoBar";
 import { MegaMenu } from "./MegaMenu";
-import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
 
 const CATEGORY_PILLS = [
   { label: "Bundles", to: "bundles" },

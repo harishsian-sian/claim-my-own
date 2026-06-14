@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { useCollections } from "@/hooks/useCollections";
 import { BRAND_COLLECTION_HANDLES } from "@/lib/storeData";
-import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
 
 interface MegaMenuProps {
   type: "categories" | "brands";

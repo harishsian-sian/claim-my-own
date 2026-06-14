@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Dumbbell, Flame, Zap, Heart } from "lucide-react";
-import { getLegacyCategoryHandle } from "@/lib/legacyLinks";
 
 const GOALS = [
   {
